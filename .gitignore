@@ -1,0 +1,7 @@
+# image
+*.jpg
+*.jpeg
+image/
+
+# node_modules
+node_modules
