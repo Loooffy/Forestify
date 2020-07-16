@@ -1,0 +1,31 @@
+{
+  "name": "han-academy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "edit": "xdotool key Control+Shift+T && vi -S han.vim && xdotool key Control+Page_Up",
+    "start": "node data_server.js & nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "marked": "^1.1.0",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "pug": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Loooffy/han-academy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Loooffy/han-academy/issues"
+  },
+  "homepage": "https://github.com/Loooffy/han-academy#readme"
+}
