@@ -8,6 +8,8 @@ node_modules
 
 # crawler_data
 crawler/
+urlData/
 
 # data_server
 data_server.js
+
