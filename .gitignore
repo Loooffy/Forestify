@@ -5,3 +5,6 @@ image/
 
 # node_modules
 node_modules
+
+# crawler_data
+crawler/
