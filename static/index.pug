@@ -1,0 +1,61 @@
+doctype html
+
+head
+    link(
+        rel="stylesheet"
+        href="../../static/quiz.css"
+    )
+    script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js")
+    script(src="../../static/quiz.js")
+
+html
+    body(onload="showDiscussion()")
+        div(class="header")
+            div(class="site_function")
+                img(class="logo" src="../../static/logo.png")
+                img(class="quiz_list" src="../../static/menu.jpg")
+            div(class="user_function")
+                img(
+                    class="search"
+                    src="https://www.pinclipart.com/picdir/big/4-45027_vector-search-icon-search-icon-vector-png-clipart.png"
+                )
+                div(class="profile") login
+        div(class="question_field") !{question}
+        div(class="answer_field")
+            div(class="option_field")
+                each choice in options
+                    button(
+                        class="answer"
+                        onclick="saveAnswer(event)"
+                    )=choice
+            button(
+                class="answer_button"
+                onclick="checkAnswer()"
+            ) 送出解答
+        div(class="discussion_field")
+            div(class="discussion_row")
+                div(class="post_info")
+                    div(class="owner_info")
+                        img(
+                            class="avatar"
+                            src="https://image.freepik.com/free-vector/pig-animal-cute-little-cartoon-icon_24911-12131.jpg"
+                        )
+                        div(class="post_owner") #{user_id}
+                        div(class="post_time") #{post_time}
+                    div(class="post_title") 還剩兩個禮拜，希望解得出來~
+                    div(class="post_content") #{content}
+                div(class="post_status") 
+                    div(class="post_vote") 14
+                    img(class="vote_up" src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_up_48px-512.png")
+                    img(class="vote_down" src="https://cdn0.iconfinder.com/data/icons/arrows-android-l-lollipop-icon-pack/24/expand2-512.png")
+                    img(class="post_reply" src="https://cdn4.iconfinder.com/data/icons/email-and-messages/128/Email_arrow_left_reply-512.png")
+                    img(class="post_expand" src="https://image.flaticon.com/icons/svg/566/566004.svg")
+
+    script(
+        type="text/javascript" 
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    )
+    script(
+        type="text/x-mathjax-config"
+    ) MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { availableFonts: ["TeX"] } })
