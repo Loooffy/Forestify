@@ -1,6 +1,5 @@
 function checkAnswer() {
-    console.log(window.answer)
-    if (window.answer === "30") {
+    if (window.answer === window.correct_answer) {
         showElement('feedback', '答對囉！')
     } else {
         showElement('feedback', '答案不對，再試試看喔！')
@@ -15,7 +14,7 @@ function saveAnswer(e) {
             }
         }
     e.target.setAttribute("style", "background:yellow")
-    window.answer = e.target.innerHTML
+    window.answer = e.target.innerHTML.slice(0,3)[1]
 }
 
 function ok(e) {
@@ -46,52 +45,52 @@ async function showQuiz() {
     })
         .then(res => JSON.parse(res))
         .then(resObj => resObj.data)
+    window.correct_answer = data.answer
 
     let temp = getTemplate('quiz')
     let mix = ''
 
     options = JSON.parse(data.options)
     $.each(options, function (key, ele){
-        temp[0].append(ele)
+        temp[0].innerHTML = ele.content
         mix += temp[0].outerHTML
     })
+    mix += temp[2].outerHTML
     
     $('<div>').attr('id', 'question').html(data.question).appendTo($('div.question_field'))
+    $('div.answer_field').attr('id', 'answer').html(mix)
     $('img').attr('width', '30px')
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,'question'])
-
-    mix += temp[2].outerHTML
-
-    $("div.answer_field").html(mix)
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub,'answer'])
 }
 
-async function showDiscussion() {
-    let result = await $.get(`http://127.0.0.1:3000/api/QA/getQAData?quiz_id=${window.quiz_id}`, (res) => {
+async function showQA() {
+    let QA = await $.get(`http://127.0.0.1:3000/api/QA/getQAData?quiz_id=${window.quiz_id}`, (res) => {
         return res
     }).then(r => JSON.parse(r))
-    let data = result.data
-    let temp = getTemplate('discussion')
+    let temp = getTemplate('QA')
     let mix = ''
   
-    //$.each(result.data, function (key, ele){
-    temp.find(".post_status").attr({
-        qa_id: data.QA_id,
-        quiz_id: data.quiz_id,
-        getter_id: data.owner_id
+    $.each(QA.data, function (key, ele){
+        temp.find(".post_status").attr({
+            qa_id: ele.id,
+            quiz_id: ele.quiz_id,
+            getter_id: ele.owner_id
+        })
+        temp.find(".post_title").text(ele.title)
+        temp.find(".post_content").text(ele.content)
+        temp.find(".post_time").text(ele.post_time)
+        temp.find(".post_owner").text(ele.owner_name)
+        temp.find(".post_vote").text(ele.total_vote)
+        mix += temp[0].outerHTML
     })
-    temp.find(".post_title").text(data.title)
-    temp.find(".post_content").text(data.content)
-    temp.find(".post_time").text(data.post_time)
-    temp.find(".post_owner").text(data.owner_name)
-    temp.find(".post_vote").text(data.vote)
-    //})
-    mix += temp[0].outerHTML
+    console.log(QA.data)
 
-    $("div.discussion_field").html(mix)
+    $("div.QA_field").html(mix)
 }
 
 async function init() {
     await showQuiz()
-    await showDiscussion()
+    await showQA()
     window.voted = new Set()
 }

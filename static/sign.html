@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facebook Login JavaScript Example</title>
+    <link rel="stylesheet" type="text/css" href="sign.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="common.css" media="all" />
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <main>
+        <div class="sign-title">signin</div>
+        <form class="signin" action="../user/signin" method="post">
+            <div>email</div>
+            <input type="text" name="email"></input>
+            <div>password</div>
+            <input type="password" name="password"></input>
+            <input type="submit" value="signin"></input>
+        </form>
+        <div class="sign-title">signup</div>
+        <form class="signup" action="../user/signup" method="post">
+            <div>name</div>
+            <input type="text" name="name"></input>
+            <div>email</div>
+            <input type="text" name="email"></input>
+            <div>password</div>
+            <input type="password" name="password"></input>
+            <input type="submit" value="signup"></input>
+        </form>
+        <fb:login-button id="fb" scope="public_profile,email" onlogin="checkLoginState();">
+        </fb:login-button>
+        <div id="status"></div>
+    </main>
+
+
+</body>
+<script src="sign.js"></script>
+</html>

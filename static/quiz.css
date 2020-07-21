@@ -46,6 +46,12 @@ body {
 }
 
 .profile {
+   margin-right:0.5rem;
+   width: 40px;
+   height: 40px 
+}
+
+.profile {
    display:inline-block;
    line-height:40px;
    padding: 0.2rem;
@@ -110,7 +116,6 @@ button.option:hover {
 .answer_button {
     cursor:pointer;
     margin-top: 1rem;
-    border: solid 1px gray;
     outline:none;
     height: 40px;
     text-align: center;
@@ -156,7 +161,41 @@ button.answer_button:hover {
     cursor: pointer;
 }
 
-.discussion_field {
+.post_Q {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 1rem;
+    margin-top: 2rem;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+}
+
+.post_Q_info {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.post_Q_title {
+    width: 85%;
+    height: 25px;
+}
+
+button.send_Q {
+    cursor:pointer;
+    background: #fff;
+    margin-top: 1rem;
+    border: solid 1px gray;
+    outline:none;
+    height: 30px;
+    text-align: center;
+    width: 80px;
+    border-radius:10px;
+}
+
+.QA_field {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -185,6 +224,7 @@ button.answer_button:hover {
 } 
 
 .avatar {
+    margin-right: 0.5rem;
     width: 30px;
     height: 30px;
 }

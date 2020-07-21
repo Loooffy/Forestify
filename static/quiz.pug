@@ -29,10 +29,34 @@ html
                     class="search"
                     src="https://www.pinclipart.com/picdir/big/4-45027_vector-search-icon-search-icon-vector-png-clipart.png"
                 )
-                div(class="profile") login
+                a(href="../static/sign.html")
+                    img(
+                        class="profile"
+                        src="https://www.pngkey.com/png/full/202-2024792_user-profile-icon-png-download-fa-user-circle.png"
+                    )
         div(class="question_field")
         div(class="answer_field")
-        div(class="discussion_field")
+        div(class="post_Q")
+            div(class="post_Q_info")
+                img(
+                class="avatar"
+                src="https://image.freepik.com/free-vector/pig-animal-cute-little-cartoon-icon_24911-12131.jpg"
+                )
+                input(
+                    class="post_Q_title"
+                    placeholder="leave a question here"
+                )
+            textarea(
+                class="post_Q_content"
+                placeholder="leave a question here"
+                cols="30"
+                rows="4"
+            )
+            button(
+                class="send_Q"
+                onclick="postQuestion(event)"
+            ) 送出問題
+        div(class="QA_field")
 
         template(
             "class"="quiz"
@@ -49,10 +73,10 @@ html
             ) 送出解答
 
         template(
-            "class"="discussion"
+            "class"="QA"
             display:none
         )
-            div(class="discussion_row")
+            div(class="QA_row")
                 div(class="post_info")
                     div(class="owner_info")
                         img(
