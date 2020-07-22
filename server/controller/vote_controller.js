@@ -8,6 +8,7 @@ const giveVote = async (req, res) => {
     }
     let result = await Vote.giveVote(data)
     res.send(JSON.stringify(result))
+    console.log('give')
 }
 
 const removeVote = async (req, res) => {
