@@ -14,5 +14,6 @@ urlData/
 # data_server
 data_server.js
 
-# vim setting
+# vim
 *.vim
+*.swp
