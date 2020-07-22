@@ -56,14 +56,19 @@ badd +1 server/controller/QA_controller.js
 badd +22 static/index.pug
 badd +48 static/quiz.css
 badd +1 static/quiz.js
-badd +14 app.js
-badd +1 static/quiz.pug
+badd +1 app.js
+badd +15 static/quiz.pug
 badd +1 static/post.js
 badd +1 server/route/vote_route.js
 badd +1 server/model/vote_model.js
 badd +1 server/controller/vote_controller.js
-badd +0 static/sign.html
-badd +0 static/sign.js
+badd +1 static/sign.html
+badd +1 static/sign.js
+badd +0 server/model/user_model.js
+badd +0 server/controller/user_controller.js
+badd +8 static/sign.pug
+badd +0 static/sign.css
+badd +0 server/route/user_route.js
 argglobal
 silent! argdel *
 $argadd static/index.pug
@@ -102,24 +107,24 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winminheight=1 winheight=1 winminwidth=1 winwidth=1
-exe '1resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 35 + 53) / 106)
-exe '2resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 35 + 53) / 106)
-exe '3resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 34 + 53) / 106)
-exe '4resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 4resize ' . ((&columns * 35 + 53) / 106)
-exe '5resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 5resize ' . ((&columns * 35 + 53) / 106)
-exe '6resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 6resize ' . ((&columns * 34 + 53) / 106)
-exe '7resize ' . ((&lines * 13 + 23) / 46)
-exe 'vert 7resize ' . ((&columns * 35 + 53) / 106)
-exe '8resize ' . ((&lines * 13 + 23) / 46)
-exe 'vert 8resize ' . ((&columns * 35 + 53) / 106)
-exe '9resize ' . ((&lines * 13 + 23) / 46)
-exe 'vert 9resize ' . ((&columns * 34 + 53) / 106)
+exe '1resize ' . ((&lines * 31 + 48) / 96)
+exe 'vert 1resize ' . ((&columns * 39 + 59) / 118)
+exe '2resize ' . ((&lines * 31 + 48) / 96)
+exe 'vert 2resize ' . ((&columns * 39 + 59) / 118)
+exe '3resize ' . ((&lines * 31 + 48) / 96)
+exe 'vert 3resize ' . ((&columns * 38 + 59) / 118)
+exe '4resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 4resize ' . ((&columns * 39 + 59) / 118)
+exe '5resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 5resize ' . ((&columns * 39 + 59) / 118)
+exe '6resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 6resize ' . ((&columns * 38 + 59) / 118)
+exe '7resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 7resize ' . ((&columns * 39 + 59) / 118)
+exe '8resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 8resize ' . ((&columns * 39 + 59) / 118)
+exe '9resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 9resize ' . ((&columns * 38 + 59) / 118)
 argglobal
 setlocal keymap=
 setlocal noarabic
@@ -236,12 +241,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 10 - ((5 * winheight(0) + 7) / 14)
+let s:l = 13 - ((11 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-10
-normal! 09|
+13
+normal! 0
 wincmd w
 argglobal
 if bufexists('server/controller/QA_controller.js') | buffer server/controller/QA_controller.js | else | edit server/controller/QA_controller.js | endif
@@ -360,7 +365,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 10 - ((0 * winheight(0) + 7) / 14)
+let s:l = 10 - ((0 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -484,7 +489,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 5 - ((0 * winheight(0) + 7) / 14)
+let s:l = 5 - ((0 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -608,7 +613,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 7) / 14)
+let s:l = 1 - ((0 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -732,7 +737,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 4 - ((0 * winheight(0) + 7) / 14)
+let s:l = 4 - ((0 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -856,7 +861,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 3 - ((0 * winheight(0) + 7) / 14)
+let s:l = 3 - ((0 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -980,7 +985,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 15 - ((0 * winheight(0) + 6) / 13)
+let s:l = 15 - ((0 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1104,7 +1109,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 13 - ((0 * winheight(0) + 6) / 13)
+let s:l = 13 - ((0 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1228,31 +1233,31 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 6) / 13)
+let s:l = 1 - ((0 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
 normal! 0
 wincmd w
-exe '1resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 35 + 53) / 106)
-exe '2resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 35 + 53) / 106)
-exe '3resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 34 + 53) / 106)
-exe '4resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 4resize ' . ((&columns * 35 + 53) / 106)
-exe '5resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 5resize ' . ((&columns * 35 + 53) / 106)
-exe '6resize ' . ((&lines * 14 + 23) / 46)
-exe 'vert 6resize ' . ((&columns * 34 + 53) / 106)
-exe '7resize ' . ((&lines * 13 + 23) / 46)
-exe 'vert 7resize ' . ((&columns * 35 + 53) / 106)
-exe '8resize ' . ((&lines * 13 + 23) / 46)
-exe 'vert 8resize ' . ((&columns * 35 + 53) / 106)
-exe '9resize ' . ((&lines * 13 + 23) / 46)
-exe 'vert 9resize ' . ((&columns * 34 + 53) / 106)
+exe '1resize ' . ((&lines * 31 + 48) / 96)
+exe 'vert 1resize ' . ((&columns * 39 + 59) / 118)
+exe '2resize ' . ((&lines * 31 + 48) / 96)
+exe 'vert 2resize ' . ((&columns * 39 + 59) / 118)
+exe '3resize ' . ((&lines * 31 + 48) / 96)
+exe 'vert 3resize ' . ((&columns * 38 + 59) / 118)
+exe '4resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 4resize ' . ((&columns * 39 + 59) / 118)
+exe '5resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 5resize ' . ((&columns * 39 + 59) / 118)
+exe '6resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 6resize ' . ((&columns * 38 + 59) / 118)
+exe '7resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 7resize ' . ((&columns * 39 + 59) / 118)
+exe '8resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 8resize ' . ((&columns * 39 + 59) / 118)
+exe '9resize ' . ((&lines * 30 + 48) / 96)
+exe 'vert 9resize ' . ((&columns * 38 + 59) / 118)
 tabedit static/post.js
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -1271,14 +1276,14 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winminheight=1 winheight=1 winminwidth=1 winwidth=1
-exe '1resize ' . ((&lines * 41 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 1 + 53) / 106)
-exe '2resize ' . ((&lines * 41 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 104 + 53) / 106)
-exe '3resize ' . ((&lines * 1 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 53 + 53) / 106)
-exe '4resize ' . ((&lines * 1 + 23) / 46)
-exe 'vert 4resize ' . ((&columns * 52 + 53) / 106)
+exe '1resize ' . ((&lines * 91 + 48) / 96)
+exe 'vert 1resize ' . ((&columns * 116 + 59) / 118)
+exe '2resize ' . ((&lines * 91 + 48) / 96)
+exe 'vert 2resize ' . ((&columns * 1 + 59) / 118)
+exe '3resize ' . ((&lines * 1 + 48) / 96)
+exe 'vert 3resize ' . ((&columns * 59 + 59) / 118)
+exe '4resize ' . ((&lines * 1 + 48) / 96)
+exe 'vert 4resize ' . ((&columns * 58 + 59) / 118)
 argglobal
 setlocal keymap=
 setlocal noarabic
@@ -1395,12 +1400,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 11 - ((0 * winheight(0) + 20) / 41)
+let s:l = 6 - ((5 * winheight(0) + 45) / 91)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-11
-normal! 09|
+6
+normal! 033|
 wincmd w
 argglobal
 if bufexists('static/quiz.js') | buffer static/quiz.js | else | edit static/quiz.js | endif
@@ -1519,12 +1524,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 24 - ((0 * winheight(0) + 20) / 41)
+let s:l = 52 - ((51 * winheight(0) + 45) / 91)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-24
-normal! 023|
+52
+normal! 0
 wincmd w
 argglobal
 if bufexists('static/quiz.css') | buffer static/quiz.css | else | edit static/quiz.css | endif
@@ -1767,46 +1772,158 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 70 - ((7 * winheight(0) + 0) / 1)
+let s:l = 83 - ((21 * winheight(0) + 0) / 1)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-70
-normal! 019|
+83
+normal! 025|
 wincmd w
-2wincmd w
-exe '1resize ' . ((&lines * 41 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 1 + 53) / 106)
-exe '2resize ' . ((&lines * 41 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 104 + 53) / 106)
-exe '3resize ' . ((&lines * 1 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 53 + 53) / 106)
-exe '4resize ' . ((&lines * 1 + 23) / 46)
-exe 'vert 4resize ' . ((&columns * 52 + 53) / 106)
-tabedit static/sign.html
+exe '1resize ' . ((&lines * 91 + 48) / 96)
+exe 'vert 1resize ' . ((&columns * 116 + 59) / 118)
+exe '2resize ' . ((&lines * 91 + 48) / 96)
+exe 'vert 2resize ' . ((&columns * 1 + 59) / 118)
+exe '3resize ' . ((&lines * 1 + 48) / 96)
+exe 'vert 3resize ' . ((&columns * 59 + 59) / 118)
+exe '4resize ' . ((&lines * 1 + 48) / 96)
+exe 'vert 4resize ' . ((&columns * 58 + 59) / 118)
+tabedit static/sign.css
 set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-wincmd _ | wincmd |
-vsplit
-2wincmd h
 wincmd _ | wincmd |
 split
 1wincmd k
-wincmd w
-wincmd w
 wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
 set winminheight=1 winheight=1 winminwidth=1 winwidth=1
-exe '1resize ' . ((&lines * 21 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 1 + 53) / 106)
-exe '2resize ' . ((&lines * 21 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 1 + 53) / 106)
-exe 'vert 3resize ' . ((&columns * 1 + 53) / 106)
-exe 'vert 4resize ' . ((&columns * 102 + 53) / 106)
+exe '1resize ' . ((&lines * 46 + 48) / 96)
+exe '2resize ' . ((&lines * 46 + 48) / 96)
 argglobal
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'css'
+setlocal filetype=css
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=tcq
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'css'
+setlocal syntax=css
+endif
+setlocal tabstop=4
+setlocal tagcase=
+setlocal tags=
+setlocal termkey=
+setlocal termsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 11 - ((10 * winheight(0) + 23) / 46)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+11
+normal! 0
+wincmd w
+argglobal
+if bufexists('static/sign.html') | buffer static/sign.html | else | edit static/sign.html | endif
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -1922,139 +2039,28 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 27 - ((12 * winheight(0) + 10) / 21)
+let s:l = 34 - ((17 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-27
-normal! 031|
+34
+normal! 011|
 wincmd w
-argglobal
-if bufexists('static/quiz.pug') | buffer static/quiz.pug | else | edit static/quiz.pug | endif
-setlocal keymap=
-setlocal noarabic
-setlocal noautoindent
-setlocal backupcopy=
-setlocal balloonexpr=
-setlocal nobinary
-setlocal nobreakindent
-setlocal breakindentopt=
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal nocindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*%s*/
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-setlocal nocursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=
-setlocal expandtab
-if &filetype != ''
-setlocal filetype=
-endif
-setlocal fixendofline
-setlocal foldcolumn=0
-setlocal foldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=tcq
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal formatprg=
-setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=-1
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal lispwords=
-setlocal nolist
-setlocal makeencoding=
-setlocal makeprg=
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=bin,octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-set relativenumber
-setlocal relativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal signcolumn=auto
-setlocal nosmartindent
-setlocal softtabstop=0
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=
-setlocal swapfile
-setlocal synmaxcol=3000
-if &syntax != ''
-setlocal syntax=
-endif
-setlocal tabstop=4
-setlocal tagcase=
-setlocal tags=
-setlocal termkey=
-setlocal termsize=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal noundofile
-setlocal undolevels=-123456
-setlocal nowinfixheight
-setlocal nowinfixwidth
-setlocal wrap
-setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 15 - ((3 * winheight(0) + 10) / 21)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-15
-normal! 07|
+exe '1resize ' . ((&lines * 46 + 48) / 96)
+exe '2resize ' . ((&lines * 46 + 48) / 96)
+tabedit server/controller/user_controller.js
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
 wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=1 winheight=1 winminwidth=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 59 + 59) / 118)
+exe 'vert 2resize ' . ((&columns * 58 + 59) / 118)
 argglobal
-if bufexists('static/sign.js') | buffer static/sign.js | else | edit static/sign.js | endif
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -2170,15 +2176,15 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 69 - ((20 * winheight(0) + 21) / 43)
+let s:l = 105 - ((80 * winheight(0) + 46) / 93)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-69
-normal! 08|
+105
+normal! 09|
 wincmd w
 argglobal
-if bufexists('app.js') | buffer app.js | else | edit app.js | endif
+if bufexists('server/model/user_model.js') | buffer server/model/user_model.js | else | edit server/model/user_model.js | endif
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -2294,19 +2300,15 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 118 - ((19 * winheight(0) + 21) / 43)
+let s:l = 37 - ((36 * winheight(0) + 46) / 93)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-118
-normal! 035|
+37
+normal! 088|
 wincmd w
-exe '1resize ' . ((&lines * 21 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 1 + 53) / 106)
-exe '2resize ' . ((&lines * 21 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 1 + 53) / 106)
-exe 'vert 3resize ' . ((&columns * 1 + 53) / 106)
-exe 'vert 4resize ' . ((&columns * 102 + 53) / 106)
+exe 'vert 1resize ' . ((&columns * 59 + 59) / 118)
+exe 'vert 2resize ' . ((&columns * 58 + 59) / 118)
 tabnext 2
 set stal=1
 if exists('s:wipebuf')
