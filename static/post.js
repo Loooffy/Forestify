@@ -3,13 +3,17 @@ async function voteQuestion(e) {
     let currentVote = parseInt($(post_vote).html())
     let QA_id = $(e.target).parent().attr('qa_id')
     let giver_id = 1
+    let regex = /token=(.*?)[;"]/;
+    let token = regex.exec(document.cookie)
+    token = token ? token[1] : null
     let formData = JSON.stringify({
         quiz_id: window.quiz_id,
         QA_id: QA_id,
-        giver_id: giver_id
+        giver_id: giver_id,
+        token: token
     })
     let getVote = await $.ajax({
-        url: '../api/vote/get',
+        url: '/api/vote/get',
         type: 'GET',
         data: JSON.parse(formData),
         contentType: 'application/json',
@@ -20,7 +24,7 @@ async function voteQuestion(e) {
         case null:
             console.log('not voted')
             $.ajax({
-                url: '../api/vote/give',
+                url: '/api/vote/give',
                 type: 'POST',
                 contentType: 'application/json',
                 data: formData
@@ -34,7 +38,12 @@ async function voteQuestion(e) {
                 type: 'PATCH',
                 contentType: 'application/json',
                 processData: false,
-                data: formData
+                data: formData,
+                success: (r) => {
+                    if (r.signBlock) {
+                        $('body').append(r.signBlock)
+                    }
+                }
             })
             $(post_vote).html(currentVote + 1)
             break
