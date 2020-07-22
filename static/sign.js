@@ -13,7 +13,7 @@ function postData(url, data) {
     redirect: 'follow', // manual, *follow, error
     referrer: 'no-referrer', // *client, no-referrer
   })
-  .then(response => response.json()) // 輸出成 json
+  .then(response => response.json())n
   .then(r=>console.log(r))
 }	
 

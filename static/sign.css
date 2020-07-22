@@ -1,8 +1,16 @@
-main {
-    padding: 50px;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
+.sign_field {
+    position: fixed;
+    width: 30vw;
+    height: 60vh;
+    top: 15vh;
+    margin: auto;
+    background: lightgray;
+    border: solid 1px #dfdcdc;
+    border-radius: 15px;
+}
+
+.close {
+    cursor: pointer;
 }
 
 form {
@@ -10,8 +18,6 @@ form {
     flex-flow: column nowrap;
     align-items: center;
     padding: 10px;
-    border: solid 1px #dfdcdc;
-    border-radius: 15px;
     margin-bottom: 20px;
 }
 

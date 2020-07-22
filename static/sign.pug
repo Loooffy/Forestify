@@ -1,0 +1,66 @@
+link(
+    rel="stylesheet"
+    type="text/css"
+    href="/static/sign.css"
+    media="all"
+)
+
+script function closeSign(e) {$(e.target).parent().attr('style', 'display:none')}
+
+div(class="sign_field")
+    div(
+        class="close"
+        style="text-align:right"
+        onclick="closeSign(event)"
+    ) Ｘ
+    div(class="sign-title") signin
+    form(
+        class="signin"
+        action="../api/user/signin"
+        method="post"
+    )
+        div email
+        input(
+            type="text"
+            name="email"
+        )
+        div password
+        input(
+            type="password"
+            name="password"
+        )
+        input(
+            type="submit"
+            value="signin"
+        )
+    div(class="sign-title") signup
+    form(
+        class="signup"
+        action="../api/user/signup"
+        method="post"
+    )
+        div name
+        input(
+            type="text"
+            name="name"
+        )
+        div email
+        input(
+            type="text"
+            name="email"
+        )
+        div password
+        input(
+            type="password"
+            name="password"
+        )
+        input(
+            type="submit"
+            value="signup"
+        )
+    //fb:login-button(
+    //    id="fb"
+    //    scope="public_profile,email"
+    //    onlogin="checkLoginState()
+    //)
+    div(id="status")
