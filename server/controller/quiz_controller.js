@@ -4,12 +4,20 @@ const marked = require('marked')
 
 const getQuizData = async (req, res) => {
     let quiz_id = req.query.quiz_id
-    let content = "$\ 6$ 個一，$\ 2$ 個十，$24$ 個百和 $1$ 個千合起來是多少？ ![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Windows_Settings_app_icon.png/1024px-Windows_Settings_app_icon.png)"
     let data = await Quiz.getQuizData(quiz_id)
-    data.data.question = marked(data.data.question)
+    console.log(data)
+    data.data.question = marked(data.data.question_content)
     res.send(JSON.stringify(data))
+}
+
+const getSameTopicQuiz = async (req, res) => {
+    let {qid} = req.query
+    let result = await Quiz.getSameTopicQuiz(qid)
+    console.log(result)
+    res.send(JSON.stringify(result))
 }
     
 module.exports = {
-    getQuizData
+    getQuizData,
+    getSameTopicQuiz
 }
