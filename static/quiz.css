@@ -4,6 +4,10 @@ body {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    background-attachment: fixed;
+    background-image: url(https://i.ytimg.com/vi/kw_KM5jaysM/maxresdefault.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .header {
@@ -68,10 +72,16 @@ body {
 
 .question_field {
     width: 500px;
+    background: rgb(245,245,245);
     margin: 1rem;
     padding: 1rem;
     border: solid 1px gray;
     border-radius: 10px;
+}
+
+#question p{
+    display: flex;
+    justify-content: center;
 }
 
 table {
@@ -107,6 +117,14 @@ button.option {
     padding: 1rem;
     border: solid 1px gray;
     border-radius: 5px;
+}
+
+button.option_on {
+    background: yellow;
+}
+
+button.option_off {
+    background: lightgray;
 }
 
 button.option:hover {
@@ -294,3 +312,16 @@ button.send_Q {
     width: 15px;
     height: 15px;
  }
+
+.same_topic_quiz_field {
+    position: fixed;
+    left: -1vw;
+    top: 40vh;
+    color: white;
+    background: cadetblue;
+    opacity: 0.5;
+    font-weight: bolder;
+    font-size: medium;
+    border-radius: 10px;
+    padding: 15px;
+}

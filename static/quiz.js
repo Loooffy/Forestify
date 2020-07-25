@@ -1,8 +1,10 @@
 function checkAnswer() {
-    if (window.answer === window.correct_answer) {
+    if ($('button.option_on').attr('correct') === "true") {
         showElement('feedback', '答對囉！')
+        console.log($('button_on'))
     } else {
         showElement('feedback', '答案不對，再試試看喔！')
+        console.log($('button_on'))
     }
 }
 
@@ -10,11 +12,12 @@ function saveAnswer(e) {
     for (child of e.target.parentNode.children)
         {
             if ($(child).hasClass('option')) {
-                child.setAttribute("style", "background:lightgray")
+                $(child).removeClass("option_on")
+                $(child).addClass("option_off")
             }
         }
-    e.target.setAttribute("style", "background:yellow")
-    window.answer = e.target.innerHTML.slice(0,3)[1]
+    $(e.target).removeClass("option_off")
+    $(e.target).addClass("option_on")
 }
 
 function ok(e) {
@@ -38,25 +41,35 @@ const getTemplate = function (tempClass){
   return $(html).clone();
 }
 
+function matchWrapper (group0, group1) {
+    imageData = window.question_images[group1]
+    let imageObj = JSON.parse(imageData)
+    let {url, width, height} = imageObj
+    let image = `<img src="${url}" style="width:${width}px;height:${height}px">`
+    return image
+}
+
 async function showQuiz() {
-    let quizUrl = `http://127.0.0.1:3000/api/quiz/getQuizData?quiz_id=${window.quiz_id}`
+    let quizUrl = `/api/quiz/getQuizData?quiz_id=${window.quiz_id}`
     let data = await $.get(quizUrl, (res) => {
         return res
     })
         .then(res => JSON.parse(res))
         .then(resObj => resObj.data)
-    window.correct_answer = data.answer
 
     let temp = getTemplate('quiz')
     let mix = ''
 
-    options = JSON.parse(data.options)
-    $.each(options, function (key, ele){
-        temp[0].innerHTML = ele.content
+    choices = JSON.parse(data.choices)
+    console.log(choices)
+    $.each(choices, function (key, ele){
+        temp[0].innerHTML = JSON.parse(ele).content
+        $(temp[0]).attr('correct', ele.correct)
         mix += temp[0].outerHTML
     })
     mix += temp[2].outerHTML
-    
+    window.question_images = JSON.parse(data.images)
+    data.question = data.question.replace(/\[\[☃ (image [0-9])\]\]/g, matchWrapper)
     $('<div>').attr('id', 'question').html(data.question).appendTo($('div.question_field'))
     $('div.answer_field').attr('id', 'answer').html(mix)
     $('img').attr('width', '30px')
@@ -64,8 +77,21 @@ async function showQuiz() {
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,'answer'])
 }
 
+async function showSameTopicQuiz() {
+    let quiz = await $.get(`api/quiz/same_topic?qid=34604`, (res) => {
+        return res
+    })
+        .then(res => JSON.parse(res))
+
+    $('<div class="same_topic_quiz_field">').appendTo($('body'))
+
+    $.each(quiz, function (key, ele){
+        $('div.same_topic_quiz_field').append($('<div class="same_topic_quiz">').html(ele.title))
+    })
+}
+
 async function showQA() {
-    let QA = await $.get(`http://127.0.0.1:3000/api/QA/getQAData?quiz_id=${window.quiz_id}`, (res) => {
+    let QA = await $.get(`/api/QA/getQAData?quiz_id=${window.quiz_id}`, (res) => {
         return res
     }).then(r => JSON.parse(r))
     let temp = getTemplate('QA')
@@ -90,7 +116,8 @@ async function showQA() {
 }
 
 async function init() {
-    await showQuiz()
-    await showQA()
+    showQuiz()
+    showQA()
+    showSameTopicQuiz()
     window.voted = new Set()
 }
