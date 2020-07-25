@@ -18,6 +18,7 @@ app.use('/api/' ,
         require('./server/route/QA_route'),
         require('./server/route/vote_route'),
         require('./server/route/user_route'),
+        require('./server/route/topic_route'),
     ]
 );
 
