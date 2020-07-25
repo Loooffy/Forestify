@@ -1,29 +1,31 @@
 const { query, transaction, commit, rollback } = require('../../util/mysqlCon.js');
 
-const getQuizData = async (quiz_id) => {
+const getQuizData = async (qid) => {
     let quizQ = 
         `
             SELECT 
-                quiz.*,
-                JSON_OBJECTAGG(IFNULL(images.image_number, 0),
-                        IFNULL(images.image, '')) AS images,
-                JSON_ARRAYAGG(choices.choice_content) AS choices
+                q.*, code_quiz.quiz_title
             FROM
-                quiz
-                    LEFT JOIN
-                images ON quiz.qid = images.qid
+                code_quiz
                     INNER JOIN
-                choices ON quiz.qid = choices.qid
-            WHERE
-                quiz.id = ?
-            GROUP BY quiz.id    
+                (SELECT 
+                    quiz.*,
+                        JSON_OBJECTAGG(IFNULL(images.image_number, 0), IFNULL(images.image, '')) AS images,
+                        JSON_ARRAYAGG(choices.choice_content) AS choices
+                FROM
+                    quiz
+                LEFT JOIN images ON quiz.qid = images.qid
+                INNER JOIN choices ON quiz.qid = choices.qid
+                WHERE
+                    quiz.qid = ?
+                GROUP BY quiz.id) AS q ON q.code = code_quiz.code
         `
 
-    const results = await query(quizQ, [quiz_id])
+    const results = await query(quizQ, [qid])
     return {
         data: {
-            title: results[0].title,
             code: results[0].code,
+            quiz_title: results[0].quiz_title,
             question_content: results[0].question_content,
             images: results[0].images,
             choices: results[0].choices,
@@ -32,33 +34,40 @@ const getQuizData = async (quiz_id) => {
     };
 }
 
-async function getSameTopicQuiz(qid) {
+const getSameTopicQuiz = async (qid) => {
     let quizQ = 
-    `
-        select 
-            code_quiz.code, code_title.title
-        from
-            code_quiz
-        where
-            code_quiz.code
-        like concat(
-            '%', 
-            (
-                select 
-                    left(quiz.code, 7)
-                from 
-                    quiz
-                where 
-                    qid = ?
-            ),
-            '%'
-        )
-    `
+        `
+            select 
+                code_quiz.code, code_quiz.quiz_title
+            from
+                code_quiz
+            where
+                code_quiz.code
+            like concat(
+                '%', 
+                (
+                    select 
+                        left(quiz.code, 7)
+                    from 
+                        quiz
+                    where 
+                        qid = ?
+                ),
+                '%'
+            )
+        `
     let result = await query(quizQ, [qid])
     return result
+}
+
+async function getQid(code) {
+    let qidQ = `select qid from quiz where code like concat('%', ? '%')`
+    let result = await query(qidQ, [code])
+    return result[0]
 }
 
 module.exports = {
     getQuizData,
     getSameTopicQuiz,
+    getQid,
 }
