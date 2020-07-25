@@ -5,7 +5,7 @@ const {
     getTopic
 } = require('../controller/topic_controller')
 
-router.route('/mj/:topic1/:topic2')
+router.route('/topic')
     .get(wrapAsync(getTopic))
 
 module.exports = router
