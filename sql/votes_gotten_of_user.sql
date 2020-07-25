@@ -1,0 +1,1 @@
+select QA_id, sum(vote) as total_vote from votes group by QA_id
