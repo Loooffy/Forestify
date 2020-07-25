@@ -49,8 +49,8 @@ function matchWrapper (group0, group1) {
     return image
 }
 
-async function showQuiz() {
-    let quizUrl = `/api/quiz/getQuizData?quiz_id=${window.quiz_id}`
+async function showQuiz(qid) {
+    let quizUrl = `/api/quiz/getQuizData?qid=${qid}`
     let data = await $.get(quizUrl, (res) => {
         return res
     })
@@ -61,15 +61,15 @@ async function showQuiz() {
     let mix = ''
 
     choices = JSON.parse(data.choices)
-    console.log(choices)
     $.each(choices, function (key, ele){
         temp[0].innerHTML = JSON.parse(ele).content
-        $(temp[0]).attr('correct', ele.correct)
+        $(temp[0]).attr('correct', JSON.parse(ele).correct)
         mix += temp[0].outerHTML
     })
     mix += temp[2].outerHTML
     window.question_images = JSON.parse(data.images)
     data.question = data.question.replace(/\[\[☃ (image [0-9])\]\]/g, matchWrapper)
+    $('<div>').attr('id', 'quiz_title').html(data.quiz_title).appendTo($('div.question_field'))
     $('<div>').attr('id', 'question').html(data.question).appendTo($('div.question_field'))
     $('div.answer_field').attr('id', 'answer').html(mix)
     $('img').attr('width', '30px')
@@ -77,21 +77,34 @@ async function showQuiz() {
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,'answer'])
 }
 
-async function showSameTopicQuiz() {
-    let quiz = await $.get(`api/quiz/same_topic?qid=34604`, (res) => {
+async function getQid(code) {
+    let qid = await $.get(`api/quiz/getQid?code=${code}`)
+    console.log(qid)
+    return qid
+}
+
+async function showSameTopicQuiz(qid) {
+    let quiz = await $.get(`api/quiz/same_topic?qid=${qid}`, (res) => {
         return res
     })
         .then(res => JSON.parse(res))
 
-    $('<div class="same_topic_quiz_field">').appendTo($('body'))
-
     $.each(quiz, function (key, ele){
-        $('div.same_topic_quiz_field').append($('<div class="same_topic_quiz">').html(ele.title))
+        let div = 
+            $('<div class="same_topic_quiz">')
+                .attr('code', ele.code)
+                .click(event, async () => {
+                    let code = $(event.target).attr('code')
+                    let qid = await getQid(code)
+                    showPage(qid)
+                })
+                .html(ele.quiz_title)
+        $('div.same_topic_quiz_field').append(div)
     })
 }
 
-async function showQA() {
-    let QA = await $.get(`/api/QA/getQAData?quiz_id=${window.quiz_id}`, (res) => {
+async function showQA(qid) {
+    let QA = await $.get(`/api/QA/getQAData?quiz_id=${qid}`, (res) => {
         return res
     }).then(r => JSON.parse(r))
     let temp = getTemplate('QA')
@@ -100,7 +113,7 @@ async function showQA() {
     $.each(QA.data, function (key, ele){
         temp.find(".post_status").attr({
             qa_id: ele.id,
-            quiz_id: ele.quiz_id,
+            qid: ele.qid,
             getter_id: ele.owner_id
         })
         temp.find(".post_title").text(ele.title)
@@ -110,14 +123,23 @@ async function showQA() {
         temp.find(".post_vote").text(ele.total_vote)
         mix += temp[0].outerHTML
     })
-    console.log(QA.data)
 
     $("div.QA_field").html(mix)
 }
 
-async function init() {
-    showQuiz()
-    showQA()
-    showSameTopicQuiz()
+function clearPage() {
+    $('div.question_field').empty()
+    $('div.QA_field').empty()
+    $('div.same_topic_quiz_field').empty()
+    $('div.topic_field').empty()
+}
+
+async function showPage(qid) {
+    clearPage()
+    showQuiz(qid)
+    showQA(qid)
+    await showTopic()
+    nestedList()
+    showSameTopicQuiz(qid)
     window.voted = new Set()
 }

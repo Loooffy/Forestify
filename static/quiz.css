@@ -5,7 +5,7 @@ body {
     flex-flow: column nowrap;
     align-items: center;
     background-attachment: fixed;
-    background-image: url(https://i.ytimg.com/vi/kw_KM5jaysM/maxresdefault.jpg);
+    background-image: url(http://www.clipular.com/c/5741012562214912.png?k=Tz1nfntmCWeiBB7hBCyZal2e4f0);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -71,17 +71,27 @@ body {
     
 
 .question_field {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
     width: 500px;
-    background: rgb(245,245,245);
+    background: lightyellow;
+    color: #444;
+    opacity: 0.8;
     margin: 1rem;
-    padding: 1rem;
-    border: solid 1px gray;
-    border-radius: 10px;
+    padding: 2rem;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing:2px;
+    border-block-end-style: dashed;
+    border-block-end-color: cadetblue;
 }
 
-#question p{
-    display: flex;
-    justify-content: center;
+#quiz_title {
+    color: cadetblue;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
 }
 
 table {
@@ -106,29 +116,37 @@ td {
     padding: 1rem;
     border: solid 1px gray;
     border-radius: 10px;
+    letter-spacing:2px;
     flex-flow: column nowrap;
     align-items: center;
 }
 
 button.option {
     cursor:pointer;
-    width: 300px;
+    width: 15vw;
     margin: 0.5rem;
     padding: 1rem;
-    border: solid 1px gray;
-    border-radius: 5px;
+    border: solid 2px white;
+    border-radius: 8px;
+    background: lightyellow;
+    color: black;
+    opacity: 0.8;
+    letter-spacing:2px;
 }
 
 button.option_on {
-    background: yellow;
+    background: cadetblue;
+    color: white;
 }
 
 button.option_off {
-    background: lightgray;
+    background: lightyellow;
+    color: black;
 }
 
 button.option:hover {
-    background: yellow;
+    background: cadetblue;
+    color: white;
 }
 
 .answer_button {
@@ -139,14 +157,16 @@ button.option:hover {
     text-align: center;
     width: 130px;
     border-radius:40px;
-    background: #fff;
-    border: 2px solid gray;
+    color: white;
+    background: cadetblue;
+    border: 2px solid cadetblue;
     letter-spacing:1px;
-    text-shadow:0;
+    opacity: 0.8;
 }
 
 button.answer_button:hover {
-   background:lightgreen;
+   background: cadetblue;
+   opacity: 0.95;
    cursor:pointer;
 } 
 
@@ -155,29 +175,46 @@ button.answer_button:hover {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
-    border: solid 1px gray;
-    width: 180px;
-    height: 100px;
+    border-block-end-style: dashed;
+    border-block-end-color: cadetblue;
+    border-radius: 15px;
+    background: lightyellow;
+    color: cadetblue;
+    font-size: large;
+    letter-spacing:3px;
+    width: 20vw;
+    height: 12vh;
     padding: 1rem;
     text-align: center;
     vertical-align: middle;
-    background: white;
+    opacity: 0.9;
     position: absolute;
     left: 50% - 80px;
-    top:200px;
+    top: 45vh;
 }
 
 .ok {
-    width: 60px;
+    width: 20%;
     height: 30%;
     margin: 1rem;
     border-radius: 5px;
     text-align: center;
     vertical-align: middle;
-    background: lightgray;
+    border: solid 2px cadetblue;
+    color: lightyellow;
+    background: cadetblue;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: x-large;
+    padding: 0.5rem;
+    letter-spacing:3px;
 }
+
+.ok:hover {
+   background: cadetblue;
+   opacity: 0.95;
+   cursor:pointer;
+} 
 
 .post_Q {
     display: flex;
@@ -319,9 +356,39 @@ button.send_Q {
     top: 40vh;
     color: white;
     background: cadetblue;
-    opacity: 0.5;
+    opacity: 0.7;
     font-weight: bolder;
     font-size: medium;
     border-radius: 10px;
     padding: 15px;
+}
+
+.same_topic_quiz {
+    margin: 0.5rem;
+    text-decoration: none;
+    color: lightyellow;
+    cursor: pointer;
+}
+
+.topic_field {
+    display: flex;
+    flex-flow: column nowrap;
+    position: fixed;
+    width: 15vw;
+    left: 85vw;
+    top: 5vh;
+    color: white;
+    background: cadetblue;
+    opacity: 0.7;
+    font-weight: bolder;
+    font-size: medium;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.lv1_topic {
+    margin: 0.5rem;
+    text-decoration: none;
+    color: lightyellow;
+    cursor: pointer;
 }
