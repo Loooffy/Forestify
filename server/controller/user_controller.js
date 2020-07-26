@@ -4,7 +4,8 @@ const fetch = require('node-fetch')
 const pug = require('pug')
 const jwtSignOptions = {
     algorithm: 'HS256',
-    expiresIn: 3600
+    expiresIn: 3600,
+    ignoreExpiration: true,
 };
 const secret = 'han'
 
@@ -47,7 +48,6 @@ async function signIn(req, res){
     } else if (email && password) { 
 
         let valid = await User.nativeSignIn(email, password)
-        console.log(valid)
         if (!valid){
             res.status(200).send({invalid: 'authFailed'})
             return
@@ -99,7 +99,6 @@ async function isLogged (req, res, next){
             res.status(200).send({signBlock: signBlock})
             return
         }
-        console.log(token)
         let jwtToken = await jwt.verify(token, secret, jwtSignOptions)
         let { provider, email } = jwtToken
         let valid = await User.isLogged(email)
@@ -108,7 +107,8 @@ async function isLogged (req, res, next){
             res.status(401).send({signBlock: signBlock})
             return
         }
-        let student = User.getUser(email)
+        let user_id = await User.getUser(email)
+        req.user_id = user_id.id
         //student.provider= provider
         //resData = {data: student}
         //res.send(JSON.stringify(resData))
