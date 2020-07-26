@@ -1,11 +1,16 @@
+function getToken() {
+    let regex = /token=(.*?)[;"]/;
+    let token = regex.exec(document.cookie)
+    token = token ? token[1] : null
+    return token
+}
+
 async function voteQuestion(e) {
     let post_vote = $(e.target).parent().find('.post_vote')
     let currentVote = parseInt($(post_vote).html())
     let QA_id = $(e.target).parent().attr('qa_id')
     let giver_id = 1
-    let regex = /token=(.*?)[;"]/;
-    let token = regex.exec(document.cookie)
-    token = token ? token[1] : null
+    let token = getToken()
     let formData = JSON.stringify({
         quiz_id: window.quiz_id,
         QA_id: QA_id,
