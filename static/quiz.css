@@ -88,6 +88,10 @@ body {
     border-block-end-color: cadetblue;
 }
 
+.question_field p {
+    text-align: center;
+}
+
 #quiz_title {
     color: cadetblue;
     font-size: 1.3rem;
@@ -194,10 +198,7 @@ button.answer_button:hover {
 }
 
 .ok {
-    width: 20%;
-    height: 30%;
     margin: 1rem;
-    border-radius: 5px;
     text-align: center;
     vertical-align: middle;
     border: solid 2px cadetblue;
@@ -353,7 +354,7 @@ button.send_Q {
 .same_topic_quiz_field {
     position: fixed;
     left: -1vw;
-    top: 40vh;
+    top: 15vh;
     color: white;
     background: cadetblue;
     opacity: 0.7;
@@ -376,7 +377,7 @@ button.send_Q {
     position: fixed;
     width: 15vw;
     left: 85vw;
-    top: 5vh;
+    top: 15vh;
     color: white;
     background: cadetblue;
     opacity: 0.7;
@@ -386,9 +387,18 @@ button.send_Q {
     padding: 15px;
 }
 
-.lv1_topic {
-    margin: 0.5rem;
+.lv3_topic {
+    margin: 0.1rem;
     text-decoration: none;
     color: lightyellow;
     cursor: pointer;
+}
+
+#squirrel {
+    position: fixed;
+    z-index: 100;
+    left: 30vw;
+    top: 40vh;
+    width: 180px;
+    opacity: 0.8;
 }

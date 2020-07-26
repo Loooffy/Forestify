@@ -14,6 +14,11 @@ head
     )
 
     link(
+        rel="stylesheet"
+        href="../../static/hexMap.css"
+    )
+
+    link(
         rel="stylesheet/less"
         type="text/css"
         href="../../static/styles.less"
@@ -28,7 +33,12 @@ head
 
 html
     body(id="body")
-        div(class="header")
+        img(
+            id="squirrel"
+            src="/static/squirrel.png"
+        )
+        include hexMap.pug  
+        //div(class="header")
             div(class="site_function")
                 img(class="logo" src="../../static/logo.png")
                 img(class="quiz_list" src="../../static/menu.jpg")
@@ -103,4 +113,3 @@ html
                     img(class="vote_down" src="https://cdn0.iconfinder.com/data/icons/arrows-android-l-lollipop-icon-pack/24/expand2-512.png")
                     img(class="post_reply" src="https://cdn4.iconfinder.com/data/icons/email-and-messages/128/Email_arrow_left_reply-512.png")
                     img(class="post_expand" src="https://image.flaticon.com/icons/svg/566/566004.svg")
-            

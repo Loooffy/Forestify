@@ -1,11 +1,24 @@
-function checkAnswer() {
+async function checkAnswer() {
+    let formData = {
+        qid: window.qid,
+        token: getToken()
+    }
+
     if ($('button.option_on').attr('correct') === "true") {
         showElement('feedback', '答對囉！')
-        console.log($('button_on'))
+        formData.correct = true
     } else {
         showElement('feedback', '答案不對，再試試看喔！')
-        console.log($('button_on'))
+        formData.correct = false
     }
+    console.log(formData)
+
+    await $.ajax({
+        url: '/api/quiz/postAnswer',
+        type: 'POST',
+        data: JSON.stringify(formData),
+        contentType: 'application/json',
+    })
 }
 
 function saveAnswer(e) {
@@ -131,15 +144,21 @@ function clearPage() {
     $('div.question_field').empty()
     $('div.QA_field').empty()
     $('div.same_topic_quiz_field').empty()
-    $('div.topic_field').empty()
+    //$('div.topic_field').empty()
 }
 
 async function showPage(qid) {
+    window.qid = qid
     clearPage()
     showQuiz(qid)
     showQA(qid)
-    await showTopic()
-    nestedList()
+    //await showTopic()
     showSameTopicQuiz(qid)
     window.voted = new Set()
+    $('div.topic_field').ready(() => {
+        console.log(0)
+        if ($('div.topic_field').html().length === 0) {
+            showTopic()
+        }
+    })
 }
