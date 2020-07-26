@@ -1,0 +1,13 @@
+- let allHex = hexData
+
+svg(viewBox="0 0 100% 100%")
+    each hex in allHex
+        path(
+            d=hex.d
+            code=hex.code
+        )
+        text(
+            text-anchor="middle"
+            x=hex.tx
+            y=hex.ty
+        )=hex.text
