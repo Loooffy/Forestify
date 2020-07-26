@@ -20,9 +20,23 @@ const getQid = async (req, res) => {
     let {qid} = await Quiz.getQid(code)
     res.send(JSON.stringify(qid))
 }
+
+const postAnswer = async (req, res) => {
+    try {
+        let {qid, correct} = req.body
+        let result = await Quiz.postAnswer(qid, req.user_id, correct)
+        res.status(200).send(result.toString())
+    } catch (err) {
+        switch (err.code) {
+            case 'ER_DUP_ENTRY':
+                res.status(200).send('answered')
+        }
+    }
+}
     
 module.exports = {
     getQuizData,
     getSameTopicQuiz,
     getQid,
+    postAnswer,
 }
