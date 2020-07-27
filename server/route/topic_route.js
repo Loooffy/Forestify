@@ -2,7 +2,7 @@ const router = require('express').Router();
 const {wrapAsync} = require('../../util/util');
 
 const {
-    getTopic
+    getTopic,
 } = require('../controller/topic_controller')
 
 router.route('/topic')

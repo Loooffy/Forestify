@@ -1,4 +1,5 @@
 const { query, transaction, commit, rollback } = require('../../util/mysqlCon.js');
+const { getTime } = require('../../util/util.js')
 
 const getQuizData = async (qid) => {
     let quizQ = 
@@ -67,8 +68,9 @@ async function getQid(code) {
 }
 
 async function postAnswer(qid, user_id, correct) {
-    let answerQ = 'insert into quiz_solving(qid, user_id, correct) values(?, ?, ?)'
-    let result = await query(answerQ, [qid, user_id, correct])
+    let time = getTime()
+    let answerQ = 'insert into quiz_solving(qid, user_id, correct, time) values(?, ?, ?, ?)'
+    let result = await query(answerQ, [qid, user_id, correct, time])
     return result.insertId ? result.insertId : 0
 }
 
