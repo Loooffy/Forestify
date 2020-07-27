@@ -10,7 +10,7 @@ const renderQuizPage = async (req, res) => {
     //result.data.options = JSON.parse(result.data.options)
     //result.data.question = marked(result.data.question)
     //res.render('index', result.data)
-    let allHex = hexMap.createHexMap(120, 0, 40)
+    let allHex = hexMap.createHexMap(120, 0, 36)
     let renderData = {
         qid: qid,
         hexData: allHex
