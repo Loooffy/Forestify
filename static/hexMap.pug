@@ -1,6 +1,9 @@
 - let allHex = hexData
 
-svg(viewBox="0 0 100% 100%")
+svg(
+    viewBox="0 0 100% 100%"
+    class="hex_map"
+)
     each hex in allHex
         path(
             d=hex.d
@@ -10,4 +13,6 @@ svg(viewBox="0 0 100% 100%")
             text-anchor="middle"
             x=hex.tx
             y=hex.ty
-        )=hex.text
+        )=""
+        //hex.text
+
