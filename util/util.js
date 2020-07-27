@@ -6,6 +6,12 @@ const wrapAsync = (fn) => {
     };
 };
 
+const getTime = () => {
+    now = new Date().toISOString().slice(0,19).replace('T',' ')
+    return now
+}
+
 module.exports = {
     wrapAsync,
+    getTime,
 };
