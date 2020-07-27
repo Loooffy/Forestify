@@ -3,7 +3,9 @@ const {wrapAsync} = require('../../util/util');
 
 const {
     signUp,
-    signIn
+    signIn,
+    isLogged,
+    getStatus,
 } = require('../controller/user_controller')
 
 router.route('/user/signup')
@@ -11,5 +13,8 @@ router.route('/user/signup')
 
 router.route('/user/signin')
     .post(wrapAsync(signIn))
+    
+router.route('/user/status')
+    .post(isLogged, wrapAsync(getStatus))
 
 module.exports = router

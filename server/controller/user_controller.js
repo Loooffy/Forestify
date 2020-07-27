@@ -94,6 +94,7 @@ async function renderSignBlock (){
 async function isLogged (req, res, next){
     try {
         let {token} = req.body
+        console.log(token)
         if (!token){
             let signBlock = await renderSignBlock()
             res.status(200).send({signBlock: signBlock})
@@ -119,10 +120,19 @@ async function isLogged (req, res, next){
         return
     }
 }
+
+async function getStatus (req, res) {
+    console.log('status')
+    let user_id = req.user_id
+    let status = await User.getStatus(user_id)
+    let data = JSON.stringify(status)
+    res.status(200).send(data)
+}    
     
     
 module.exports = {
     signUp,
     signIn,
-    isLogged
+    isLogged,
+    getStatus,
 }
