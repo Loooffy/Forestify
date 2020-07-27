@@ -27,7 +27,11 @@ async function showTopic() {
                      .click(event, async () => {
                          let code = $(event.target).attr('code')
                      })
-                     .html(lv1_2_topic.topic)
+                     .html(`&#127794; ${lv1_2_topic.topic}`)
+                     .draggable({
+                        appendTo: body,
+                        helper: 'clone'
+                    })
 
                      let lv3_wrapper = $('<div class="inner"></div>')
                      let lv2_3_topics = lv3_topics.filter(topic => topic.code.includes(lv1_2_topic.code))

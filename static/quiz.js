@@ -161,4 +161,7 @@ async function showPage(qid) {
             showTopic()
         }
     })
+    $('svg.hexMap').ready(() => {
+        mapInit()
+    })
 }

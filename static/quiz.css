@@ -222,8 +222,11 @@ button.answer_button:hover {
     flex-flow: column nowrap;
     padding: 1rem;
     margin-top: 2rem;
-    border: solid 1px lightgray;
-    border-radius: 5px;
+    border: solid 8px lightgray;
+    border-radius: 15px;
+    background: #94bee0;
+    width: 35vw;
+    opacity: 0.8;
 }
 
 .post_Q_info {
@@ -237,13 +240,20 @@ button.answer_button:hover {
 .post_Q_title {
     width: 85%;
     height: 25px;
+    border-radius: 10px;
+    font-size: large;
+}
+
+.post_Q_content {
+    border-radius: 10px;
+    font-size: large;
 }
 
 button.send_Q {
     cursor:pointer;
-    background: #fff;
+    background: lightyellow;
     margin-top: 1rem;
-    border: solid 1px gray;
+    border: solid 3px white;
     outline:none;
     height: 30px;
     text-align: center;
@@ -257,9 +267,16 @@ button.send_Q {
     align-items: center;
     padding: 1rem;
     margin: 2rem;
-    border: solid 1px lightgray;
-    border-radius: 5px;
+    border: solid 8px lightgray;
+    border-radius: 15px;
+    background: #94bee0;
+    width: 35vw;
+    opacity: 0.8;
 } 
+
+.QA_row {
+    width: 100%;
+}
 
 .post_info {
     display: flex;
@@ -268,7 +285,9 @@ button.send_Q {
     padding: 1rem;
     margin: 1rem;
     border: solid 1px lightgray;
-    border-radius: 5px;
+    border-radius: 15px;
+    background: white;
+    opacity: 0.85;
 } 
 
 .owner_info {
@@ -372,6 +391,7 @@ button.send_Q {
 }
 
 .topic_field {
+    z-index: 300;
     display: flex;
     flex-flow: column nowrap;
     position: fixed;
@@ -395,10 +415,171 @@ button.send_Q {
 }
 
 #squirrel {
-    position: fixed;
+    position: absolute;
     z-index: 100;
-    left: 30vw;
+    left: 28vw;
     top: 40vh;
     width: 180px;
     opacity: 0.8;
+}
+
+.widget {
+    cursor: pointer;
+    position: fixed;
+    z-index: 300;
+    width: 100px;
+    opacity: 0.7;
+} 
+
+.widget:hover {
+    opacity: 0.9;
+}
+
+.status_widget {
+    left: 2vw;
+    top: 88vh;
+}
+
+.search_widget {
+    left: 2vw;
+    top: 79vh;
+}
+
+.point_widget {
+    left: 2vw;
+    top: 70vh;
+}
+
+.QA_widget {
+    left: 2vw;
+    top: 61vh;
+}
+
+.bucket_widget {
+    left: 2vw;
+    top: 52vh;
+}
+
+.map_widget {
+    left: 90vw;
+    top: 2vh;
+}
+
+.status_box {
+    padding: 2rem;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    background: #94bee0;
+    position: fixed;
+    z-index: 150;
+    left: 15vw;
+    top: 15vh;
+    width: 70vw;
+    opacity: 0.85;
+    border-radius: 15px;
+    border: 7px lightyellow solid;
+}
+
+.status_box_title {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.status_box_content {
+    width: 85%;
+}
+
+.status_quiz_row {
+    display: flex;
+    width: 90%;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.status_quiz_tried {
+    background: dimgray;
+    padding: 0.5rem;
+    color: white;
+    margin: 0.3rem;
+    opacity: 0.95;
+    border-radius: 5px;
+    letter-spacing:2px;
+}
+
+.status_quiz_check {
+    text-align: center;
+    padding: 0.5rem;
+    margin: 0.3rem;
+    opacity: 0.9;
+    border-radius: 5px;
+    letter-spacing:2px;
+}
+
+.status_quiz_correct {
+    background: greenyellow;
+    color: black;
+    opacity: 0.45;
+}
+
+.status_quiz_falied {
+    background: red;
+    opacity: 0.6;
+    color: white;
+}
+
+.fadeToBack {
+    opacity: 0.2;
+}
+
+.topic {
+    font-size: small;
+    padding: 0.5rem;
+    color: darkgray;
+    opacity: 0.9;
+    border-radius: 5px;
+    letter-spacing:2px;
+}
+
+.lv1 {
+    background: aliceblue;
+    opacity: 0.8;
+}
+
+.lv2 {
+    background: azure;
+    opacity: 0.9;
+}
+
+.lv3 {
+    background: lightyellow;
+    opacity: 0.7;
+}
+
+.status_quiz_time {
+    color: black;
+    margin-right: 1rem;
+    font-weight: bold;
+}
+
+.status_box_close {
+    cursor: pointer;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    border: 6px solid white;
+    color: dimgray;
+    background: lightblue;
+    padding: 1.5rem;
+    border-radius: 40px;
+    font-weight: bold;
+    opacity: 0.80;
+    letter-spacing: 2px;
+}
+
+.status_box_close:hover {
+    opacity: 0.95;
 }

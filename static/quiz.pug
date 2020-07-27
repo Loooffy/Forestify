@@ -25,17 +25,51 @@ head
     )
     script(src="https://cdn.jsdelivr.net/npm/less")
     script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
+    script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js")
     script(src="../../static/quiz.js")
     script(src="../../static/post.js")
     script(src="../../static/topic.js")
+    script(src="../../static/user.js")
+    script(src="../../static/hexMap.js")
     script $('body').onload=showPage(#{qid})
 
 html
     body(id="body")
         img(
+            class="not_map"
             id="squirrel"
-            src="/static/squirrel.png"
+            src="/static/image/squirrel.png"
+        )
+        img(
+            class="status_widget widget"
+            src="/static/image/status.png"
+            onclick="showStatus()"
+        )
+        img(
+            class="search_widget widget"
+            src="/static/image/status.png"
+            onclick="showStatus()"
+        )
+        img(
+            class="bucket_widget widget"
+            src="/static/image/status.png"
+            onclick="showStatus()"
+        )
+        img(
+            class="point_widget widget"
+            src="/static/image/status.png"
+            onclick="showStatus()"
+        )
+        img(
+            class="QA_widget widget"
+            src="/static/image/status.png"
+            onclick="showStatus()"
+        )
+        img(
+            class="map_widget widget"
+            src="/static/image/status.png"
+            onclick="showMap()"
         )
         include hexMap.pug  
         //div(class="header")
@@ -52,11 +86,11 @@ html
                         class="profile"
                         src="https://www.pngkey.com/png/full/202-2024792_user-profile-icon-png-download-fa-user-circle.png"
                     )
-        div(class="question_field")
-        div(class="answer_field")
-        div(class="same_topic_quiz_field")
-        div(class="topic_field")
-        div(class="post_Q")
+        div(class="question_field not_map")
+        div(class="answer_field not_map")
+        div(class="same_topic_quiz_field not_map")
+        div(class="topic_field not_map")
+        div(class="post_Q not_map")
             div(class="post_Q_info")
                 img(
                 class="avatar"
@@ -64,11 +98,11 @@ html
                 )
                 input(
                     class="post_Q_title"
-                    placeholder="leave a question here"
+                    placeholder="   leave a question here"
                 )
             textarea(
                 class="post_Q_content"
-                placeholder="leave a question here"
+                placeholder="   leave a question here"
                 cols="30"
                 rows="4"
             )
@@ -76,10 +110,10 @@ html
                 class="send_Q"
                 onclick="postQuestion(event)"
             ) 送出問題
-        div(class="QA_field")
+        div(class="QA_field not_map")
 
         template(
-            "class"="quiz"
+            "class"="quiz not_map"
             display:none
         )
             button(
@@ -93,7 +127,7 @@ html
             ) 送出解答
 
         template(
-            "class"="QA"
+            "class"="QA not_map"
             display:none
         )
             div(class="QA_row")
