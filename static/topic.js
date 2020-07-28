@@ -24,8 +24,8 @@ async function showTopic() {
                      .addClass('toggle')
                      .attr('code', lv1_2_topic.code)
                      .attr('href', "javascript:void(0)")
-                     .click(event, async () => {
-                         let code = $(event.target).attr('code')
+                     .on('dragstart', async () => {
+                         window.dragged_title = $(event.target).html()
                      })
                      .html(`&#127794; ${lv1_2_topic.topic}`)
                      .draggable({
