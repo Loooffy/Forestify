@@ -13,13 +13,13 @@ const {
 } = require('../controller/vote_controller')
 
 router.route('/vote/get')
-    .get(wrapAsync(getVote))
+    .get(isLogged, wrapAsync(getVote))
 
 router.route('/vote/give')
     .post(isLogged, wrapAsync(giveVote))
 
 router.route('/vote/remove')
-    .patch(wrapAsync(removeVote))
+    .patch(isLogged, wrapAsync(removeVote))
 
 router.route('/vote/voteBack')
     .patch(isLogged, wrapAsync(voteBack))

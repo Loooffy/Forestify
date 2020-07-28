@@ -17,7 +17,7 @@ const getVote = async (giver_id, QA_id) => {
 
 const giveVote = async (data) => {
     voteData = {
-        quiz_id: data.quiz_id,
+        qid: data.qid,
         giver_id: data.giver_id,
         QA_id: data.QA_id,
         vote: 1
