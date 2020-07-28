@@ -1,7 +1,8 @@
 function getToken() {
-    let regex = /token=(.*?)[;"]/;
-    let token = regex.exec(document.cookie)
-    token = token ? token[1] : null
+    let regex = /token=(.*?);|token=(.*?)$/
+    let token = document.cookie.match(regex)
+    token = token ? token.slice(1,3).filter(t => t != undefined)[0] : null
+    console.log(token)
     return token
 }
 
@@ -9,13 +10,10 @@ async function voteQuestion(e) {
     let post_vote = $(e.target).parent().find('.post_vote')
     let currentVote = parseInt($(post_vote).html())
     let QA_id = $(e.target).parent().attr('qa_id')
-    let giver_id = 1
-    let token = getToken()
     let formData = JSON.stringify({
-        quiz_id: window.quiz_id,
+        qid: window.qid,
         QA_id: QA_id,
-        giver_id: giver_id,
-        token: token
+        token: getToken()
     })
     let getVote = await $.ajax({
         url: '/api/vote/get',
@@ -23,11 +21,12 @@ async function voteQuestion(e) {
         data: JSON.parse(formData),
         contentType: 'application/json',
     })
-    let vote = JSON.parse(getVote).data.vote
+    let vote = getVote.data.vote
         
     switch (vote) {
         case null:
             console.log('not voted')
+            formData.token = getToken()
             $.ajax({
                 url: '/api/vote/give',
                 type: 'POST',
@@ -38,6 +37,7 @@ async function voteQuestion(e) {
             break
         case 0:
             console.log('vote removed')
+            formData.token = getToken()
             $.ajax({
                 url: '../api/vote/voteBack',
                 type: 'PATCH',
@@ -54,6 +54,7 @@ async function voteQuestion(e) {
             break
         case 1:
             console.log('voted')
+            formData.token = getToken()
             $.ajax({
                 url: '../api/vote/remove',
                 type: 'PATCH',
@@ -80,19 +81,19 @@ async function postQuestion(e) {
         contentType: 'application/json',
         processData: false,
         data: JSON.stringify({
-            quiz_id: window.quiz_id,
+            qid: window.qid,
             title: title,
             content: content,
             post_time: timeStr,
-            owner_id: 1,
             head_id: 0,
+            token: getToken()
         })
     })
 
     console.log(QA_id)
   
     temp.find(".post_status").attr({
-        quiz_id: window.quiz_id,
+        qid: window.qid,
         QA_id: QA_id
     })
     temp.find(".post_title").text(title)

@@ -109,6 +109,7 @@ async function showSameTopicQuiz(qid) {
                 .click(event, async () => {
                     let code = $(event.target).attr('code')
                     let qid = await getQid(code)
+                    window.qid = qid
                     showPage(qid)
                 })
                 .html(ele.quiz_title)
@@ -117,9 +118,10 @@ async function showSameTopicQuiz(qid) {
 }
 
 async function showQA(qid) {
-    let QA = await $.get(`/api/QA/getQAData?quiz_id=${qid}`, (res) => {
+    let QA = await $.get(`/api/QA/getQAData?qid=${qid}`, (res) => {
         return res
-    }).then(r => JSON.parse(r))
+    })
+    console.log(QA)
     let temp = getTemplate('QA')
     let mix = ''
   

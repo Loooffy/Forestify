@@ -4,6 +4,7 @@ async function showStatus() {
     toggleFade()
 
     let token = getToken()
+    token = token ? token : ""
     let formData = {
         token: token
     }
@@ -26,7 +27,13 @@ async function showStatus() {
         contentType: 'application/json',
         processData: false,
         data: JSON.stringify(formData),
-    }).then(s => JSON.parse(s))
+    })
+        console.log(status)
+
+    if (status.signBlock) {
+        $('body').append(status.signBlock)
+        return
+    }
 
     status.map(s => {
         $('<div>')
