@@ -13,7 +13,8 @@ const signUp = async (email, name, password) => {
 
 const getUser = async (email) => {
     try {
-        let student = await query(`select id, email, name from student where email = '${email}'`)
+        let studentQ = 'select id from student where email = ?'
+        let student = await query(studentQ, [email])
         return student[0]
     } catch (err) {
         console.log(err)
@@ -24,8 +25,10 @@ const getUser = async (email) => {
 }
 
 const nativeSignIn = async (email, password) => {
-    let student = await query(`select exists(select id from student where email='${email}' and password='${password}') as valid`)
-    return student[0].valid
+    let studentQ = 'select email, name from student where email = ? and password = ?'
+    let student = await query(studentQ, [email, password])
+    console.log(student)
+    return student[0]
 }
 
 const facebookSignIn = async (email) => {
@@ -38,7 +41,7 @@ const isLogged = async (email) => {
     return student[0].valid
 }
 
-const getStatus = async (qid) => {
+const getStatus = async (user_id) => {
     let statusQ = 
         `
             SELECT 
@@ -59,16 +62,16 @@ const getStatus = async (qid) => {
                     quiz_solving AS qs
                 INNER JOIN quiz ON qs.qid = quiz.qid
                 WHERE
-                    user_id = 33) AS qsc ON LEFT(qsc.code, 3) = code_topic.code
+                    user_id = ?) AS qsc ON LEFT(qsc.code, 3) = code_topic.code
                     INNER JOIN
                 code_topic AS lv2 ON LEFT(qsc.code, 5) = lv2.code
                     INNER JOIN
                 code_topic AS lv3 ON LEFT(qsc.code, 7) = lv3.code
                 inner join code_quiz on code_quiz.code = qsc.code
             ORDER BY time DESC
-            LIMIT 8
+            LIMIT 10
         `
-    let status = await query(statusQ, [qid])
+    let status = await query(statusQ, [user_id])
     return status
 }
 

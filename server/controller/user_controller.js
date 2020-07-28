@@ -4,14 +4,31 @@ const fetch = require('node-fetch')
 const pug = require('pug')
 const jwtSignOptions = {
     algorithm: 'HS256',
-    expiresIn: 3600,
-    ignoreExpiration: true,
+    //expiresIn: 3600,
+    //ignoreExpiration: true,
 };
 const secret = 'han'
 
+async function generateToken (email, name) {
+    const payload = {
+        provider:'native',
+        email:email,
+        name:name,
+    }
+
+    const jwtToken = await jwt.sign(payload, secret, jwtSignOptions)
+    return jwtToken
+}
+
+function sendCookie (res, jwtToken, name, email) {
+    res.cookie('token', jwtToken, {encode: String})
+        .cookie('name', name, {encode: String})
+        .cookie('email', email, {encode: String})
+        .redirect('/quiz?qid=26197')
+}
+    
 async function signUp(req, res){
     let { name, email, password } = req.body
-
     if (!email || !password || !name){
         res.status(200).send({invalid: 'inputNotComplete'})
         return
@@ -24,19 +41,9 @@ async function signUp(req, res){
             return
         }
     }
-
-    const payload = {
-        provider:'native',
-        name:name,
-        email:email,
-    }
-
-    const jwtToken = await jwt.sign(payload, secret, jwtSignOptions)
-    
-    res.cookie('token', jwtToken, {encode: String})
-        .cookie('name', name, {encode: String})
-        .cookie('email', email, {encode: String})
-        .redirect('/quiz?quiz_id=1')
+    console.log(name, email)
+    let jwtToken = await generateToken(email, name)
+    sendCookie(res, jwtToken, name, email)
 }
 
 async function signIn(req, res){
@@ -47,22 +54,16 @@ async function signIn(req, res){
         return
     } else if (email && password) { 
 
-        let valid = await User.nativeSignIn(email, password)
-        if (!valid){
+        let student = await User.nativeSignIn(email, password)
+        if (!student){
             res.status(200).send({invalid: 'authFailed'})
             return
         }
-        const payload = {
-            provider:'native',
-            name:name,
-            email:email,
-        }
 
-        const jwtToken = await jwt.sign(payload, secret, jwtSignOptions)
-        res.cookie('token', jwtToken, {encode: String})
-            .cookie('name', name, {encode: String})
-            .cookie('email', email, {encode: String})
-            .redirect('/quiz?quiz_id=1')
+        let jwtToken = await generateToken(student.email, student.name)
+        console.log(jwtToken, name, email)
+        sendCookie(res, jwtToken, email, name)
+
         return
 
     } else if (provider && token){
@@ -93,40 +94,42 @@ async function renderSignBlock (){
 
 async function isLogged (req, res, next){
     try {
-        let {token} = req.body
-        console.log(token)
+        let token = [req.body.token, req.query.token].filter(r => r != undefined)[0]
         if (!token){
             let signBlock = await renderSignBlock()
             res.status(200).send({signBlock: signBlock})
             return
         }
         let jwtToken = await jwt.verify(token, secret, jwtSignOptions)
+        //let jwtToken = await jwt.verify(token, secret, jwtSignOptions)
         let { provider, email } = jwtToken
         let valid = await User.isLogged(email)
         if (!valid){
             let signBlock = await renderSignBlock()
-            res.status(401).send({signBlock: signBlock})
+            res.status(401).json({signBlock: signBlock})
             return
         }
         let user_id = await User.getUser(email)
         req.user_id = user_id.id
-        //student.provider= provider
-        //resData = {data: student}
-        //res.send(JSON.stringify(resData))
+        console.log('log', req.user_id)
         next()
     } catch(err) {
-        console.log(err)
-        res.status(500).send('server error')
+        if (err.message === 'jwt expired') {
+            let jwtToken = generateToken(name, email)
+            sendCookie()
+        } else {
+            console.log(err)
+            res.status(500).send('server error')
+        }
+            
         return
     }
 }
 
 async function getStatus (req, res) {
-    console.log('status')
     let user_id = req.user_id
     let status = await User.getStatus(user_id)
-    let data = JSON.stringify(status)
-    res.status(200).send(data)
+    res.status(200).json(status)
 }    
     
     
