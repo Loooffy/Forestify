@@ -11,7 +11,7 @@ const getQAData = async (qid) => {
             FROM
                 QA
                     INNER JOIN
-                quiz ON quiz.id = QA.quiz_id
+                quiz ON quiz.qid = QA.qid
                     INNER JOIN
                 student AS student ON QA.owner_id = student.id
                     INNER JOIN
@@ -21,7 +21,7 @@ const getQAData = async (qid) => {
                     votes
                 GROUP BY QA_id) AS v ON QA.id = v.QA_id
             WHERE
-                quiz.id = ?
+                quiz.qid = ?
             ORDER BY QA.post_time DESC
         `
 
@@ -32,7 +32,7 @@ const getQAData = async (qid) => {
 const postQ = async (data) => {
     console.log(data)
     const results = await query('INSERT INTO QA SET ?', [data])
-    await query('INSERT INTO votes(giver_id, QA_id, vote, quiz_id) values(0, ?, 0, ?)', [results.insertId, data.quiz_id])
+    await query('INSERT INTO votes(giver_id, QA_id, vote, qid) values(0, ?, 0, ?)', [results.insertId, data.quiz_id])
     return results
 }
 

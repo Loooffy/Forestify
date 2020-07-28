@@ -1,5 +1,8 @@
 const router = require('express').Router();
 const {wrapAsync} = require('../../util/util');
+const {
+    isLogged
+} = require('../controller/user_controller')
 
 const {
     getQAData,
@@ -10,6 +13,6 @@ router.route('/QA/getQAData')
     .get(wrapAsync(getQAData))
 
 router.route('/QA/postQ')
-    .post(wrapAsync(postQ))
+    .post(isLogged, wrapAsync(postQ))
 
 module.exports = router

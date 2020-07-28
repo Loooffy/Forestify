@@ -1,20 +1,22 @@
 const QA = require('../model/QA_model');
 
 const getQAData = async (req, res) => {
-    let quiz_id = req.query.quiz_id
-    let result = await QA.getQAData(quiz_id)
-    res.send(JSON.stringify(result))
+    let qid = req.query.qid
+    let result = await QA.getQAData(qid)
+    console.log(result)
+    res.json(result)
 }
 
 const postQ = async (req ,res) => {
     let data = {
-        quiz_id: req.body.quiz_id,
-        owner_id: req.body.owner_id,
+        qid: req.body.qid,
         post_time: req.body.post_time,
         title: req.body.title,
         content: req.body.content,
         head_id: req.body.head_id
     }
+    data.owner_id = req.user_id
+    console.log('user', req.user_id)
     let result = await QA.postQ(data)
     res.send(JSON.stringify(result.insertId))
 }
