@@ -10,58 +10,33 @@ body {
     background-size: cover;
 }
 
-.header {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    width: 100%;
-    height: 10%;
-    background: yellow;
+.tree_point {
+    position: fixed;
+    top: 2vw;
+    right: 2vw;
+    width: 11rem;
+    color: white;
+    padding: 0.8rem;
+    padding-right: 1.4rem;
+    border: solid 5px white;
+    height: 5rem;
+    border-radius: 5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    opacity: 0.75;
+    text-align: right;
+    background: lightblue;
 }
 
-.site_function {
-    margin-left: 1rem;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    padding: 0.5rem;
-}
-    
-.logo {
-   width: 45px;
-   height: 40px 
+.tree_point span {
+    font-size: 2rem;
+    font-weight: bold;
 }
 
-.user_function {
-    display: flex;
-    align-items: center;
-    flex-flow: row nowrap;
-    margin-right: 0.5rem;
-    padding: 0.5rem;
-    align-items: flex-end;
+.tree_icon {
+    position: absolute;
+    top: 15%;
 }
-
-.search {
-   margin-right:0.5rem;
-   width: 40px;
-   height: 40px 
-}
-
-.profile {
-   margin-right:0.5rem;
-   width: 40px;
-   height: 40px 
-}
-
-.profile {
-   display:inline-block;
-   line-height:40px;
-   padding: 0.2rem;
-   vertical-align: middle;
-}
-
 
 .quiz_list {
    margin-left: 1rem;
@@ -69,7 +44,6 @@ body {
    height: 20px 
 }
     
-
 .question_field {
     display: flex;
     flex-flow: column nowrap;
@@ -175,30 +149,35 @@ button.answer_button:hover {
 } 
 
 .feedback {
+    width: 42vw;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    border-block-end-style: dashed;
-    border-block-end-color: cadetblue;
     border-radius: 15px;
+    border: solid 5px lightgray;
     background: lightyellow;
     color: cadetblue;
-    font-size: large;
+    font-size: x-large;
+    font-weight: bolder;
     letter-spacing:3px;
-    width: 20vw;
-    height: 12vh;
-    padding: 1rem;
+    padding: 2rem;
     text-align: center;
     vertical-align: middle;
     opacity: 0.9;
     position: absolute;
-    left: 50% - 80px;
-    top: 45vh;
+    left: 29;
+    top: 25vh;
+}
+
+.feedback_tree {
+    font-size: 150px;
+    margin: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .ok {
-    margin: 1rem;
+    margin-top: 2rem;
     text-align: center;
     vertical-align: middle;
     border: solid 2px cadetblue;
@@ -226,7 +205,7 @@ button.answer_button:hover {
     border-radius: 15px;
     background: #94bee0;
     width: 35vw;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .post_Q_info {
@@ -270,8 +249,10 @@ button.send_Q {
     border: solid 8px lightgray;
     border-radius: 15px;
     background: #94bee0;
-    width: 35vw;
-    opacity: 0.8;
+    max-height: 35vw;
+    width:35vw;
+    opacity: 0.9;
+    overflow: scroll;
 } 
 
 .QA_row {
@@ -283,7 +264,6 @@ button.send_Q {
     flex-flow: column nowrap;
     align-items: flex-start;
     padding: 1rem;
-    margin: 1rem;
     border: solid 1px lightgray;
     border-radius: 15px;
     background: white;
@@ -294,7 +274,6 @@ button.send_Q {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    padding: 1rem;
     border-radius: 5px;
 } 
 
@@ -305,15 +284,15 @@ button.send_Q {
 }
 
 .post_owner {
-    color: gray;
-    font-size: 0.5rem;
+    color: dimgray;
+    font-size: 0.9rem;
     padding: 0.2rem;
     margin: 0.2rem;
 }
 
 .post_time {
-    font-size: 0.5rem;
-    color: gray;
+    font-size: 0.9rem;
+    color: dimgray;
     padding: 0.2rem;
     margin: 0.2rem;
 }
@@ -325,15 +304,15 @@ button.send_Q {
 }
 
 .post_content {
-    padding: 0.5rem;
-    margin: 0.5rem;
 }
 
 .post_status{
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    padding: 1rem;
+    padding-bottom: 1rem;
+    padding-top: 0.3rem;
+    margin-left: 0.5rem;
     border-radius: 5px;
 }
     
@@ -390,13 +369,18 @@ button.send_Q {
     cursor: pointer;
 }
 
+.quiz_focus, .same_topic_quiz:hover {
+    color: yellow;
+    font-size: large;
+}
+
 .topic_field {
     z-index: 300;
     display: flex;
     flex-flow: column nowrap;
     position: fixed;
-    width: 15vw;
-    left: 85vw;
+    width: 27vw;
+    left: 76vw;
     top: 15vh;
     color: white;
     background: cadetblue;
@@ -404,7 +388,7 @@ button.send_Q {
     font-weight: bolder;
     font-size: medium;
     border-radius: 10px;
-    padding: 15px;
+    padding: 1% 2%;
 }
 
 .lv3_topic {
@@ -414,11 +398,17 @@ button.send_Q {
     cursor: pointer;
 }
 
+.squirrel_wrapper {
+    position: relative;
+    width: 0px;
+    height: 0px;
+    left: 43%;
+    top: -150px;
+}
+
 #squirrel {
     position: absolute;
-    z-index: 100;
-    left: 28vw;
-    top: 40vh;
+    z-index: 200;
     width: 180px;
     opacity: 0.8;
 }
@@ -461,21 +451,23 @@ button.send_Q {
 }
 
 .map_widget {
+    visibility: hidden;
     left: 90vw;
     top: 2vh;
 }
 
 .status_box {
-    padding: 2rem;
+    padding-top: 2rem;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     background: #94bee0;
     position: fixed;
-    z-index: 150;
-    left: 15vw;
-    top: 15vh;
-    width: 70vw;
+    z-index: 500;
+    left: 12vw;
+    top: 5vh;
+    width: 76vw;
+    height: 90vh;
     opacity: 0.85;
     border-radius: 15px;
     border: 7px lightyellow solid;
@@ -491,10 +483,15 @@ button.send_Q {
 }
 
 .status_box_content {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
     width: 85%;
+    overflow: scroll;
 }
 
 .status_quiz_row {
+    cursor: pointer;
     display: flex;
     width: 90%;
     flex-flow: row nowrap;

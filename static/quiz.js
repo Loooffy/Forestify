@@ -1,24 +1,78 @@
+function showFeedBack(className, content, correct) {
+    let feedBackBox = $('<div>')
+        .addClass(className)
+        .html(content)
+        .append(
+            $('<div>')
+                .addClass('ok')
+                .click(ok)
+                .html('好喔')
+        )
+        .appendTo($('body'))
+
+    if (correct) {
+        feedBackBox
+            .prepend(
+                $('<div>')
+                    .addClass('feedback_tree')
+                    .html('🌲')
+            )
+            .append(
+                $('<div>')
+                    .addClass('ok')
+                    .click((event) => {
+                        $(event.target)
+                            .parent()
+                            .remove()
+                        $(`div[code="${window.quiz_code}"]`)
+                            .next()
+                            .trigger('click')
+                    })
+                    .html('下一題')
+        )
+    }
+}
+
 async function checkAnswer() {
     let formData = {
         qid: window.qid,
         token: getToken()
     }
 
+    let feedback = {
+        message: '',
+        correct: false
+    }
+
     if ($('button.option_on').attr('correct') === "true") {
-        showElement('feedback', '答對囉！')
+        feedback.correct = true
+        feedback.message = '答對囉！你剛種下了一棵新的小樹～'
         formData.correct = true
     } else {
-        showElement('feedback', '答案不對，再試試看喔！')
+        feedback.correct = false
+        feedback.message = '答案不對，再試試看喔！'
         formData.correct = false
     }
-    console.log(formData)
 
-    await $.ajax({
+    let result = await $.ajax({
         url: '/api/quiz/postAnswer',
         type: 'POST',
         data: JSON.stringify(formData),
         contentType: 'application/json',
     })
+
+    console.log(result)
+
+    if (result === 'answered' && feedback.correct) {
+        feedback.message = '恭喜你又答對這題囉！可以去看看你的小樹～'
+    } else if (result === 'inserted' && feedback.correct) {
+        let treePoint = parseInt($('div.tree_point span').text())
+        treePoint += 1
+        $('div.tree_point span')
+            .html((Array(4).join('0') + treePoint.toString()).slice(-4))
+    }
+
+    showFeedBack('feedback', feedback.message, feedback.correct)
 }
 
 function saveAnswer(e) {
@@ -26,27 +80,14 @@ function saveAnswer(e) {
         {
             if ($(child).hasClass('option')) {
                 $(child).removeClass("option_on")
-                $(child).addClass("option_off")
             }
         }
     $(e.target).removeClass("option_off")
     $(e.target).addClass("option_on")
 }
 
-function ok(e) {
-    e.target.parentNode.remove()
-}
-
-function showElement(className, content) {
-    let feedback = document.createElement('div')
-    let ok = document.createElement('div')
-    ok.setAttribute('class', 'ok')
-    ok.setAttribute('onclick', 'ok(event)')
-    ok.innerHTML = '好喔'
-    feedback.setAttribute('class', className)
-    feedback.innerHTML = content
-    document.getElementsByTagName('body')[0].appendChild(feedback)
-    document.getElementsByClassName('feedback')[0].appendChild(ok)
+function ok() {
+    $(this).parent().remove()
 }
 
 const getTemplate = function (tempClass){
@@ -69,7 +110,8 @@ async function showQuiz(qid) {
     })
         .then(res => JSON.parse(res))
         .then(resObj => resObj.data)
-
+   
+    window.quiz_code = data.code
     let temp = getTemplate('quiz')
     let mix = ''
 
@@ -84,37 +126,15 @@ async function showQuiz(qid) {
     data.question = data.question.replace(/\[\[☃ (image [0-9])\]\]/g, matchWrapper)
     $('<div>').attr('id', 'quiz_title').html(data.quiz_title).appendTo($('div.question_field'))
     $('<div>').attr('id', 'question').html(data.question).appendTo($('div.question_field'))
+    $('<div>').addClass('squirrel_wrapper').appendTo($('div.question_field'))
+    $('<img>')
+        .attr('src', '/static/image/squirrel.png')
+        .attr('id', 'squirrel')
+        .appendTo($('div.squirrel_wrapper'))
     $('div.answer_field').attr('id', 'answer').html(mix)
     $('img').attr('width', '30px')
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,'question'])
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,'answer'])
-}
-
-async function getQid(code) {
-    let qid = await $.get(`api/quiz/getQid?code=${code}`)
-    console.log(qid)
-    return qid
-}
-
-async function showSameTopicQuiz(qid) {
-    let quiz = await $.get(`api/quiz/same_topic?qid=${qid}`, (res) => {
-        return res
-    })
-        .then(res => JSON.parse(res))
-
-    $.each(quiz, function (key, ele){
-        let div = 
-            $('<div class="same_topic_quiz">')
-                .attr('code', ele.code)
-                .click(event, async () => {
-                    let code = $(event.target).attr('code')
-                    let qid = await getQid(code)
-                    window.qid = qid
-                    showPage(qid)
-                })
-                .html(ele.quiz_title)
-        $('div.same_topic_quiz_field').append(div)
-    })
 }
 
 async function showQA(qid) {
@@ -146,19 +166,37 @@ function clearPage() {
     $('div.question_field').empty()
     $('div.QA_field').empty()
     $('div.same_topic_quiz_field').empty()
+    $('div.tree_point').empty()
     //$('div.topic_field').empty()
+}
+
+function alertToggle() {
+    $(document)
+        .click((event) => {
+            if (!$(event.target).hasClass('answer_button')) {
+                $('div.feedback').remove()
+                return
+            } 
+            //if ($(event.target).hasClass('widget')) {
+            //    showStatus()
+            //    return
+            //}
+        })
 }
 
 async function showPage(qid) {
     window.qid = qid
+    window.voted = new Set()
+    window.statusBoxOn = false
     clearPage()
-    showQuiz(qid)
+    showTreePoint()
+    await showQuiz(qid)
     showQA(qid)
     //await showTopic()
-    showSameTopicQuiz(qid)
-    window.voted = new Set()
+    await showSameTopicQuiz(qid)
+    alertToggle()
+    refreshQuizColor(window.quiz_code)
     $('div.topic_field').ready(() => {
-        console.log(0)
         if ($('div.topic_field').html().length === 0) {
             showTopic()
         }

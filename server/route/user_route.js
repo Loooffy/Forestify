@@ -6,6 +6,7 @@ const {
     signIn,
     isLogged,
     getStatus,
+    getTreePoint,
 } = require('../controller/user_controller')
 
 router.route('/user/signup')
@@ -16,5 +17,8 @@ router.route('/user/signin')
     
 router.route('/user/status')
     .post(isLogged, wrapAsync(getStatus))
+
+router.route('/user/tree_point')
+    .post(isLogged, wrapAsync(getTreePoint))
 
 module.exports = router

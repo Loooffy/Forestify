@@ -69,10 +69,15 @@ const getStatus = async (user_id) => {
                 code_topic AS lv3 ON LEFT(qsc.code, 7) = lv3.code
                 inner join code_quiz on code_quiz.code = qsc.code
             ORDER BY time DESC
-            LIMIT 10
         `
     let status = await query(statusQ, [user_id])
     return status
+}
+
+const getTreePoint = async (user_id) => {
+    let treePointQ = 'SELECT count(id) as treePoint from quiz_solving where user_id = ? and correct = 1'
+    let treePoint = await query(treePointQ, [user_id])
+    return treePoint[0]
 }
 
 module.exports = {
@@ -82,4 +87,5 @@ module.exports = {
     facebookSignIn,
     isLogged,
     getStatus,
+    getTreePoint,
 }

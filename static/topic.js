@@ -1,3 +1,79 @@
+async function getQid(code) {
+    let qid = await fetch(`api/quiz/getQid?code=${code}`)
+        .then(r => {return r.json()})
+        .catch(err => {return 0})
+    return qid
+}
+
+async function showSameTopicQuiz(qid) {
+    let quiz = await $.get(`api/quiz/same_topic?qid=${qid}`, (res) => {
+        return res
+    })
+        .then(res => JSON.parse(res))
+
+    $.each(quiz, function (key, ele){
+        let div = 
+            $('<div class="same_topic_quiz">')
+                .attr('code', ele.code)
+                .click(async (event) => {
+                    let code = $(event.target).attr('code')
+                    window.quiz_code = code
+                    console.log(window.quiz_code)
+                    refreshQuizColor(window.quiz_code)
+                    let qid = await getQid(code)
+                    if (qid) {
+                        window.qid = qid
+                        showPage(qid)
+                        return
+                    }
+                    showNoQuizAlert('feedback', '目前題庫沒有這題，不好意思')
+                    return
+                })
+                .html(ele.quiz_title)
+        $('div.same_topic_quiz_field').append(div)
+    })
+}
+
+function showNoQuizAlert(className, content) {
+    let feedBackBox = $('<div>')
+        .addClass(className)
+        .html(content)
+        .append(
+            $('<div>')
+                .addClass('ok')
+                .click(ok)
+                .html('好喔')
+        )
+        .append(
+            $('<div>')
+                .addClass('ok')
+                .click(async (event) => {
+                    console.log(quiz_code)
+                    $(event.target)
+                        .parent()
+                        .remove()
+                    window.quiz_code = $(`div[code="${window.quiz_code}"]`).next().attr('code')
+                    if (!window.quiz_code) {
+                        window.quiz_code = $('div.same_topic_quiz:first-child').attr('code')
+                    }
+                    await $(`div[code="${window.quiz_code}"]`)
+                        .trigger('click')
+                })
+                .html('再下一題')
+        )
+        .appendTo($('body'))
+        return
+
+}
+
+async function refreshQuizColor (code) {
+    await $('div.same_topic_quiz')
+        .removeClass('quiz_focus')
+
+    await $(`div[code="${code}"]`)
+        .addClass('quiz_focus')
+}
+
 async function showTopic() {
     window.topic = await $.get('api/topic').then(r => JSON.parse(r))
     let lv1_topics = window.topic.filter(r => r.code.length === 3)
@@ -12,7 +88,7 @@ async function showTopic() {
                  .addClass('toggle')
                  .attr('code', lv1_topic.code)
                  .attr('href', "javascript:void(0)")
-                 .click(event, async () => {
+                 .click(async (event) => {
                      let code = $(event.target).attr('code')
                  })
                  .html(lv1_topic.topic)
@@ -43,6 +119,7 @@ async function showTopic() {
                                  .click(event, async () => {
                                      let code = $(event.target).attr('code')
                                      let qid = await getQid(code)
+                                     window.quiz_order_in_same_topic = 0
                                      showPage(qid)
                                  })
                                  .html(lv2_3_topic.topic)

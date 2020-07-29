@@ -1,6 +1,10 @@
 async function showStatus() {
 
-    window.statusBoxOn = true
+    window.statusBoxOn = !window.statusBoxOn
+    if (statusBoxOn === false) {
+        toggleFade()
+        return
+    }
     toggleFade()
 
     let token = getToken()
@@ -21,14 +25,15 @@ async function showStatus() {
         .addClass('status_box_content')
         .appendTo(statusBox)
 
-    let status= await $.ajax({
+    let status = await $.ajax({
         url: '../api/user/status',
         type: 'POST',
         contentType: 'application/json',
         processData: false,
         data: JSON.stringify(formData),
     })
-        console.log(status)
+
+    console.log(status)
 
     if (status.signBlock) {
         $('body').append(status.signBlock)
@@ -38,6 +43,19 @@ async function showStatus() {
     status.map(s => {
         $('<div>')
             .addClass('status_quiz_row')
+            .attr('code', s.code)
+            .click(async (event) => {
+                console.log(event.target)
+                let code = $(event.target).parent().attr('code')
+                window.quiz_code = code
+                let qid = await getQid(code)
+                if (qid) {
+                    window.qid = qid
+                    showPage(qid)
+                    toggleFade()
+                    return
+                }
+            })
             .append(
                 $('<div>')
                     .addClass('status_quiz_time')
@@ -75,7 +93,7 @@ async function showStatus() {
     $('<div>')
         .html('回主頁')
         .addClass('status_box_close')
-        .click(closeStatus)
+        .click(showStatus)
         .appendTo(statusBox)
 
     $('body').append(statusBox)
@@ -96,20 +114,46 @@ function showMap() {
 }
 
 function toggleFade() {
+    //window.statusBoxOn = !window.statusBoxOn
     let toFade = $('.not_map')
     switch (window.statusBoxOn) {
         case true:
             toFade.addClass('fadeToBack')
+            console.log('show')
             break
         case false:
             toFade.removeClass('fadeToBack')
-            $('div.status_box').css('visibility', 'hidden')
-            console.log(false)
+            $('div.status_box').remove()
+            console.log('remove')
             break
     }
 }
 
-function closeStatus() {
-   window.statusBoxOn = false 
-   toggleFade()
+async function showTreePoint() {
+    let token = getToken()
+    token = token ? token : ""
+    let formData = {
+        token: token
+    }
+
+    let result = await $.ajax({
+        url: '../api/user/tree_point',
+        type: 'POST',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify(formData),
+    })
+    
+    $('<div>')
+        .addClass('tree_point')
+        .append(
+            $('<span>')
+            .html((Array(4).join('0') + result.treePoint).slice(-4))
+        )
+        .append(
+            $('<div>')
+                .addClass('tree_icon')
+                .html('🌲')
+        )
+        .appendTo(body)
 }

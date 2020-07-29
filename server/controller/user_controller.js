@@ -131,6 +131,12 @@ async function getStatus (req, res) {
     let status = await User.getStatus(user_id)
     res.status(200).json(status)
 }    
+
+async function getTreePoint (req, res) {
+    let user_id = req.user_id
+    let treePoint = await User.getTreePoint(user_id)
+    res.status(200).json(treePoint)
+}    
     
     
 module.exports = {
@@ -138,4 +144,5 @@ module.exports = {
     signIn,
     isLogged,
     getStatus,
+    getTreePoint,
 }

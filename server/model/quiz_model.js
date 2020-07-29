@@ -69,9 +69,9 @@ async function getQid(code) {
 
 async function postAnswer(qid, user_id, correct) {
     let time = getTime()
-    let answerQ = 'insert into quiz_solving(qid, user_id, correct, time) values(?, ?, ?, ?)'
+    let answerQ = 'replace into quiz_solving(qid, user_id, correct, time) values(?, ?, ?, ?)'
     let result = await query(answerQ, [qid, user_id, correct, time])
-    return result.insertId ? result.insertId : 0
+    return result.affectedRows === 2 ? 'answered' : 'inserted'
 }
 
 module.exports = {
