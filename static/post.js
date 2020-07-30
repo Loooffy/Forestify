@@ -1,11 +1,3 @@
-function getToken() {
-    let regex = /token=(.*?);|token=(.*?)$/
-    let token = document.cookie.match(regex)
-    token = token ? token.slice(1,3).filter(t => t != undefined)[0] : null
-    console.log(token)
-    return token
-}
-
 async function voteQuestion(e) {
     let post_vote = $(e.target).parent().find('.post_vote')
     let currentVote = parseInt($(post_vote).html())
