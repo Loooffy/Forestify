@@ -43,6 +43,7 @@ async function checkAnswer() {
         message: '',
         correct: false
     }
+    let treePoint = parseInt($('div.tree_point span').text())
 
     if ($('button.option_on').attr('correct') === "true") {
         feedback.correct = true
@@ -52,6 +53,7 @@ async function checkAnswer() {
         feedback.correct = false
         feedback.message = '答案不對，再試試看喔！'
         formData.correct = false
+        treePoint -= 2
     }
 
     let result = await $.ajax({
@@ -61,16 +63,26 @@ async function checkAnswer() {
         contentType: 'application/json',
     })
 
-    console.log(result)
-
-    if (result === 'answered' && feedback.correct) {
-        feedback.message = '恭喜你又答對這題囉！可以去看看你的小樹～'
-    } else if (result === 'inserted' && feedback.correct) {
-        let treePoint = parseInt($('div.tree_point span').text())
-        treePoint += 1
-        $('div.tree_point span')
-            .html((Array(4).join('0') + treePoint.toString()).slice(-4))
+    let correct = $('button.option_on').attr('correct') === "true" ? 1 : 0
+    let status = `${result.history} ${result.inserted} ${correct}`
+    console.log('status', status)
+    
+    switch (status) {
+        case '1 2 0':
+            feedback.message = '答錯了，小樹枯枯QQ'
+            break
+        case '1 2 1':
+            feedback.message = '恭喜你答對這題囉！跟小樹說哈囉～'
+            treePoint -= 1
+            break
+        case '0 2 0':
+            treePoint += 1
+            break
     }
+
+    treePoint += 1
+    $('div.tree_point span')
+        .html((Array(4).join('0') + treePoint.toString()).slice(-4))
 
     showFeedBack('feedback', feedback.message, feedback.correct)
 }
@@ -188,6 +200,14 @@ async function showPage(qid) {
     window.qid = qid
     window.voted = new Set()
     window.statusBoxOn = false
+    window.myQABoxOn = false
+    window.constraints = {
+        all: false,
+        none: false,
+        correct: [],
+        //topic: [],
+        grade: [],
+    }
     clearPage()
     showTreePoint()
     await showQuiz(qid)

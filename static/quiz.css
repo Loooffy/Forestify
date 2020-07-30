@@ -25,7 +25,6 @@ body {
     font-weight: bold;
     opacity: 0.75;
     text-align: right;
-    background: lightblue;
 }
 
 .tree_point span {
@@ -140,6 +139,7 @@ button.option:hover {
     border: 2px solid cadetblue;
     letter-spacing:1px;
     opacity: 0.8;
+    outline: none;
 }
 
 button.answer_button:hover {
@@ -165,9 +165,9 @@ button.answer_button:hover {
     text-align: center;
     vertical-align: middle;
     opacity: 0.9;
-    position: absolute;
-    left: 29;
-    top: 25vh;
+    position: fixed;
+    left: 29vw;
+    top: 10vh;
 }
 
 .feedback_tree {
@@ -258,6 +258,18 @@ button.send_Q {
 .QA_row {
     width: 100%;
 }
+
+.QA_topic_field {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.QA_topic {
+    padding: 0.2rem;
+    margin: 0.2rem;
+    background: lightyellow;
+}
+    
 
 .post_info {
     display: flex;
@@ -456,7 +468,7 @@ button.send_Q {
     top: 2vh;
 }
 
-.status_box {
+.widget_box {
     padding-top: 2rem;
     display: flex;
     flex-flow: column nowrap;
@@ -465,15 +477,15 @@ button.send_Q {
     position: fixed;
     z-index: 500;
     left: 12vw;
-    top: 5vh;
+    top: 10vh;
     width: 76vw;
-    height: 90vh;
+    height: 80vh;
     opacity: 0.85;
     border-radius: 15px;
     border: 7px lightyellow solid;
 }
 
-.status_box_title {
+.box_title {
     margin-top: 1rem;
     margin-bottom: 2rem;
     color: white;
@@ -482,15 +494,34 @@ button.send_Q {
     letter-spacing: 3px;
 }
 
-.status_box_content {
+.box_content {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    width: 85%;
+    width: 95%;
     overflow: scroll;
 }
 
+.box_close {
+    cursor: pointer;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border: 6px solid white;
+    color: dimgray;
+    background: lightblue;
+    padding: 1.5rem;
+    border-radius: 40px;
+    font-weight: bold;
+    opacity: 0.80;
+    letter-spacing: 2px;
+}
+
+.box_close:hover {
+    opacity: 0.95;
+}
+
 .status_quiz_row {
+    margin: 0.3rem 0;
     cursor: pointer;
     display: flex;
     width: 90%;
@@ -499,6 +530,7 @@ button.send_Q {
 }
 
 .status_quiz_tried {
+    font-size: large;
     background: dimgray;
     padding: 0.5rem;
     color: white;
@@ -509,6 +541,7 @@ button.send_Q {
 }
 
 .status_quiz_check {
+    font-size: large;
     text-align: center;
     padding: 0.5rem;
     margin: 0.3rem;
@@ -518,6 +551,7 @@ button.send_Q {
 }
 
 .status_quiz_correct {
+    font-size: large;
     background: greenyellow;
     color: black;
     opacity: 0.45;
@@ -529,14 +563,59 @@ button.send_Q {
     color: white;
 }
 
+.filter_field {
+    margin: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    opacity: 0.7;
+}
+
+.filter_key {
+    cursor: pointer;
+    margin: 0.5rem 0.3rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background: steelblue;
+    color: white;
+    letter-spacing: 3px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.filter_key:hover {
+    opacity: 0.75;
+}
+
+.filter_key_on {
+    cursor: pointer;
+    display: none;
+    opacity: 0.95;
+    background: yellow;
+    color: black;
+}
+
+.filter_key:active {
+    opacity: 0.6;
+    background: lightgreen;
+}
+
+.filter_key:visited {
+    opacity: 0.6;
+    background: red;
+}
+
 .fadeToBack {
     opacity: 0.2;
 }
 
 .topic {
-    font-size: small;
+    margin-right: 0.3rem;
+    font-size: medium;
     padding: 0.5rem;
-    color: darkgray;
+    color: darkslategray;
     opacity: 0.9;
     border-radius: 5px;
     letter-spacing:2px;
@@ -558,25 +637,11 @@ button.send_Q {
 }
 
 .status_quiz_time {
-    color: black;
+    color: darkslategray;
     margin-right: 1rem;
     font-weight: bold;
 }
 
-.status_box_close {
-    cursor: pointer;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    border: 6px solid white;
-    color: dimgray;
-    background: lightblue;
-    padding: 1.5rem;
-    border-radius: 40px;
-    font-weight: bold;
-    opacity: 0.80;
-    letter-spacing: 2px;
-}
-
-.status_box_close:hover {
-    opacity: 0.95;
+div.topic_field.not_map > ul > li > div.inner.show > div > a {
+    margin: 0.6rem 0;
 }
