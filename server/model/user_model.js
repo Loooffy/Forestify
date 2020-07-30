@@ -80,6 +80,50 @@ const getTreePoint = async (user_id) => {
     return treePoint[0]
 }
 
+const getMyQA = async (user_id) => {
+    let myQAQ =
+        `
+            SELECT 
+                allQA.content,
+                allQA.owner_name,
+                allQA.total_votes,
+                allQA.title,
+                lv1.topic as topic1,
+                lv2.topic as topic2,
+                lv3.topic as topic3
+            FROM
+                (SELECT 
+                    QA.*,
+                        student.name AS owner_name,
+                        v.total_vote as total_votes,
+                        quiz.code,
+                        cq.lv1_topic_code,
+                        cq.lv2_topic_code,
+                        cq.lv3_topic_code
+                FROM
+                    QA
+                INNER JOIN quiz ON quiz.qid = QA.qid
+                INNER JOIN student AS student ON QA.user_id = student.id
+                INNER JOIN (SELECT 
+                    QA_id, SUM(vote) AS total_vote
+                FROM
+                    votes
+                GROUP BY QA_id) AS v ON QA.id = v.QA_id
+                INNER JOIN code_quiz AS cq ON cq.code = quiz.code) AS allQA
+                    INNER JOIN
+                code_topic AS lv1 ON LEFT(allQA.code, 3) = lv1.code
+                    INNER JOIN
+                code_topic AS lv2 ON LEFT(allQA.code, 5) = lv2.code
+                    INNER JOIN
+                code_topic AS lv3 ON LEFT(allQA.code, 7) = lv3.code
+            WHERE
+                user_id = ?
+            ORDER BY allQA.post_time DESC
+        `
+    let myQA = await query(myQAQ, [user_id])
+    return myQA
+}
+
 module.exports = {
     signUp,
     getUser,
@@ -88,4 +132,5 @@ module.exports = {
     isLogged,
     getStatus,
     getTreePoint,
+    getMyQA,
 }
