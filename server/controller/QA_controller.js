@@ -15,7 +15,7 @@ const postQ = async (req ,res) => {
         content: req.body.content,
         head_id: req.body.head_id
     }
-    data.owner_id = req.user_id
+    data.user_id = req.user_id
     console.log('user', req.user_id)
     let result = await QA.postQ(data)
     res.send(JSON.stringify(result.insertId))

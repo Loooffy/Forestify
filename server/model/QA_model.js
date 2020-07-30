@@ -5,7 +5,7 @@ const getQAData = async (qid) => {
         `
             SELECT 
                 QA.*,
-                student.id AS owner_id,
+                student.id AS user_id,
                 student.name AS owner_name,
                 v.total_vote
             FROM
@@ -13,7 +13,7 @@ const getQAData = async (qid) => {
                     INNER JOIN
                 quiz ON quiz.qid = QA.qid
                     INNER JOIN
-                student AS student ON QA.owner_id = student.id
+                student AS student ON QA.user_id = student.id
                     INNER JOIN
                 (SELECT 
                     QA_id, SUM(vote) AS total_vote
