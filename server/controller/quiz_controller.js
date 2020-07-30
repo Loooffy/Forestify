@@ -25,13 +25,10 @@ const postAnswer = async (req, res) => {
     try {
         let {qid, correct} = req.body
         let result = await Quiz.postAnswer(qid, req.user_id, correct)
-        console.log('result', result)
-        res.status(200).send(result.toString())
+        res.status(200).json(result)
     } catch (err) {
-        switch (err.code) {
-            case 'ER_DUP_ENTRY':
-                res.status(200).send('answered')
-        }
+        console.log(err)
+        res.status(500).send('server error')
     }
 }
     

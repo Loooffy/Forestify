@@ -69,9 +69,17 @@ async function getQid(code) {
 
 async function postAnswer(qid, user_id, correct) {
     let time = getTime()
-    let answerQ = 'replace into quiz_solving(qid, user_id, correct, time) values(?, ?, ?, ?)'
-    let result = await query(answerQ, [qid, user_id, correct, time])
-    return result.affectedRows === 2 ? 'answered' : 'inserted'
+    let historyQ = 'select correct from quiz_solving where qid = ? and user_id = ?'
+    let history = await query(historyQ, [qid, user_id])
+    let currentQ = 'replace into quiz_solving(qid, user_id, correct, time) values(?, ?, ?, ?)'
+    let current = await query(currentQ, [qid, user_id, correct, time])
+
+    console.log(history)
+
+    return {
+        history: history.length ? history[0].correct : 0, 
+        inserted: current.affectedRows
+    }
 }
 
 module.exports = {
