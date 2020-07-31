@@ -11,3 +11,6 @@ data_server.js
 # vim
 *.vim
 *.swp
+
+# env
+*.env

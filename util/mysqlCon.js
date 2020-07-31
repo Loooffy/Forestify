@@ -1,11 +1,13 @@
+require('dotenv').config();
 const mysql = require('mysql');
 const {promisify} = require('util'); // util from native nodejs library
+const {DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE} = process.env;
 
 const mysqlConfig = {
-        host: 'stylishrds.ccwoewh3wew2.us-east-2.rds.amazonaws.com',
-        user: 'loooffy',
-        password: 'Loooffy11!',
-        database: 'han_academy'
+    host: DB_HOST,
+    user: DB_USERNAME,
+    password: DB_PASSWORD,
+    database: DB_DATABASE
 };
 
 const mysqlCon = mysql.createConnection(mysqlConfig, true);
