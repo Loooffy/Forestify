@@ -37,6 +37,7 @@ function showContent() {
     statusBoxContent.empty()
 
     let status = JSON.parse(window.status)
+    console.log(status)
 
     status
         .filter((s) => statusFilter(s))
@@ -184,7 +185,8 @@ async function showStatus() {
         })
 
         if (result.signBlock) {
-            $('body').append(status.signBlock)
+            //window.statusBoxOn = !window.statusBoxOn
+            $('body').append(result.signBlock)
             return
         }
 
@@ -203,16 +205,28 @@ async function showStatus() {
 
 async function showMyQA() {
     window.myQABoxOn = !window.myQABoxOn
-    if (window.myQABoxOn === false) {
-        toggleFade(window.myQABoxOn, 'myQA_box')
-        return
-    }
     toggleFade(window.myQABoxOn, 'myQA_box')
 
     let token = getToken()
     token = token ? token : ""
     let formData = {
         token: token
+    }
+
+    let myQA = await $.ajax({
+        url: '../api/user/my_QA',
+        type: 'POST',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify(formData),
+    })
+
+    console.log(myQA.signBlock)
+
+    if (myQA.signBlock) {
+        console.log('return')
+        $('body').append(myQA.signBlock)
+        return
     }
     
     let myQABox = $('<div>')
@@ -227,19 +241,6 @@ async function showMyQA() {
     let statusBoxContent = $('<div>')
         .addClass('box_content')
         .appendTo(myQABox)
-
-    let myQA = await $.ajax({
-        url: '../api/user/my_QA',
-        type: 'POST',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify(formData),
-    })
-
-    if (myQA.signBlock) {
-        $('body').append(myQA.signBlock)
-        return
-    }
 
     let QA_row = getTemplate('QA')
     let mix = ''

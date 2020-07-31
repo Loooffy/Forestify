@@ -1,10 +1,10 @@
 .sign_field {
     position: fixed;
     width: 30vw;
-    height: 60vh;
-    top: 15vh;
+    top: 20vh;
     margin: auto;
-    background: lightgray;
+    padding: 3rem;
+    background: #94bee0;
     border: solid 1px #dfdcdc;
     border-radius: 15px;
 }
@@ -13,19 +13,41 @@
     cursor: pointer;
 }
 
-form {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 20px;
+button.cancel {
+    background: lightgray;
+    color: darkslategray;
 }
 
-input {
-    width: 300px;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
+form.sign_form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin: 2em auto;
+  color: khaki;
+}
+
+label{
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+input.sign{
+  outline: none;
+  box-sizing: border-box;
+  padding: 0.5em;
+  font-size: 1.15rem;
+  margin: 0.4em 0 1.3em 0;
+  background: #FFFFFF;
+  border: 1px solid #D9DCED;
+  border-radius: 5px;
+  color: #949495;
+  width: 100%;
+}
+
+.switch {
+  text-align: center;
 }
 
 .sign-title {
@@ -37,4 +59,89 @@ input {
 #status {
     font-size: 8px;
     letter-spacing: 1px;
+}
+
+.signup, .split{
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.8em;
+  letter-spacing: 8px;
+}
+
+.google{
+  background: #5b86e6;
+  color: white;
+  padding: 0.6em 4em;
+  margin: 1em auto;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.fa{
+  font-size: 1.5rem;
+  padding: 0.2em;
+  color: white;
+  margin-right: 2rem;
+  background: #E65B7C;
+  border-radius: 100%;
+}
+
+.or{
+  color: #949495;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.or::before, .or::after{
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: -25%;
+  right: 0;
+  width: 20%;
+  height: 2px;
+  background: #949495;
+}
+
+.or::after{
+  bottom: 8px;
+  left: 105%;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+
+.btn{
+  margin: 0.8rem;
+  margin-bottom: 1.5rem;
+  width: 40%;
+  border: none;
+  padding: 0.8em;
+  background: #E05778;
+  opacity: 0.95;
+  color: white;
+  font-size: 1.125rem;
+  border-radius: 5px;
+  cursor: pointer;
+  letter-spacing: 15px;
+}
+
+.already{
+  font-size: 1.1rem;
+}
+
+.login{
+  text-decoration: none;
+  color: #5b86e6;
 }

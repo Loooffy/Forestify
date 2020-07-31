@@ -5,62 +5,57 @@ link(
     media="all"
 )
 
-script function closeSign(e) {$(e.target).parent().attr('style', 'display:none')}
+script(src="/static/sign.js")
 
 div(class="sign_field")
-    div(
-        class="close"
-        style="text-align:right"
-        onclick="closeSign(event)"
-    ) Ｘ
-    div(class="sign-title") signin
+    div(class="signup") —　請先登入　—
     form(
-        class="signin"
-        action="/api/user/signin"
-        method="post"
-    )
-        div email
-        input(
-            type="text"
-            name="email"
-        )
-        div password
-        input(
-            type="password"
-            name="password"
-        )
-        input(
-            type="submit"
-            value="signin"
-        )
-    div(class="sign-title") signup
-    form(
-        class="signup"
+        class="sign_form"
         action="/api/user/signup"
-        method="post"
+        method="POST"
     )
-        div name
-        input(
-            type="text"
-            name="name"
-        )
-        div email
-        input(
-            type="text"
-            name="email"
-        )
-        div password
-        input(
-            type="password"
-            name="password"
-        )
-        input(
-            type="submit"
-            value="signup"
-        )
-    //fb:login-button(
-    //    id="fb"
-    //    scope="public_profile,email"
-    //    onlogin="checkLoginState()
-    //)
-    div(id="status")
+        div(class="fullname")
+            label(for="fullname") 名字
+            br
+            input(
+                class="sign"
+                type="text"
+                name="name"
+                placeholder="請輸入你的名字"
+            )
+        div(class="email")
+            label(for="email") Email
+            br
+            input(
+                class="sign"
+                type="text"
+                name="email"
+                placeholder="請輸入你的email"
+            )
+        div(class="password")
+            label(for="email") 密碼
+            br
+            input(
+                class="sign"
+                type="text"
+                name="password"
+                placeholder="請輸入你的密碼"
+            )
+            br
+        div(class="btns")
+            input(
+                type="submit"
+                class="btn"
+                onclick="closeSign()"
+                value="註冊"
+            )
+            button(
+                type="button"
+                class="btn cancel"
+                onclick="closeSign()"
+            ) 取消
+            
+        div(class="switch")
+            span(class="split") — — — — — —
+            span(class="already") 已經有帳號?
+                a(href="#" class="login") 　登入
