@@ -199,6 +199,7 @@ function clearPage() {
     $('div.QA_field').empty()
     $('div.same_topic_quiz_field').empty()
     $('div.tree_point').empty()
+    //$('div.post_Q').empty()
     //$('div.topic_field').empty()
 }
 

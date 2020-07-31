@@ -2,8 +2,8 @@ const mysql = require('mysql');
 const {promisify} = require('util'); // util from native nodejs library
 
 const mysqlConfig = {
-        host: '127.0.0.1',
-        user: 'Loooffy',
+        host: 'stylishrds.ccwoewh3wew2.us-east-2.rds.amazonaws.com',
+        user: 'loooffy',
         password: 'Loooffy11!',
         database: 'han_academy'
 };

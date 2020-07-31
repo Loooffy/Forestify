@@ -5,20 +5,19 @@ link(
     media="all"
 )
 
-script(src="/static/sign.js")
-
 div(class="sign_field")
     div(class="signup") —　請先登入　—
     form(
         class="sign_form"
         action="/api/user/signup"
-        method="POST"
+        method="post"
     )
         div(class="fullname")
             label(for="fullname") 名字
             br
             input(
                 class="sign"
+                id="name"
                 type="text"
                 name="name"
                 placeholder="請輸入你的名字"
@@ -28,6 +27,7 @@ div(class="sign_field")
             br
             input(
                 class="sign"
+                id="email"
                 type="text"
                 name="email"
                 placeholder="請輸入你的email"
@@ -37,6 +37,7 @@ div(class="sign_field")
             br
             input(
                 class="sign"
+                id="password"
                 type="text"
                 name="password"
                 placeholder="請輸入你的密碼"
@@ -44,15 +45,15 @@ div(class="sign_field")
             br
         div(class="btns")
             input(
-                type="submit"
+                type="button"
                 class="btn"
-                onclick="closeSign()"
+                onclick="closeSign(event)"
                 value="註冊"
             )
             button(
                 type="button"
                 class="btn cancel"
-                onclick="closeSign()"
+                onclick="closeSign(event)"
             ) 取消
             
         div(class="switch")
