@@ -3,7 +3,8 @@ const pug = require('pug')
 const marked = require('marked')
 
 const getQuizData = async (req, res) => {
-    let qid = req.query.qid
+    let {qid} = req.query
+    qid = req.query.qid ? req.query.qid : 41882
     let data = await Quiz.getQuizData(qid)
     data.data.question = marked(data.data.question_content)
     res.send(JSON.stringify(data))
@@ -11,6 +12,7 @@ const getQuizData = async (req, res) => {
 
 const getSameTopicQuiz = async (req, res) => {
     let {qid} = req.query
+    qid = req.query.qid ? req.query.qid : 41882
     let result = await Quiz.getSameTopicQuiz(qid)
     res.send(JSON.stringify(result))
 }

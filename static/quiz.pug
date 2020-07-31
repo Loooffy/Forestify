@@ -32,6 +32,7 @@ head
     script(src="../../static/topic.js")
     script(src="../../static/user.js")
     script(src="../../static/hexMap.js")
+    script(src="../../static/sign.js")
     script $('body').onload=showPage(#{qid})
 
 html
@@ -41,31 +42,31 @@ html
             src="/static/image/status.png"
             onclick="showStatus()"
         )
-        img(
-            class="search_widget widget"
-            src="/static/image/status.png"
-            onclick="showStatus()"
-        )
-        img(
-            class="bucket_widget widget"
-            src="/static/image/status.png"
-            onclick="showStatus()"
-        )
-        img(
-            class="point_widget widget"
-            src="/static/image/status.png"
-            onclick="showStatus()"
-        )
+        //img(
+        //    class="search_widget widget"
+        //    src="/static/image/status.png"
+        //    onclick="showStatus()"
+        //)
+        //img(
+        //    class="bucket_widget widget"
+        //    src="/static/image/status.png"
+        //    onclick="showStatus()"
+        //)
+        //img(
+        //    class="point_widget widget"
+        //    src="/static/image/status.png"
+        //    onclick="showStatus()"
+        //)
         img(
             class="QA_widget widget"
             src="/static/image/status.png"
             onclick="showMyQA()"
         )
-        img(
-            class="map_widget widget"
-            src="/static/image/status.png"
-            onclick="showMap()"
-        )
+        //img(
+        //    class="map_widget widget"
+        //    src="/static/image/status.png"
+        //    onclick="showMap()"
+        //)
         include hexMap.pug  
         //div(class="header")
             div(class="site_function")

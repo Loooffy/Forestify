@@ -5,6 +5,7 @@ const hexMap = require('../../util/hexMapCreator')
 
 const renderQuizPage = async (req, res) => {
     let qid = req.query.qid
+    qid = req.query.qid ? req.query.qid : 41882
     //let result = await Quiz.getQuizData()
     let result = await QA.getQAData(qid)
     //result.data.options = JSON.parse(result.data.options)

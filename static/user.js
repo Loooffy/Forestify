@@ -205,6 +205,10 @@ async function showStatus() {
 
 async function showMyQA() {
     window.myQABoxOn = !window.myQABoxOn
+    if (myQABoxOn === false) {
+        toggleFade(window.myQABoxOn, 'myQA_box')
+        return
+    }
     toggleFade(window.myQABoxOn, 'myQA_box')
 
     let token = getToken()
@@ -333,12 +337,14 @@ async function showTreePoint() {
         processData: false,
         data: JSON.stringify(formData),
     })
+
+    let treePoint = result.treePoint ? result.treePoint : 0
     
     $('<div>')
         .addClass('tree_point')
         .append(
             $('<span>')
-            .html((Array(4).join('0') + result.treePoint).slice(-4))
+            .html((Array(4).join('0') + treePoint).slice(-4))
         )
         .append(
             $('<div>')

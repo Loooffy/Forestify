@@ -8,4 +8,7 @@ const {
 router.route('/quiz')
     .get(wrapAsync(renderQuizPage))
 
+router.route('/')
+    .get(wrapAsync(renderQuizPage))
+
 module.exports = router
