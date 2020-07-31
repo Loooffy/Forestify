@@ -6,7 +6,7 @@ function showFeedBack(className, content, correct) {
             $('<div>')
                 .addClass('ok')
                 .click(ok)
-                .html('好喔')
+                .html('再試一次')
         )
         .appendTo($('body'))
 
@@ -30,6 +30,26 @@ function showFeedBack(className, content, correct) {
                     })
                     .html('下一題')
         )
+    } else {
+        feedBackBox
+            .prepend(
+                $('<div>')
+                    .addClass('feedback_tree')
+                    .html('🍂')
+            )
+            .append(
+                $('<div>')
+                    .addClass('ok')
+                    .click((event) => {
+                        $(event.target)
+                            .parent()
+                            .remove()
+                        $(`div[code="${window.quiz_code}"]`)
+                            .next()
+                            .trigger('click')
+                    })
+                    .html('下一題')
+            )
     }
 }
 
