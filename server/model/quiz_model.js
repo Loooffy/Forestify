@@ -38,24 +38,22 @@ const getQuizData = async (qid) => {
 const getSameTopicQuiz = async (qid) => {
     let quizQ = 
         `
-            select 
-                code_quiz.code, code_quiz.quiz_title
-            from
+            SELECT
+                code_quiz.code, code_quiz.quiz_title, code_topic.topic
+            FROM
                 code_quiz
-            where
-                code_quiz.code
-            like concat(
-                '%', 
-                (
-                    select 
-                        left(quiz.code, 7)
-                    from 
-                        quiz
-                    where 
-                        qid = ?
-                ),
-                '%'
-            )
+                    INNER JOIN
+                code_topic ON LEFT(code_quiz.code, 7) = code_topic.code
+            WHERE
+                code_quiz.code LIKE CONCAT('%',
+                        (SELECT
+                                LEFT(quiz.code, 7)
+                            FROM
+                                quiz
+                            WHERE
+                                qid = ?),
+                        '%')
+
         `
     let result = await query(quizQ, [qid])
     return result

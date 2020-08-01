@@ -6,7 +6,7 @@ function showFeedBack(className, content, correct) {
             $('<div>')
                 .addClass('ok')
                 .click(ok)
-                .html('再試一次')
+                .html('好喔')
         )
         .appendTo($('body'))
 
@@ -69,6 +69,7 @@ async function checkAnswer() {
         feedback.correct = true
         feedback.message = '答對囉！你剛種下了一棵新的小樹～'
         formData.correct = true
+        plantTree(5, ran(30,800), ran(30, 600))
     } else {
         feedback.correct = false
         feedback.message = '答案不對，再試試看喔！'
@@ -222,6 +223,7 @@ async function showPage(qid) {
     window.voted = new Set()
     window.statusBoxOn = false
     window.myQABoxOn = false
+    window.treePlanted = {}
     window.constraints = {
         all: false,
         none: false,
@@ -236,12 +238,12 @@ async function showPage(qid) {
     //await showTopic()
     await showSameTopicQuiz(qid)
     alertToggle()
-    refreshQuizColor(window.quiz_code)
     $('div.topic_field').ready(() => {
         if ($('div.topic_field').html().length === 0) {
             showTopic()
         }
     })
+    refreshQuizColor(window.quiz_code, 'quiz')
     $('svg.hexMap').ready(() => {
         mapInit()
     })

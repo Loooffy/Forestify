@@ -18,8 +18,8 @@ async function showSameTopicQuiz(qid) {
                 .click(async (event) => {
                     let code = $(event.target).attr('code')
                     window.quiz_code = code
+                    refreshQuizColor(window.quiz_code, 'quiz')
                     console.log(window.quiz_code)
-                    refreshQuizColor(window.quiz_code)
                     let qid = await getQid(code)
                     if (qid) {
                         window.qid = qid
@@ -30,8 +30,15 @@ async function showSameTopicQuiz(qid) {
                     return
                 })
                 .html(ele.quiz_title)
-        $('div.same_topic_quiz_field').append(div)
+        $('div.same_topic_quiz_field')
+            .append(div)
     })
+    $('div.same_topic_quiz_field')
+        .prepend(
+            $('<div>')
+                .addClass('same_topic_quiz_title')
+                .html(quiz[0].topic)
+            )
 }
 
 function showNoQuizAlert(className, content) {
@@ -66,12 +73,17 @@ function showNoQuizAlert(className, content) {
 
 }
 
-async function refreshQuizColor (code) {
-    await $('div.same_topic_quiz')
-        .removeClass('quiz_focus')
+async function refreshQuizColor (code, type) {
+    await $(`[code="${code}"]`)
+        .siblings()
+        .removeClass(`${type}_focus`)
+        
+    await $(`a.lv2_3_topic`)
+        .removeClass(`${type}_focus`)
 
-    await $(`div[code="${code}"]`)
-        .addClass('quiz_focus')
+    await $(`[code="${code}"]`)
+        .addClass(`${type}_focus`)
+        console.log(code, type)
 }
 
 async function showTopic() {
@@ -100,8 +112,14 @@ async function showTopic() {
                      .addClass('toggle')
                      .attr('code', lv1_2_topic.code)
                      .attr('href', "javascript:void(0)")
-                     .on('dragstart', async () => {
-                         window.dragged_title = $(event.target).html()
+                     .on('dragstart', () => {
+                         let t =$(event.target)
+                         console.log(t.attr('code'))
+                         window.curr_code = t.attr('code')
+                         window.treePlanted[window.curr_code] = {
+                            code: t.attr('code'),
+                            text: t.html()
+                        }
                      })
                      .html(`&#127794; ${lv1_2_topic.topic}`)
                      .draggable({
@@ -115,10 +133,13 @@ async function showTopic() {
                          let lv3 =
                              $('<a>')
                                  .attr('code', lv2_3_topic.code)
+                                 .attr('class', 'lv2_3_topic')
                                  .attr('href', "javascript:void(0)")
                                  .click(event, async () => {
                                      let code = $(event.target).attr('code')
                                      let qid = await getQid(code)
+                                     console.log('topic', code)
+                                     refreshQuizColor(code, 'topic')
                                      window.quiz_order_in_same_topic = 0
                                      showPage(qid)
                                  })
@@ -140,6 +161,9 @@ async function showTopic() {
          )
      )
      nestedList()
+     refreshQuizColor(window.quiz_code.slice(0,-1), 'topic')
+     await $(`[code="${window.quiz_code.slice(0,3)}"]`).trigger('click')
+     await $(`[code="${window.quiz_code.slice(0,5)}"]`).trigger('click')
 }
 
 function nestedList() {
