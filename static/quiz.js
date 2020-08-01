@@ -30,7 +30,7 @@ function showFeedBack(className, content, correct) {
                     })
                     .html('下一題')
         )
-    } else {
+    } else if(correct === false) {
         feedBackBox
             .prepend(
                 $('<div>')
@@ -50,6 +50,14 @@ function showFeedBack(className, content, correct) {
                     })
                     .html('下一題')
             )
+    } else {
+        feedBackBox
+            .prepend(
+                $('<div>')
+                    .addClass('feedback_tree')
+                    .html('🚜')
+            )
+        return
     }
 }
 
@@ -61,20 +69,27 @@ async function checkAnswer() {
 
     let feedback = {
         message: '',
-        correct: false
+        //correct: false
     }
     let treePoint = parseInt($('div.tree_point span').text())
+    console.log(treePoint)
+    try {
+        let x = window.treePlanted[window.curr_code].xy.x
+        let y = window.treePlanted[window.curr_code].xy.y
+    } catch(err) {
+        feedback.message = "小樹沒有地方長大，先選一塊地吧~"
+        showFeedBack('feedback', feedback.message, feedback.correct)
+        return
+    }
 
     if ($('button.option_on').attr('correct') === "true") {
         feedback.correct = true
         feedback.message = '答對囉！你剛種下了一棵新的小樹～'
         formData.correct = true
-        plantTree(5, ran(30,800), ran(30, 600))
     } else {
         feedback.correct = false
         feedback.message = '答案不對，再試試看喔！'
         formData.correct = false
-        treePoint -= 2
     }
 
     let result = await $.ajax({
@@ -86,22 +101,34 @@ async function checkAnswer() {
 
     let correct = $('button.option_on').attr('correct') === "true" ? 1 : 0
     let status = `${result.history} ${result.inserted} ${correct}`
-    console.log('status', status)
     
+    let x = window.treePlanted[window.curr_code].xy.x
+    let y = window.treePlanted[window.curr_code].xy.y
+    console.log('status', status)
     switch (status) {
         case '1 2 0':
             feedback.message = '答錯了，小樹枯枯QQ'
+            removeTree(window.curr_code)
+            treePoint -= 1
             break
         case '1 2 1':
             feedback.message = '恭喜你答對這題囉！跟小樹說哈囉～'
-            treePoint -= 1
             break
         case '0 2 0':
+            break
+        case '0 2 1':
             treePoint += 1
+            plantTree(x, y, window.curr_code)
+            break
+        case '0 1 0':
+            break
+        case '0 1 1':
+            console.log(treePoint)
+            treePoint += 1
+            plantTree(x, y, window.curr_code)
             break
     }
 
-    treePoint += 1
     $('div.tree_point span')
         .html((Array(4).join('0') + treePoint.toString()).slice(-4))
 
@@ -218,12 +245,20 @@ function alertToggle() {
         })
 }
 
+function showHint() {
+        $('<img>')
+            .attr('src', '/static/image/hint.png')
+            .addClass('hint_box')
+            .appendTo(body)
+}
+
 async function showPage(qid) {
     window.qid = qid
     window.voted = new Set()
     window.statusBoxOn = false
     window.myQABoxOn = false
-    window.treePlanted = {}
+    window.treePlanted = window.treePlanted ? window.treePlanted : {}
+    window.curr_code = window.curr_code ? window.curr_code : 'mjnzs'
     window.constraints = {
         all: false,
         none: false,
@@ -231,11 +266,10 @@ async function showPage(qid) {
         //topic: [],
         grade: [],
     }
-    clearPage()
+    await clearPage()
     showTreePoint()
     await showQuiz(qid)
     showQA(qid)
-    //await showTopic()
     await showSameTopicQuiz(qid)
     alertToggle()
     $('div.topic_field').ready(() => {
@@ -247,4 +281,7 @@ async function showPage(qid) {
     $('svg.hexMap').ready(() => {
         mapInit()
     })
+    await showMap()
+    //refreshPlantedTitle()
+    showHint()
 }

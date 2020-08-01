@@ -1,17 +1,27 @@
 - let allHex = hexData
 
-svg(
-    class="hex_map"
-)
-    each hex in allHex
-        path(
-            d=hex.d
-            code=hex.code
-        )
-        text(
-            text-anchor="middle"
-            x=hex.tx
-            y=hex.ty
-        )=""
-        //hex.text
-
+svg(class="map hex_map")
+    g(id='hex_map')
+        each hex in allHex
+            path(
+                d=hex.d
+                code=hex.code
+                x=hex.x
+                y=hex.y
+            )
+    g(id='text_map')
+        each hex in allHex
+            text(
+                x=hex.x
+                y=`${hex.y+15}`
+                text-anchor="middle"
+                fill="brown"
+            )="."
+    g(id='tree_map')
+        each hex in allHex
+            text(
+                x=hex.x
+                y=`${hex.y-15}`
+                text-anchor="middle"
+                fill="brown"
+            )="."

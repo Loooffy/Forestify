@@ -1,11 +1,9 @@
 const createHexMap = (x0, y0, r) => {
     let map = new hexMap(x0, y0, r)
     let matrix = []
-    //let text = '指數與科學記號記號'
     let text = '1'
     for (let i=1;i<12;i++) {
         for (let j=1;j<7;j++) {
-            //matrix.push([i, j, `${i}${j}`])
             matrix.push([i, j, text.length < 8 ? text : `${text.slice(0,7)}...` ])
         }
     }
@@ -38,8 +36,8 @@ class hexMap {
         let hexPath = p1 + p2 + p3 + p4 + p5 + p6 + p0
         let hexData = {
             path: hexPath,
-            tx: x,
-            ty: y
+            x: Math.floor(x),
+            y: Math.floor(y)
         }
         return hexData
     }
@@ -52,8 +50,8 @@ class hexMap {
                 d: hex.path,
                 code: hexXY[3],
                 text: hexXY[2],
-                tx: hex.tx,
-                ty: hex.ty
+                x: hex.x,
+                y: hex.y
             }
             allHex.push(hexData)
         })

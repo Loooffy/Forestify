@@ -292,24 +292,35 @@ async function showMyQA() {
 }
     
 
-function showMap() {
-    switch ($('.not_map').css('visibility')) {
-        case 'visible':
-            $('.not_map').css('visibility', 'hidden')
-            $('.topic_field').css('visibility', 'visible')
-            $('.hex_map').css('visibility', 'visible')
+async function showMap() {
+    switch ($('.not_map').css('display')) {
+        case 'none':
+            $('.same_topic_quiz_field').css('display', 'flow-root')
+            await $('.not_map').css('display', 'flex')
+            $('.hint_box').css('display', 'none')
+            $('#hex_map').css('display', 'none')
+            $('#text_map').css('display', 'none')
+            $('#hex_map').css('visibility', 'hidden')
+            $('#text_map').css('visibility', 'hidden')
             break
-        case 'hidden':
-            $('.not_map').css('visibility', 'visible')
-            $('.hex_map').css('visibility', 'hidden')
+        default:
+            $('.same_topic_quiz_field').css('display', 'none')
+            $('.not_map').css('display', 'none')
+            $('.hint_box').css('display', 'flow-root')
+            $('#hex_map').css('display', 'flow-root')
+            $('#text_map').css('display', 'flow-root')
+            $('#hex_map').css('visibility', 'visible')
+            $('#text_map').css('visibility', 'visible')
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub,'question'])
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub,'answer'])
             break
     }
 }
 
-function toggleFade(boxOn, className) {
+function toggleFade(boxOff, className) {
     //window.statusBoxOn = !window.statusBoxOn
     let toFade = $('.not_map')
-    switch (boxOn) {
+    switch (boxOff) {
         case true:
             toFade.addClass('fadeToBack')
             console.log('show')

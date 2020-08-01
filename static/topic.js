@@ -112,20 +112,19 @@ async function showTopic() {
                      .addClass('toggle')
                      .attr('code', lv1_2_topic.code)
                      .attr('href', "javascript:void(0)")
-                     .on('dragstart', () => {
-                         let t =$(event.target)
-                         console.log(t.attr('code'))
-                         window.curr_code = t.attr('code')
-                         window.treePlanted[window.curr_code] = {
-                            code: t.attr('code'),
-                            text: t.html()
-                        }
-                     })
                      .html(`&#127794; ${lv1_2_topic.topic}`)
                      .draggable({
                         appendTo: body,
-                        helper: 'clone'
-                    })
+                        helper: 'clone',
+                        start: function(event) {
+                             let t =$(event.target)
+                             window.tree_code = t.attr('code')
+                             window.treePlanted[window.tree_code] = {
+                                code: t.attr('code'),
+                                text: t.html()
+                             }
+                        }
+                     })
 
                      let lv3_wrapper = $('<div class="inner"></div>')
                      let lv2_3_topics = lv3_topics.filter(topic => topic.code.includes(lv1_2_topic.code))
@@ -136,6 +135,8 @@ async function showTopic() {
                                  .attr('class', 'lv2_3_topic')
                                  .attr('href', "javascript:void(0)")
                                  .click(event, async () => {
+                                     window.curr_code = $(event.target).attr('code').slice(0,5)
+                                     console.log(window.curr_code)
                                      let code = $(event.target).attr('code')
                                      let qid = await getQid(code)
                                      console.log('topic', code)
