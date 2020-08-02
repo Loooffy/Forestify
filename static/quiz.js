@@ -62,54 +62,79 @@ function showFeedBack(className, content, correct) {
 }
 
 async function checkAnswer() {
-    let formData = {
-        qid: window.qid,
-        token: getToken()
-    }
 
     let feedback = {
         message: '',
         //correct: false
     }
     let treePoint = parseInt($('div.tree_point span').text())
-    console.log(treePoint)
-    try {
-        let x = window.treePlanted[window.curr_code].xy.x
-        let y = window.treePlanted[window.curr_code].xy.y
-    } catch(err) {
-        feedback.message = "小樹沒有地方長大，先選一塊地吧~"
+
+    let token = getToken()
+    token = token ? token : ""
+    let getTree = {
+        token: token,
+    }
+
+    let treePlanted = await $.ajax({
+        url: '../api/map/getTree',
+        type: 'POST',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify(getTree),
+    })
+
+    console.log(treePlanted)
+
+    if (treePlanted.filter(tree => tree.code === window.curr_code).length === 0) {
+        feedback.message = "小樹還沒有地方長大，先選一塊地吧~"
         showFeedBack('feedback', feedback.message, feedback.correct)
         return
+    }
+
+    let getAnswer = {
+        qid: window.qid,
+        token: getToken()
     }
 
     if ($('button.option_on').attr('correct') === "true") {
         feedback.correct = true
         feedback.message = '答對囉！你剛種下了一棵新的小樹～'
-        formData.correct = true
+        getAnswer.correct = true
     } else {
         feedback.correct = false
         feedback.message = '答案不對，再試試看喔！'
-        formData.correct = false
+        getAnswer.correct = false
     }
 
     let result = await $.ajax({
         url: '/api/quiz/postAnswer',
         type: 'POST',
-        data: JSON.stringify(formData),
+        data: JSON.stringify(getAnswer),
         contentType: 'application/json',
     })
 
     let correct = $('button.option_on').attr('correct') === "true" ? 1 : 0
     let status = `${result.history} ${result.inserted} ${correct}`
-    
-    let x = window.treePlanted[window.curr_code].xy.x
-    let y = window.treePlanted[window.curr_code].xy.y
-    console.log('status', status)
+
+    //let x = treePlanted[0].xy.slice(',')[0]
+    //let y = treePlanted[0].xy.slice(',')[1]
+    let x = $(`#tree_map text[code='${window.curr_code}']`).attr('x')
+    let y = $(`#tree_map text[code='${window.curr_code}']`).attr('y') - 15
+    console.log(treePlanted)
+    let endpoint = '/api/map/postTree'
+
+    let postTree = {
+        token: token,
+        code: window.curr_code,
+        correct: correct
+    }
+
     switch (status) {
         case '1 2 0':
             feedback.message = '答錯了，小樹枯枯QQ'
             removeTree(window.curr_code)
             treePoint -= 1
+            post(endpoint, postTree)
             break
         case '1 2 1':
             feedback.message = '恭喜你答對這題囉！跟小樹說哈囉～'
@@ -118,21 +143,36 @@ async function checkAnswer() {
             break
         case '0 2 1':
             treePoint += 1
-            plantTree(x, y, window.curr_code)
+            plantTree(x, y, window.curr_code, 1)
+            post(endpoint, postTree)
             break
         case '0 1 0':
             break
         case '0 1 1':
             console.log(treePoint)
             treePoint += 1
-            plantTree(x, y, window.curr_code)
+            plantTree(x, y, window.curr_code, 1)
+            post(endpoint, postTree)
             break
     }
+
+    console.log(postTree)
+
 
     $('div.tree_point span')
         .html((Array(4).join('0') + treePoint.toString()).slice(-4))
 
     showFeedBack('feedback', feedback.message, feedback.correct)
+}
+
+function post(url, data) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify(data),
+    })
 }
 
 function saveAnswer(e) {
@@ -245,13 +285,6 @@ function alertToggle() {
         })
 }
 
-function showHint() {
-        $('<img>')
-            .attr('src', '/static/image/hint.png')
-            .addClass('hint_box')
-            .appendTo(body)
-}
-
 async function showPage(qid) {
     window.qid = qid
     window.voted = new Set()
@@ -281,7 +314,11 @@ async function showPage(qid) {
     $('svg.hexMap').ready(() => {
         mapInit()
     })
-    await showMap()
+    if (window.treeDrawed != true) {
+        await treeMapInit()
+    }
+    if (window.hinted != true) {
+        await showMap()
+    }
     //refreshPlantedTitle()
-    showHint()
 }

@@ -2,7 +2,6 @@ function getToken() {
     let regex = /token=(.*?);|token=(.*?)$/
     let token = document.cookie.match(regex)
     token = token ? token.slice(1,3).filter(t => t != undefined)[0] : null
-    console.log(token)
     return token
 }
 
@@ -290,14 +289,16 @@ async function showMyQA() {
         .click(showMyQA)
         .appendTo(myQABox)
 }
-    
 
 async function showMap() {
+    window.hinted = true
+
     switch ($('.not_map').css('display')) {
         case 'none':
             $('.same_topic_quiz_field').css('display', 'flow-root')
             await $('.not_map').css('display', 'flex')
             $('.hint_box').css('display', 'none')
+            $('.hint_box').css('visibility', 'hidden')
             $('#hex_map').css('display', 'none')
             $('#text_map').css('display', 'none')
             $('#hex_map').css('visibility', 'hidden')
@@ -307,6 +308,7 @@ async function showMap() {
             $('.same_topic_quiz_field').css('display', 'none')
             $('.not_map').css('display', 'none')
             $('.hint_box').css('display', 'flow-root')
+            $('.hint_box').css('visibility', 'visible')
             $('#hex_map').css('display', 'flow-root')
             $('#text_map').css('display', 'flow-root')
             $('#hex_map').css('visibility', 'visible')
@@ -314,6 +316,57 @@ async function showMap() {
             MathJax.Hub.Queue(["Typeset",MathJax.Hub,'question'])
             MathJax.Hub.Queue(["Typeset",MathJax.Hub,'answer'])
             break
+    }
+}
+
+async function treeMapInit() {
+    window.treeDrawed = true
+    
+    let token = getToken()
+    token = token ? token : ""
+    let getTree = {
+        token: token,
+    }
+
+    let treePlanted = await $.ajax({
+        url: '../api/map/getTree',
+        type: 'POST',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify(getTree),
+    })
+
+    if (treePlanted.length != 0) {
+        treePlanted.map(async (tree) => {
+
+            let x = tree.xy.split(',')[0]
+            let y = tree.xy.split(',')[1]
+
+            plantTree(
+                x,
+                y,
+                tree.code,
+                tree.amount
+            )
+
+            $('#text_map')
+                .find(`text[x=${x}]`)
+                .filter(`text[y=${parseInt(y)+15}]`)
+                .attr('code', tree.code)
+                .html(tree.text.length < 7 ? tree.text : tree.text.slice(0,5) + '..')
+
+            $('#tree_map')
+            .find(`text[x=${x}]`)
+            .filter(`text[y=${parseInt(y)-15}]`)
+            .attr('code', tree.code)
+            .html('🌲')
+
+            console.log(treePlanted)
+
+            treePlanted.map(tree => {
+                $(`a[code='${tree.code}']`).html(tree.text)
+            })
+        })
     }
 }
 
