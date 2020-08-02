@@ -123,6 +123,8 @@ async function showTopic() {
                                 code: t.attr('code'),
                                 text: t.html()
                              }
+                             console.log(window.tree_code)
+                             console.log(window.curr_code)
                         }
                      })
 
