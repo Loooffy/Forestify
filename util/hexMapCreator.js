@@ -2,8 +2,8 @@ const createHexMap = (x0, y0, r) => {
     let map = new hexMap(x0, y0, r)
     let matrix = []
     let text = '1'
-    for (let i=1;i<12;i++) {
-        for (let j=1;j<7;j++) {
+    for (let i=1;i<7;i++) {
+        for (let j=1;j<6;j++) {
             matrix.push([i, j, text.length < 8 ? text : `${text.slice(0,7)}...` ])
         }
     }

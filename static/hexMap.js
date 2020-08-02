@@ -1,11 +1,38 @@
-function mapInit() {
-    $('path')
+async function mapInit() {
+    $('.hex_map path')
         .on('mouseup', async (event) => {
-            //if (Object.keys(window.treePlanted).includes(window.tree_code)) {
-            //    console.log('planted')
-            //    await showFeedBack('feedback', '這個主題已經被種過囉～')
-            //    return
-            //}
+            console.log('up', event.target)
+            event.stopPropagation()
+            event.stopImmediatePropagation()
+            let x = $(event.target).attr('x')
+            let y = $(event.target).attr('y')
+            let text = $(`a[code='${window.tree_code}']`).html()
+            let token = getToken()
+            token = token ? token : ""
+            let formData = {
+                token: token,
+                code: window.tree_code,
+                text: text.slice(3,),
+                xy: `${x},${y}`
+            }
+
+            let result = await $.ajax({
+                url: '../api/map/postMap',
+                type: 'POST',
+                contentType: 'application/json',
+                processData: false,
+                data: JSON.stringify(formData),
+            })
+
+            if (result.err) {
+                showFeedBack('feedback', '這個主題已經種過囉～')
+                console.log(result)
+                console.log('here')
+                return
+            }
+
+            $(event.target).unbind('mouseup')
+
             try {
                 let x = $(event.target).attr('x')
                 let y = $(event.target).attr('y')
@@ -14,18 +41,21 @@ function mapInit() {
                         x: x,
                         y: y
                     }
-                let text = $(`a[code='${window.tree_code}']`).html()
-                text = text.length < 8 ? text.slice(3,) + '..' : text.slice(3, 8) + '..'
+                let text = $(`a[code='${window.tree_code}']`).html().slice(3,)
+                $(`a[code='${window.tree_code}']`).html(text)
+                text = text.length < 8 ? text : text.slice(0, 8) + '..'
                 
                 $('#text_map')
                     .find(`text[x=${x}]`)
                     .filter(`text[y=${parseInt(y)+15}]`)
+                    .attr('code', window.tree_code)
                     .html(text)
 
                 $('#tree_map')
                 .find(`text[x=${x}]`)
                 .filter(`text[y=${parseInt(y)-15}]`)
-                    .html('🌲')
+                .attr('code', window.tree_code)
+                .html('🌲')
                 
             delete window.tree_code
             //refreshPlantedTitle()
@@ -42,15 +72,14 @@ function refreshPlantedTitle () {
     return
 }
 
-
-async function plantTree(x, y, code) {
-	let arr = Array(3).fill(1)
+async function plantTree(x, y, code, amount) {
+    console.log('xy', x, y)
+	let arr = Array(amount * 3).fill(1)
     for (i of arr) {
         await delay()
-        $(body)
+        $($('.tree_planted'))
             .append(
                 $('<img>')
-                    .addClass('tree_planted')
                     .attr('code', code)
                     .attr('src', '/static/image/treemove.gif')
                     .css('left', `${(parseInt(x) + ran(0, 30) * (ran(0 ,2) === 0 ? 1: -1)) - 40}px`)
@@ -68,7 +97,7 @@ function removeTree(code) {
 function delay() {   
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
-      resolve('我是傳下去的值');
+      resolve('');
     }, 160);
   });
 }
