@@ -1,6 +1,7 @@
 doctype html
 
 head
+    link(rel="icon" href="/static/image/logo.png" sizes="16x16" type="iamge/png")
     script(
         type="text/javascript" 
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
@@ -38,6 +39,10 @@ head
 html
     body(id="body")
         img(
+            id="logo"
+            src="/static/image/logo_word.png"
+        )
+        img(
             class="status_widget widget"
             src="/static/image/status.png"
             onclick="showStatus()"
@@ -64,7 +69,7 @@ html
         )
         img(
             class="map_widget widget"
-            src="/static/image/status.png"
+            src="/static/image/map.png"
             onclick="showMap()"
         )
         img(
