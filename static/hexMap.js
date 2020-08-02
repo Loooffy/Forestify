@@ -81,7 +81,7 @@ async function plantTree(x, y, code, amount) {
             .append(
                 $('<img>')
                     .attr('code', code)
-                    .attr('src', '/static/image/treemove.gif')
+                    .attr('src', '/static/image/tree.gif')
                     .css('left', `${(parseInt(x) + ran(0, 30) * (ran(0 ,2) === 0 ? 1: -1)) - 40}px`)
                     .css('top', `${(parseInt(y) + ran(0, 30) * (ran(0 ,2) === 0 ? 1: -1)) - 55}px`)
                     .css('width', `${ran(1, 4)}rem`)
