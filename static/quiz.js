@@ -228,7 +228,7 @@ async function showQuiz(qid) {
     $('<div>').attr('id', 'question').html(data.question).appendTo($('div.question_field'))
     $('<div>').addClass('squirrel_wrapper').appendTo($('div.question_field'))
     $('<img>')
-        .attr('src', '/static/image/squirrel.png')
+        .attr('src', 'https://forestify.theshinings.online/static/image/squirrel.png')
         .attr('id', 'squirrel')
         .appendTo($('div.squirrel_wrapper'))
     $('div.answer_field').attr('id', 'answer').html(mix)

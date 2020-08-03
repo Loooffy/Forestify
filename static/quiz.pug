@@ -1,7 +1,7 @@
 doctype html
 
 head
-    link(rel="icon" href="/static/image/logo.png" sizes="16x16" type="iamge/png")
+    link(rel="icon" href="https://forestify.theshinings.online/static/image/logo.png" sizes="16x16" type="iamge/png")
     script(
         type="text/javascript" 
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
@@ -11,12 +11,12 @@ head
     ) MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { availableFonts: ["TeX"] } })
     link(
         rel="stylesheet"
-        href="../../static/quiz.css"
+        href="https://forestify.theshinings.online/static/quiz.css"
     )
 
     link(
         rel="stylesheet"
-        href="../../static/hexMap.css"
+        href="https://forestify.theshinings.online/static/hexMap.css"
     )
 
     link(
@@ -28,23 +28,23 @@ head
     script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
     script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js")
-    script(src="../../static/quiz.js")
-    script(src="../../static/post.js")
-    script(src="../../static/topic.js")
-    script(src="../../static/user.js")
-    script(src="../../static/hexMap.js")
-    script(src="../../static/sign.js")
+    script(src="https://forestify.theshinings.online/static/quiz.js")
+    script(src="https://forestify.theshinings.online/static/post.js")
+    script(src="https://forestify.theshinings.online/static/topic.js")
+    script(src="https://forestify.theshinings.online/static/user.js")
+    script(src="https://forestify.theshinings.online/static/hexMap.js")
+    script(src="https://forestify.theshinings.online/static/sign.js")
     script $('body').onload=showPage(#{qid})
 
 html
     body(id="body")
         img(
             id="logo"
-            src="/static/image/logo_word.png"
+            src="https://forestify.theshinings.online/static/image/logo_word.png"
         )
         img(
             class="status_widget widget"
-            src="/static/image/status.png"
+            src="https://forestify.theshinings.online/static/image/status.png"
             onclick="showStatus()"
         )
         //img(
@@ -64,32 +64,18 @@ html
         //)
         img(
             class="QA_widget widget"
-            src="/static/image/QA.png"
+            src="https://forestify.theshinings.online/static/image/QA.png"
             onclick="showMyQA()"
         )
         img(
             class="map_widget widget"
-            src="/static/image/map.png"
+            src="https://forestify.theshinings.online/static/image/map.png"
             onclick="showMap()"
         )
         img(
             class="hint_box"
-            src="/static/image/hint.png"
+            src="https://forestify.theshinings.online/static/image/hint.png"
         )
-        //div(class="header")
-            div(class="site_function")
-                img(class="logo" src="../../static/logo.png")
-                img(class="quiz_list" src="../../static/menu.jpg")
-            div(class="user_function")
-                img(
-                    class="search"
-                    src="https://www.pinclipart.com/picdir/big/4-45027_vector-search-icon-search-icon-vector-png-clipart.png"
-                )
-                a(href="../static/sign.html")
-                    img(
-                        class="profile"
-                        src="https://www.pngkey.com/png/full/202-2024792_user-profile-icon-png-download-fa-user-circle.png"
-                    )
 
         div(class="question_field not_map")
         div(class="answer_field not_map")
