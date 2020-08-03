@@ -137,6 +137,10 @@ async function showTopic() {
                                  .attr('class', 'lv2_3_topic')
                                  .attr('href', "javascript:void(0)")
                                  .click(event, async () => {
+                                    console.log($('.not_map').attr('display'))
+                                     if ($('.not_map').css('display') === "none") {
+                                         $('.map_widget').trigger('click')
+                                     }
                                      window.curr_code = $(event.target).attr('code').slice(0,5)
                                      console.log(window.curr_code)
                                      let code = $(event.target).attr('code')

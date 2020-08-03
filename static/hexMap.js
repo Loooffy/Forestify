@@ -1,5 +1,11 @@
 async function mapInit() {
     $('.hex_map path')
+        .click(async (event) => {
+            await $(`a[code='${$(event.target).attr("code").slice(0,3)}']`)
+                .trigger('click')
+            $(`a[code='${$(event.target).attr("code")}']`)
+                .trigger('click')
+        })
         .on('mouseup', async (event) => {
             console.log('up', event.target)
             event.stopPropagation()
@@ -52,10 +58,15 @@ async function mapInit() {
                     .html(text)
 
                 $('#tree_map')
-                .find(`text[x=${x}]`)
-                .filter(`text[y=${parseInt(y)-15}]`)
-                .attr('code', window.tree_code)
-                .html('🌲')
+                    .find(`text[x=${x}]`)
+                    .filter(`text[y=${parseInt(y)-15}]`)
+                    .attr('code', window.tree_code)
+                    .html('🌲')
+
+                $('path')
+                    .filter(`[x=${parseInt(x)}]`)
+                    .filter(`[y=${parseInt(y)}]`)
+                    .attr('code', window.tree_code)
                 
             delete window.tree_code
             //refreshPlantedTitle()

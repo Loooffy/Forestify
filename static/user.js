@@ -356,10 +356,15 @@ async function treeMapInit() {
                 .html(tree.text.length < 7 ? tree.text : tree.text.slice(0,5) + '..')
 
             $('#tree_map')
-            .find(`text[x=${x}]`)
-            .filter(`text[y=${parseInt(y)-15}]`)
-            .attr('code', tree.code)
-            .html('🌲')
+                .find(`text[x=${x}]`)
+                .filter(`text[y=${parseInt(y)-15}]`)
+                .attr('code', tree.code)
+                .html('🌲')
+
+            $('path')
+                .filter(`[x=${parseInt(x)}]`)
+                .filter(`[y=${parseInt(y)}]`)
+                .attr('code', tree.code)
 
             console.log(treePlanted)
 
