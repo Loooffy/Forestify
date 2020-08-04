@@ -15,7 +15,7 @@ const renderQuizPage = async (req, res) => {
     qid: qid,
     hexData: allHex,
   };
-  res.render('quiz', renderData);
+  res.render('index', renderData);
 };
 
 module.exports = {
