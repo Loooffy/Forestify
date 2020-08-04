@@ -1,57 +1,7 @@
 doctype html
 
 head
-    link(
-        rel="stylesheet"
-        href="../../static/quiz.css"
-    )
-    script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js")
-    script(src="../../static/quiz.js")
-
-html
-    body(onload="showDiscussion()")
-        div(class="header")
-            div(class="site_function")
-                img(class="logo" src="../../static/logo.png")
-                img(class="quiz_list" src="../../static/menu.jpg")
-            div(class="user_function")
-                img(
-                    class="search"
-                    src="https://www.pinclipart.com/picdir/big/4-45027_vector-search-icon-search-icon-vector-png-clipart.png"
-                )
-                div(class="profile") login
-        div(class="question_field") !{question}
-        div(class="answer_field")
-            div(class="option_field")
-                each choice in options
-                    button(
-                        class="answer"
-                        onclick="saveAnswer(event)"
-                    )=choice
-            button(
-                class="answer_button"
-                onclick="checkAnswer()"
-            ) 送出解答
-        div(class="discussion_field")
-            div(class="discussion_row")
-                div(class="post_info")
-                    div(class="owner_info")
-                        img(
-                            class="avatar"
-                            src="https://image.freepik.com/free-vector/pig-animal-cute-little-cartoon-icon_24911-12131.jpg"
-                        )
-                        div(class="post_owner") #{user_id}
-                        div(class="post_time") #{post_time}
-                    div(class="post_title") 還剩兩個禮拜，希望解得出來~
-                    div(class="post_content") #{content}
-                div(class="post_status") 
-                    div(class="post_vote") 14
-                    img(class="vote_up" src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_up_48px-512.png")
-                    img(class="vote_down" src="https://cdn0.iconfinder.com/data/icons/arrows-android-l-lollipop-icon-pack/24/expand2-512.png")
-                    img(class="post_reply" src="https://cdn4.iconfinder.com/data/icons/email-and-messages/128/Email_arrow_left_reply-512.png")
-                    img(class="post_expand" src="https://image.flaticon.com/icons/svg/566/566004.svg")
-
+    link(rel="icon" href="https://forestify.theshinings.online/static/image/logo.png" sizes="16x16" type="iamge/png")
     script(
         type="text/javascript" 
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
@@ -59,3 +9,136 @@ html
     script(
         type="text/x-mathjax-config"
     ) MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { availableFonts: ["TeX"] } })
+    link(
+        rel="stylesheet"
+        href="/static/index.css"
+    )
+
+    link(
+        rel="stylesheet"
+        href="/static/hexMap.css"
+    )
+
+    link(
+        rel="stylesheet/less"
+        type="text/css"
+        href="/static/styles.less"
+    )
+    script(src="https://cdn.jsdelivr.net/npm/less")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
+    script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js")
+    script(src="/static/util.js")
+    script(src="/static/init.js")
+    script(src="/static/quiz.js")
+    script(src="/static/post.js")
+    script(src="static/topic.js")
+    script(src="/static/user.js")
+    script(src="/static/hexMap.js")
+    script(src="/static/sign.js")
+    script $('body').onload=showPage(#{qid})
+
+html
+    body(id="body")
+        img(
+            id="logo"
+            src="/static/image/logo_word.png"
+        )
+        img(
+            class="status_widget widget"
+            src="/static/image/status.png"
+            onclick="showStatus()"
+        )
+        //img(
+        //    class="search_widget widget"
+        //    src="/static/image/status.png"
+        //    onclick="showStatus()"
+        //)
+        //img(
+        //    class="bucket_widget widget"
+        //    src="/static/image/status.png"
+        //    onclick="showStatus()"
+        //)
+        //img(
+        //    class="point_widget widget"
+        //    src="/static/image/status.png"
+        //    onclick="showStatus()"
+        //)
+        img(
+            class="QA_widget widget"
+            src="/static/image/QA.png"
+            onclick="showMyQA()"
+        )
+        img(
+            class="map_widget widget"
+            src="/static/image/map.png"
+            onclick="showMap()"
+        )
+        img(
+            class="hint_box"
+            src="/static/image/hint.png"
+        )
+
+        div(class="question_field not_map")
+        div(class="answer_field not_map")
+        div(class="same_topic_quiz_field")
+        div(class="topic_field")
+        div(class="post_Q not_map")
+            div(class="post_Q_info")
+                img(
+                class="avatar"
+                src="https://image.freepik.com/free-vector/pig-animal-cute-little-cartoon-icon_24911-12131.jpg"
+                )
+                input(
+                    class="post_Q_title"
+                    placeholder="   標題"
+                )
+            textarea(
+                class="post_Q_content"
+                placeholder="   留下問題或解題分享"
+                cols="30"
+                rows="4"
+            )
+            button(
+                class="send_Q"
+                onclick="postQuestion(event)"
+            ) 送出問題
+        div(class="QA_field not_map")
+        include hexMap.pug  
+        div(class="tree_planted")
+
+        template(
+            "class"="quiz not_map"
+            display:none
+        )
+            button(
+                class="option"
+                onclick="saveAnswer(event)"
+            )
+            div(class="option_field")
+            button(
+                class="answer_button"
+                onclick="checkAnswer()"
+            ) 送出解答
+
+        template(
+            "class"="QA not_map"
+            display:none
+        )
+            div(class="QA_row")
+                div(class="post_info")
+                    div(class="owner_info")
+                        img(
+                            class="avatar"
+                            src="https://image.freepik.com/free-vector/pig-animal-cute-little-cartoon-icon_24911-12131.jpg"
+                        )
+                        div(class="post_owner")
+                        div(class="post_time")
+                    div(class="post_title")
+                    div(class="post_content")
+                div(class="post_status") 
+                    div(class="post_vote")
+                    img(class="vote_up" src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_up_48px-512.png" onclick="voteQuestion(event)")
+                    //img(class="vote_down" src="https://cdn0.iconfinder.com/data/icons/arrows-android-l-lollipop-icon-pack/24/expand2-512.png")
+                    //img(class="post_reply" src="https://cdn4.iconfinder.com/data/icons/email-and-messages/128/Email_arrow_left_reply-512.png")
+                    //img(class="post_expand" src="https://image.flaticon.com/icons/svg/566/566004.svg")
