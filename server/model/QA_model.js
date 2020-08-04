@@ -1,7 +1,7 @@
-const { query, transaction, commit, rollback } = require('../../util/mysqlCon.js');
+const {query, transaction, commit, rollback} = require('../../util/mysqlCon.js');
 
 const getQAData = async (qid) => {
-    let QAQ = 
+  const QAQ =
         `
             SELECT 
                 QA.*,
@@ -23,20 +23,20 @@ const getQAData = async (qid) => {
             WHERE
                 quiz.qid = ?
             ORDER BY QA.post_time DESC
-        `
+        `;
 
-    const results = await query(QAQ, [qid])
-    return {data: results}
-    }
+  const results = await query(QAQ, [qid]);
+  return {data: results};
+};
 
 const postQ = async (data) => {
-    console.log(data)
-    const results = await query('INSERT INTO QA SET ?', [data])
-    await query('INSERT INTO votes(giver_id, QA_id, vote, qid) values(0, ?, 0, ?)', [results.insertId, data.quiz_id])
-    return results
-}
+  console.log(data);
+  const results = await query('INSERT INTO QA SET ?', [data]);
+  await query('INSERT INTO votes(giver_id, QA_id, vote, qid) values(0, ?, 0, ?)', [results.insertId, data.quiz_id]);
+  return results;
+};
 
 module.exports = {
-    getQAData,
-    postQ
-}
+  getQAData,
+  postQ,
+};

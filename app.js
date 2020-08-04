@@ -3,7 +3,6 @@ const bodyParser = require('body-parser')
 const app = express()
 require('dotenv').config();
 const {PORT} = process.env;
-const port = PORT
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
@@ -38,4 +37,4 @@ app.use(function(err, req, res, next) {
     res.status(500).send('Internal Server Error');
 });
 
-app.listen(port, () => console.log('app listening'))
+app.listen(PORT, () => console.log('app listening'))

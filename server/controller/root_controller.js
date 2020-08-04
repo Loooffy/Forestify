@@ -1,24 +1,23 @@
-const marked = require('marked')
+const marked = require('marked');
 const Quiz = require('../model/quiz_model');
 const QA = require('../model/QA_model');
-const hexMap = require('../../util/hexMapCreator')
+const hexMap = require('../../util/hexMapCreator');
+require('dotenv').config();
+const {HEX_MAP_X0, HEX_MAP_Y0, HEX_GRID_SIZE} = process.env;
+const {INDEX_PAGE_QID} = process.env;
 
 const renderQuizPage = async (req, res) => {
-    let qid = req.query.qid
-    qid = req.query.qid ? req.query.qid : 41882
-    //let result = await Quiz.getQuizData()
-    let result = await QA.getQAData(qid)
-    //result.data.options = JSON.parse(result.data.options)
-    //result.data.question = marked(result.data.question)
-    //res.render('index', result.data)
-    let allHex = hexMap.createHexMap(320, 30, 45)
-    let renderData = {
-        qid: qid,
-        hexData: allHex
-    }
-    res.render('quiz', renderData)
-}
-    
+  let qid = req.query.qid;
+  qid = req.query.qid ? req.query.qid : INDEX_PAGE_QID;
+  const result = await QA.getQAData(qid);
+  const allHex = hexMap.createHexMap(parseInt(HEX_MAP_X0), parseInt(HEX_MAP_Y0), parseInt(HEX_GRID_SIZE));
+  const renderData = {
+    qid: qid,
+    hexData: allHex,
+  };
+  res.render('quiz', renderData);
+};
+
 module.exports = {
-    renderQuizPage
-}
+  renderQuizPage,
+};

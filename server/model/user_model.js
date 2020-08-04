@@ -1,48 +1,48 @@
-const { query, transaction, commit, rollback } = require('../../util/mysqlCon.js');
+const {query, transaction, commit, rollback} = require('../../util/mysqlCon.js');
 
 const signUp = async (email, name, password) => {
-    try {
-        let student = await query(`insert into student(email, name, password) values('${email}', '${name}', '${password}')`)
-        return student
-    } catch (err) {
-        if (err.code) { 
-            return { err: err.code }
-        }
+  try {
+    const student = await query(`insert into student(email, name, password) values('${email}', '${name}', '${password}')`);
+    return student;
+  } catch (err) {
+    if (err.code) {
+      return {err: err.code};
     }
-}
+  }
+};
 
 const getUser = async (email) => {
-    try {
-        let studentQ = 'select id from student where email = ?'
-        let student = await query(studentQ, [email])
-        return student[0]
-    } catch (err) {
-        console.log(err)
-        if (err.code) { 
-            return { err: err.code }
-        }
+  try {
+    const studentQ = 'select id from student where email = ?';
+    const student = await query(studentQ, [email]);
+    return student[0];
+  } catch (err) {
+    console.log(err);
+    if (err.code) {
+      return {err: err.code};
     }
-}
+  }
+};
 
 const nativeSignIn = async (email, password) => {
-    let studentQ = 'select email, name from student where email = ? and password = ?'
-    let student = await query(studentQ, [email, password])
-    console.log(student)
-    return student[0]
-}
+  const studentQ = 'select email, name from student where email = ? and password = ?';
+  const student = await query(studentQ, [email, password]);
+  console.log(student);
+  return student[0];
+};
 
 const facebookSignIn = async (email) => {
-    let student = await query(`select id, name, email from student where email = '${email}'`)
-    return student
-}
+  const student = await query(`select id, name, email from student where email = '${email}'`);
+  return student;
+};
 
 const isLogged = async (email) => {
-    let student = await query('select exists(select email from student where email = ?) as valid', [email])
-    return student[0].valid
-}
+  const student = await query('select exists(select email from student where email = ?) as valid', [email]);
+  return student[0].valid;
+};
 
 const getStatus = async (user_id) => {
-    let statusQ = 
+  const statusQ =
         `
             SELECT 
                 qsc.code,
@@ -69,19 +69,19 @@ const getStatus = async (user_id) => {
                 code_topic AS lv3 ON LEFT(qsc.code, 7) = lv3.code
                 inner join code_quiz on code_quiz.code = qsc.code
             ORDER BY time DESC
-        `
-    let status = await query(statusQ, [user_id])
-    return status
-}
+        `;
+  const status = await query(statusQ, [user_id]);
+  return status;
+};
 
 const getTreePoint = async (user_id) => {
-    let treePointQ = 'SELECT count(id) as treePoint from quiz_solving where user_id = ? and correct = 1'
-    let treePoint = await query(treePointQ, [user_id])
-    return treePoint[0]
-}
+  const treePointQ = 'SELECT count(id) as treePoint from quiz_solving where user_id = ? and correct = 1';
+  const treePoint = await query(treePointQ, [user_id]);
+  return treePoint[0];
+};
 
 const getMyQA = async (user_id) => {
-    let myQAQ =
+  const myQAQ =
         `
             SELECT 
                 allQA.content,
@@ -119,18 +119,18 @@ const getMyQA = async (user_id) => {
             WHERE
                 user_id = ?
             ORDER BY allQA.post_time DESC
-        `
-    let myQA = await query(myQAQ, [user_id])
-    return myQA
-}
+        `;
+  const myQA = await query(myQAQ, [user_id]);
+  return myQA;
+};
 
 module.exports = {
-    signUp,
-    getUser,
-    nativeSignIn,
-    facebookSignIn,
-    isLogged,
-    getStatus,
-    getTreePoint,
-    getMyQA,
-}
+  signUp,
+  getUser,
+  nativeSignIn,
+  facebookSignIn,
+  isLogged,
+  getStatus,
+  getTreePoint,
+  getMyQA,
+};

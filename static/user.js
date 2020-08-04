@@ -6,13 +6,6 @@ function getToken() {
 }
 
 function statusFilter(status) {
-    //let constraint = {
-    //    all: false,
-    //    none: false,
-    //    correct: [1],
-    //    //topic: [],
-    //    grade: ['7','8','9'],
-    //}
 
     let {...constraint} = {...window.constraints}
     console.log(constraint)
@@ -22,7 +15,6 @@ function statusFilter(status) {
 
     let comparison = 
         (constraint.correct.includes(status.correct.toString()) &&
-        //constraint.topic.includes(status.correct) &&
         constraint.grade.includes(status.code.slice(5,6)) ||
         constraint.all) &&
         !constraint.none
@@ -174,7 +166,6 @@ async function showStatus() {
         .addClass('box_content')
         .appendTo(statusBox)
 
-    //if (!window.status) {
         let result = await $.ajax({
             url: '../api/user/status',
             type: 'POST',
@@ -184,7 +175,6 @@ async function showStatus() {
         })
 
         if (result.signBlock) {
-            //window.statusBoxOn = !window.statusBoxOn
             $('body').append(result.signBlock)
             return
         }
@@ -328,13 +318,13 @@ async function treeMapInit() {
         token: token,
     }
 
-    let treePlanted = await $.ajax({
-        url: '../api/map/getTree',
-        type: 'POST',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify(getTree),
-    })
+    let treePlanted = await post('/api/map/getTree', getTree)
+
+    if (treePlanted.signBlock) {
+        $('body').append(treePlanted.signBlock)
+        return
+    }
+    console.log(treePlanted)
 
     if (treePlanted.length != 0) {
         treePlanted.map(async (tree) => {
@@ -365,8 +355,6 @@ async function treeMapInit() {
                 .filter(`[x=${parseInt(x)}]`)
                 .filter(`[y=${parseInt(y)}]`)
                 .attr('code', tree.code)
-
-            console.log(treePlanted)
 
             treePlanted.map(tree => {
                 $(`a[code='${tree.code}']`).html(tree.text)
@@ -422,11 +410,3 @@ async function showTreePoint() {
         )
         .appendTo(body)
 }
-
-//$(body)
-//    .append($('<div>')
-//    .css('width', '100vw')
-//    .css('height', '100vh')
-//    .css('background', 'white')
-//    .css('opacity', '0.4')
-//    .css('position', 'fixed'))

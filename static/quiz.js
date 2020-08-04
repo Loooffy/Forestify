@@ -65,7 +65,6 @@ async function checkAnswer() {
 
     let feedback = {
         message: '',
-        //correct: false
     }
     let treePoint = parseInt($('div.tree_point span').text())
 
@@ -75,15 +74,7 @@ async function checkAnswer() {
         token: token,
     }
 
-    let treePlanted = await $.ajax({
-        url: '../api/map/getTree',
-        type: 'POST',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify(getTree),
-    })
-
-    console.log(treePlanted)
+    let treePlanted = await post('/api/map/getTree', getTree)
 
     if (treePlanted.filter(tree => tree.code === window.curr_code).length === 0) {
         feedback.message = "小樹還沒有地方長大，先選一塊地吧~"
@@ -106,22 +97,13 @@ async function checkAnswer() {
         getAnswer.correct = false
     }
 
-    let result = await $.ajax({
-        url: '/api/quiz/postAnswer',
-        type: 'POST',
-        data: JSON.stringify(getAnswer),
-        contentType: 'application/json',
-    })
+    let result = await post('/api/quiz/postAnswer', getAnswer)
 
     let correct = $('button.option_on').attr('correct') === "true" ? 1 : 0
     let status = `${result.history} ${result.inserted} ${correct}`
 
-    //let x = treePlanted[0].xy.slice(',')[0]
-    //let y = treePlanted[0].xy.slice(',')[1]
     let x = $(`#tree_map text[code='${window.curr_code}']`).attr('x')
     let y = $(`#tree_map text[code='${window.curr_code}']`).attr('y') - 15
-    console.log(treePlanted)
-    let endpoint = '/api/map/postTree'
 
     let postTree = {
         token: token,
@@ -134,7 +116,7 @@ async function checkAnswer() {
             feedback.message = '答錯了，小樹枯枯QQ'
             removeTree(window.curr_code)
             treePoint -= 1
-            post(endpoint, postTree)
+            post('/api/map/postTree', postTree)
             break
         case '1 2 1':
             feedback.message = '恭喜你答對這題囉！跟小樹說哈囉～'
@@ -144,7 +126,7 @@ async function checkAnswer() {
         case '0 2 1':
             treePoint += 1
             plantTree(x, y, window.curr_code, 1)
-            post(endpoint, postTree)
+            post('/api/map/postTree', postTree)
             break
         case '0 1 0':
             break
@@ -152,27 +134,14 @@ async function checkAnswer() {
             console.log(treePoint)
             treePoint += 1
             plantTree(x, y, window.curr_code, 1)
-            post(endpoint, postTree)
+            post('/api/map/postTree', postTree)
             break
     }
-
-    console.log(postTree)
-
 
     $('div.tree_point span')
         .html((Array(4).join('0') + treePoint.toString()).slice(-4))
 
     showFeedBack('feedback', feedback.message, feedback.correct)
-}
-
-function post(url, data) {
-    $.ajax({
-        url: url,
-        type: 'POST',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify(data),
-    })
 }
 
 function saveAnswer(e) {
@@ -208,14 +177,12 @@ async function showQuiz(qid) {
     let data = await $.get(quizUrl, (res) => {
         return res
     })
-        .then(res => JSON.parse(res))
-        .then(resObj => resObj.data)
    
     window.quiz_code = data.code
     let temp = getTemplate('quiz')
     let mix = ''
 
-    choices = JSON.parse(data.choices)
+    let choices = JSON.parse(data.choices)
     $.each(choices, function (key, ele){
         temp[0].innerHTML = JSON.parse(ele).content
         $(temp[0]).attr('correct', JSON.parse(ele).correct)
@@ -241,7 +208,6 @@ async function showQA(qid) {
     let QA = await $.get(`/api/QA/getQAData?qid=${qid}`, (res) => {
         return res
     })
-    console.log(QA)
     let temp = getTemplate('QA')
     let mix = ''
   
@@ -260,65 +226,4 @@ async function showQA(qid) {
     })
 
     $("div.QA_field").html(mix)
-}
-
-function clearPage() {
-    $('div.question_field').empty()
-    $('div.QA_field').empty()
-    $('div.same_topic_quiz_field').empty()
-    $('div.tree_point').empty()
-    //$('div.post_Q').empty()
-    //$('div.topic_field').empty()
-}
-
-function alertToggle() {
-    $(document)
-        .click((event) => {
-            if (!$(event.target).hasClass('answer_button')) {
-                $('div.feedback').remove()
-                return
-            } 
-            //if ($(event.target).hasClass('widget')) {
-            //    showStatus()
-            //    return
-            //}
-        })
-}
-
-async function showPage(qid) {
-    window.qid = qid
-    window.voted = new Set()
-    window.statusBoxOn = false
-    window.myQABoxOn = false
-    window.treePlanted = window.treePlanted ? window.treePlanted : {}
-    window.curr_code = window.curr_code ? window.curr_code : 'mjnzs'
-    window.constraints = {
-        all: false,
-        none: false,
-        correct: [],
-        //topic: [],
-        grade: [],
-    }
-    await clearPage()
-    showTreePoint()
-    await showQuiz(qid)
-    showQA(qid)
-    await showSameTopicQuiz(qid)
-    alertToggle()
-    $('div.topic_field').ready(() => {
-        if ($('div.topic_field').html().length === 0) {
-            showTopic()
-        }
-    })
-    refreshQuizColor(window.quiz_code, 'quiz')
-    $('svg.hexMap').ready(() => {
-        mapInit()
-    })
-    if (window.treeDrawed != true) {
-        await treeMapInit()
-    }
-    if (window.hinted != true) {
-        await showMap()
-    }
-    //refreshPlantedTitle()
 }

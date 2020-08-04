@@ -1,53 +1,52 @@
-const { query, transaction, commit, rollback } = require('../../util/mysqlCon.js');
+const {query, transaction, commit, rollback} = require('../../util/mysqlCon.js');
 
 const getTree = async (user_id) => {
-    let treeQ = 'SELECT code, amount, xy, text FROM tree where user_id = ?'
-    const results = await query(treeQ, [user_id])
-    console.log(results)
-    return results
-}
+  const treeQ = 'SELECT code, amount, xy, text FROM tree where user_id = ?';
+  const results = await query(treeQ, [user_id]);
+  console.log(results);
+  return results;
+};
 
 const postTree = async (user_id, code, correct) => {
+  console.log('model', user_id);
 
-    console.log('model', user_id)
+  let treeQ = '';
 
-    let treeQ = ''
-
-    if (correct === 1) {
-        treeQ = 
+  if (correct === 1) {
+    treeQ =
         `
             insert into tree(user_id, code)
                 values(?, ?)
             on duplicate key update
                 amount = amount + 1
-        `
-    } else {
-        treeQ = 
+        `;
+  } else {
+    treeQ =
         `
             insert into tree(user_id, code)
                 values(?, ?)
             on duplicate key update
                 amount = amount - 1
-        `
-    }
+        `;
+  }
 
-    let result = await query(treeQ, [user_id, code])
-    return result
-}
+  const result = await query(treeQ, [user_id, code]);
+  return result;
+};
 
 const postMap = async (user_id, code, xy, text) => {
-    console.log(user_id, code, xy, text)
-    let mapQ = 
+  console.log(user_id, code, xy, text);
+  const mapQ =
         `
             insert into tree(user_id, code, amount,  xy, text) 
                 values(?, ?, 0, ?, ?)
-        `
-    let result = await query(mapQ, [user_id, code, xy, text])
-    return result
-}
+        `;
+  const result = await query(mapQ, [user_id, code, xy, text]);
+  return result;
+};
 
 module.exports = {
-    getTree,
-    postTree,
-    postMap,
-}
+  getTree,
+  postTree,
+  postMap,
+};

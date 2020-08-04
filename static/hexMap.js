@@ -7,7 +7,7 @@ async function mapInit() {
                 .trigger('click')
         })
         .on('mouseup', async (event) => {
-            console.log('up', event.target)
+            $('.helper').remove()
             event.stopPropagation()
             event.stopImmediatePropagation()
             let x = $(event.target).attr('x')
@@ -22,13 +22,7 @@ async function mapInit() {
                 xy: `${x},${y}`
             }
 
-            let result = await $.ajax({
-                url: '../api/map/postMap',
-                type: 'POST',
-                contentType: 'application/json',
-                processData: false,
-                data: JSON.stringify(formData),
-            })
+            let result = await post('/api/map/postMap', formData)
 
             if (result.err) {
                 showFeedBack('feedback', '這個主題已經種過囉～')
@@ -36,8 +30,6 @@ async function mapInit() {
                 console.log('here')
                 return
             }
-
-            $(event.target).unbind('mouseup')
 
             try {
                 let x = $(event.target).attr('x')
@@ -69,7 +61,6 @@ async function mapInit() {
                     .attr('code', window.tree_code)
                 
             delete window.tree_code
-            //refreshPlantedTitle()
             } catch {
                 return
             }
@@ -99,22 +90,4 @@ async function plantTree(x, y, code, amount) {
             )
         console.log('foo')
     }
-}
-
-function removeTree(code) {
-    $(`img[code="${code}"]:lt(3)`).remove()
-}
-
-function delay() {   
-  return new Promise(function (resolve, reject) {
-    setTimeout(function () {
-      resolve('');
-    }, 160);
-  });
-}
-
-function ran(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
 }

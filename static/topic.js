@@ -116,7 +116,8 @@ async function showTopic() {
                      .draggable({
                         appendTo: body,
                         helper: 'clone',
-                        start: function(event) {
+                        start: function(event, ui) {
+                            $(ui.helper).addClass("helper")
                              let t =$(event.target)
                              window.tree_code = t.attr('code')
                              window.treePlanted[window.tree_code] = {
@@ -125,7 +126,7 @@ async function showTopic() {
                              }
                              console.log(window.tree_code)
                              console.log(window.curr_code)
-                        }
+                        },
                      })
 
                      let lv3_wrapper = $('<div class="inner"></div>')

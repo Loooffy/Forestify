@@ -28,23 +28,25 @@ head
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
     script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js")
-    script(src="https://forestify.theshinings.online/static/quiz.js")
-    script(src="https://forestify.theshinings.online/static/post.js")
-    script(src="https://forestify.theshinings.online/static/topic.js")
-    script(src="https://forestify.theshinings.online/static/user.js")
-    script(src="https://forestify.theshinings.online/static/hexMap.js")
-    script(src="https://forestify.theshinings.online/static/sign.js")
+    script(src="/static/util.js")
+    script(src="/static/init.js")
+    script(src="/static/quiz.js")
+    script(src="/static/post.js")
+    script(src="static/topic.js")
+    script(src="/static/user.js")
+    script(src="/static/hexMap.js")
+    script(src="/static/sign.js")
     script $('body').onload=showPage(#{qid})
 
 html
     body(id="body")
         img(
             id="logo"
-            src="https://forestify.theshinings.online/static/image/logo_word.png"
+            src="/static/image/logo_word.png"
         )
         img(
             class="status_widget widget"
-            src="https://forestify.theshinings.online/static/image/status.png"
+            src="/static/image/status.png"
             onclick="showStatus()"
         )
         //img(
@@ -64,17 +66,17 @@ html
         //)
         img(
             class="QA_widget widget"
-            src="https://forestify.theshinings.online/static/image/QA.png"
+            src="/static/image/QA.png"
             onclick="showMyQA()"
         )
         img(
             class="map_widget widget"
-            src="https://forestify.theshinings.online/static/image/map.png"
+            src="/static/image/map.png"
             onclick="showMap()"
         )
         img(
             class="hint_box"
-            src="https://forestify.theshinings.online/static/image/hint.png"
+            src="/static/image/hint.png"
         )
 
         div(class="question_field not_map")
