@@ -91,15 +91,16 @@ const getMyQA = async (user_id) => {
                 lv1.topic as topic1,
                 lv2.topic as topic2,
                 lv3.topic as topic3
+
             FROM
                 (SELECT 
                     QA.*,
-                        student.name AS owner_name,
-                        v.total_vote as total_votes,
-                        quiz.code,
-                        cq.lv1_topic_code,
-                        cq.lv2_topic_code,
-                        cq.lv3_topic_code
+                    student.name AS owner_name,
+                    v.total_vote as total_votes,
+                    quiz.code,
+                    cq.lv1_topic_code,
+                    cq.lv2_topic_code,
+                    cq.lv3_topic_code
                 FROM
                     QA
                 INNER JOIN quiz ON quiz.qid = QA.qid
@@ -109,13 +110,16 @@ const getMyQA = async (user_id) => {
                 FROM
                     votes
                 GROUP BY QA_id) AS v ON QA.id = v.QA_id
-                INNER JOIN code_quiz AS cq ON cq.code = quiz.code) AS allQA
-                    INNER JOIN
+                INNER JOIN code_quiz AS cq ON cq.code = quiz.code) 
+            AS allQA
+
+            INNER JOIN
                 code_topic AS lv1 ON LEFT(allQA.code, 3) = lv1.code
-                    INNER JOIN
+            INNER JOIN
                 code_topic AS lv2 ON LEFT(allQA.code, 5) = lv2.code
-                    INNER JOIN
+            INNER JOIN
                 code_topic AS lv3 ON LEFT(allQA.code, 7) = lv3.code
+
             WHERE
                 user_id = ?
             ORDER BY allQA.post_time DESC
