@@ -1,3 +1,7 @@
+function removeTree(code) {
+    $(`img[code="${code}"]:lt(3)`).remove()
+}
+
 async function mapInit() {
     $('.hex_map path')
         .click(async (event) => {
@@ -13,16 +17,16 @@ async function mapInit() {
             let x = $(event.target).attr('x')
             let y = $(event.target).attr('y')
             let text = $(`a[code='${window.tree_code}']`).html()
+            text = text ? text : ''
             let token = getToken()
-            token = token ? token : ""
+            token = token ? token : null
             let formData = {
-                token: token,
                 code: window.tree_code,
                 text: text.slice(3,),
                 xy: `${x},${y}`
             }
 
-            let result = await post('/api/map/postMap', formData)
+            let result = await ajaxReq('/api/map/postMap', formData, 'POST', token)
 
             if (result.err) {
                 showFeedBack('feedback', '這個主題已經種過囉～')
@@ -78,7 +82,8 @@ async function plantTree(x, y, code, amount) {
     console.log('xy', x, y)
 	let arr = Array(amount * 3).fill(1)
     for (i of arr) {
-        await delay()
+        let timeToDelay = 160
+        await delay(timeToDelay)
         $($('.tree_planted'))
             .append(
                 $('<img>')

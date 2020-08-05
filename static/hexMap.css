@@ -27,6 +27,8 @@
 
 svg text{
     opacity: 0.95;
+    font-size: x-large;
+    fill: maroon;
 }
 
 
@@ -35,7 +37,7 @@ svg text{
 }
 
 .tree_planted {
-    mix-blend-mode: color;
+    mix-blend-mode: darken;
     position: fixed;
     width: 100vw;
     height: 100vh;
