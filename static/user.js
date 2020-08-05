@@ -8,10 +8,8 @@ function getToken() {
 function statusFilter(status) {
 
     let {...constraint} = {...window.constraints}
-    console.log(constraint)
     constraint.grade = constraint.grade.length === 0 ? ['7', '8', '9'] : constraint.grade
     constraint.correct = constraint.correct.length === 0 ? ['1', '0'] : constraint.correct
-    console.log(constraint)
 
     let comparison = 
         (constraint.correct.includes(status.correct.toString()) &&
@@ -28,7 +26,6 @@ function showContent() {
     statusBoxContent.empty()
 
     let status = JSON.parse(window.status)
-    console.log(status)
 
     status
         .filter((s) => statusFilter(s))
@@ -37,12 +34,12 @@ function showContent() {
             .addClass('status_quiz_row')
             .attr('code', s.code)
             .click(async (event) => {
-                console.log(event.target)
                 let code = $(event.target).parent().attr('code')
                 window.quiz_code = code
                 let qid = await getQid(code)
                 if (qid) {
                     window.qid = qid
+                    $('.not_map').css('display', 'none')
                     showPage(qid)
                     toggleFade(window.statusBoxOn, 'status_box')
                     return
@@ -364,7 +361,6 @@ async function treeMapInit() {
 }
 
 function toggleFade(boxOff, className) {
-    //window.statusBoxOn = !window.statusBoxOn
     let toFade = $('.not_map')
     switch (boxOff) {
         case true:
@@ -375,6 +371,7 @@ function toggleFade(boxOff, className) {
             let selector = `div.${className}`
             toFade.removeClass('fadeToBack')
             $(selector).remove()
+            showMap()
             console.log('remove')
             break
     }
