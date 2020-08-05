@@ -20,7 +20,7 @@ router.route('/user/status')
     .post(isLogged, wrapAsync(getStatus));
 
 router.route('/user/tree_point')
-    .post(isLogged, wrapAsync(getTreePoint));
+    .get(isLogged, wrapAsync(getTreePoint));
 
 router.route('/user/my_QA')
     .post(isLogged, wrapAsync(getMyQA));

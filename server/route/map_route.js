@@ -6,17 +6,13 @@ const {
 } = require('../controller/user_controller');
 
 const {
-  getMap,
   getTree,
   postTree,
   postMap,
 } = require('../controller/map_controller');
 
-router.route('/map/getMap')
-    .post(isLogged, wrapAsync(getMap));
-
 router.route('/map/getTree')
-    .post(isLogged, wrapAsync(getTree));
+    .get(isLogged, wrapAsync(getTree));
 
 router.route('/map/postTree')
     .post(isLogged, wrapAsync(postTree));
