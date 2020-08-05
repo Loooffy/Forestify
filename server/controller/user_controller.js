@@ -92,14 +92,13 @@ async function renderSignBlock() {
 
 async function isLogged(req, res, next) {
   try {
-    const token = [req.body.token, req.query.token].filter((r) => r != undefined)[0];
-    if (!token) {
+    if (!req.headers.authorization) {
       const signBlock = await renderSignBlock();
       res.status(200).send({signBlock: signBlock});
       return;
     }
+    const token = req.headers.authorization.split(' ')[1]
     const jwtToken = await jwt.verify(token, secret, jwtSignOptions);
-    // let jwtToken = await jwt.verify(token, secret, jwtSignOptions)
     const {provider, email} = jwtToken;
     const valid = await User.isLogged(email);
     if (!valid) {
@@ -109,15 +108,18 @@ async function isLogged(req, res, next) {
     }
     const user_id = await User.getUser(email);
     req.user_id = user_id.id;
-    console.log('log', req.user_id);
+    console.log(req.user_id, 'loggin')
     next();
   } catch (err) {
-    if (err.message === 'jwt expired') {
+    console.log('err msg', err.message);
+    if (err.message.includes('jwt expired')) {
       const jwtToken = generateToken(name, email);
       sendCookie();
+    } else if (err.message.includes('invalid signature')){
+      const signBlock = await renderSignBlock();
+      res.status(200).json({signBlock: signBlock})
     } else {
-      console.log(err);
-      res.status(500).send('server error');
+      res.status(500).send('server error')
     }
 
     return;

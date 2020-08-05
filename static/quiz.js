@@ -69,12 +69,9 @@ async function checkAnswer() {
     let treePoint = parseInt($('div.tree_point span').text())
 
     let token = getToken()
-    token = token ? token : ""
-    let getTree = {
-        token: token,
-    }
+    token = token ? token : null
 
-    let treePlanted = await post('/api/map/getTree', getTree)
+    let treePlanted = await ajaxReq('/api/map/getTree', '', 'GET', token)
 
     if (treePlanted.filter(tree => tree.code === window.curr_code).length === 0) {
         feedback.message = "小樹還沒有地方長大，先選一塊地吧~"
@@ -84,7 +81,6 @@ async function checkAnswer() {
 
     let getAnswer = {
         qid: window.qid,
-        token: getToken()
     }
 
     if ($('button.option_on').attr('correct') === "true") {
@@ -97,7 +93,7 @@ async function checkAnswer() {
         getAnswer.correct = false
     }
 
-    let result = await post('/api/quiz/postAnswer', getAnswer)
+    let result = await ajaxReq('/api/quiz/postAnswer', getAnswer, 'POST', token)
 
     let correct = $('button.option_on').attr('correct') === "true" ? 1 : 0
     let status = `${result.history} ${result.inserted} ${correct}`
@@ -106,7 +102,6 @@ async function checkAnswer() {
     let y = $(`#tree_map text[code='${window.curr_code}']`).attr('y') - 15
 
     let postTree = {
-        token: token,
         code: window.curr_code,
         correct: correct
     }
@@ -116,7 +111,7 @@ async function checkAnswer() {
             feedback.message = '答錯了，小樹枯枯QQ'
             removeTree(window.curr_code)
             treePoint -= 1
-            post('/api/map/postTree', postTree)
+            ajaxReq('/api/map/postTree', postTree, 'POST', token)
             break
         case '1 2 1':
             feedback.message = '恭喜你答對這題囉！跟小樹說哈囉～'
@@ -126,7 +121,7 @@ async function checkAnswer() {
         case '0 2 1':
             treePoint += 1
             plantTree(x, y, window.curr_code, 1)
-            post('/api/map/postTree', postTree)
+            ajaxReq('/api/map/postTree', postTree, 'POST', token)
             break
         case '0 1 0':
             break
@@ -134,7 +129,7 @@ async function checkAnswer() {
             console.log(treePoint)
             treePoint += 1
             plantTree(x, y, window.curr_code, 1)
-            post('/api/map/postTree', postTree)
+            ajaxReq('/api/map/postTree', postTree, 'POST', token)
             break
     }
 

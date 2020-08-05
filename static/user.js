@@ -1,10 +1,3 @@
-function getToken() {
-    let regex = /token=(.*?);|token=(.*?)$/
-    let token = document.cookie.match(regex)
-    token = token ? token.slice(1,3).filter(t => t != undefined)[0] : null
-    return token
-}
-
 function statusFilter(status) {
 
     let {...constraint} = {...window.constraints}
@@ -310,12 +303,9 @@ async function treeMapInit() {
     window.treeDrawed = true
     
     let token = getToken()
-    token = token ? token : ""
-    let getTree = {
-        token: token,
-    }
+    token = token ? token : null
 
-    let treePlanted = await post('/api/map/getTree', getTree)
+    let treePlanted = await ajaxReq('/api/map/getTree', null, 'GET', token)
 
     if (treePlanted.signBlock) {
         $('body').append(treePlanted.signBlock)
@@ -380,17 +370,8 @@ function toggleFade(boxOff, className) {
 async function showTreePoint() {
     let token = getToken()
     token = token ? token : ""
-    let formData = {
-        token: token
-    }
 
-    let result = await $.ajax({
-        url: '../api/user/tree_point',
-        type: 'POST',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify(formData),
-    })
+    let result = await ajaxReq('/api/user/tree_point', null, 'GET', token)
 
     let treePoint = result.treePoint ? result.treePoint : 0
     
