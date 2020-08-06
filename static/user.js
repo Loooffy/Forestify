@@ -330,7 +330,7 @@ async function treeMapInit() {
                 .find(`text[x=${x}]`)
                 .filter(`text[y=${parseInt(y)+15}]`)
                 .attr('code', tree.code)
-                .html(tree.text.length < 7 ? tree.text : tree.text.slice(0,5) + '..')
+                .html(tree.text.length < 6 ? tree.text : tree.text.slice(0,6) + '..')
 
             $('#tree_map')
                 .find(`text[x=${x}]`)

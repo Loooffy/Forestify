@@ -5,10 +5,14 @@ function removeTree(code) {
 async function mapInit() {
     $('.hex_map path')
         .click(async (event) => {
-            await $(`a[code='${$(event.target).attr("code").slice(0,3)}']`)
-                .trigger('click')
-            $(`a[code='${$(event.target).attr("code")}']`)
-                .trigger('click')
+            let lv1Toggle = $(`a[code='${$(event.target).attr("code").slice(0,3)}']`)
+            let lv2Toggle = $(`a[code='${$(event.target).attr("code").slice(0,5)}']`)
+            if (lv1Toggle.next().css('display') === 'none') {
+                await lv1Toggle.trigger('click')
+            }
+            if (lv2Toggle.next().css('display') === 'none') {
+                await lv2Toggle.trigger('click')
+            }
         })
         .on('mouseup', async (event) => {
             $('.helper').remove()
@@ -45,7 +49,7 @@ async function mapInit() {
                     }
                 let text = $(`a[code='${window.tree_code}']`).html().slice(3,)
                 $(`a[code='${window.tree_code}']`).html(text)
-                text = text.length < 8 ? text : text.slice(0, 8) + '..'
+                text = text.length < 6 ? text : text.slice(0, 6) + '..'
                 
                 $('#text_map')
                     .find(`text[x=${x}]`)
