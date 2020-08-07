@@ -2,12 +2,13 @@ const User = require('../model/user_model');
 const jwt = require('jsonwebtoken');
 const fetch = require('node-fetch');
 const pug = require('pug');
+require('dotenv').config();
+const {JWT_SECRET} = process.env;
 const jwtSignOptions = {
   algorithm: 'HS256',
   // expiresIn: 3600,
   // ignoreExpiration: true,
 };
-const secret = 'han';
 
 async function generateToken(email, name) {
   const payload = {
@@ -16,7 +17,7 @@ async function generateToken(email, name) {
     name: name,
   };
 
-  const jwtToken = await jwt.sign(payload, secret, jwtSignOptions);
+  const jwtToken = await jwt.sign(payload, JWT_SECRET, jwtSignOptions);
   return jwtToken;
 }
 
@@ -98,7 +99,7 @@ async function isLogged(req, res, next) {
       return;
     }
     const token = req.headers.authorization.split(' ')[1]
-    const jwtToken = await jwt.verify(token, secret, jwtSignOptions);
+    const jwtToken = await jwt.verify(token, JWT_SECRET, jwtSignOptions);
     const {provider, email} = jwtToken;
     const valid = await User.isLogged(email);
     if (!valid) {
@@ -111,19 +112,22 @@ async function isLogged(req, res, next) {
     console.log(req.user_id, 'loggin')
     next();
   } catch (err) {
-    console.log('err msg', err.message);
-    if (err.message.includes('jwt expired')) {
-      const jwtToken = generateToken(name, email);
-      sendCookie();
-    } else if (err.message.includes('invalid signature')){
-      const signBlock = await renderSignBlock();
-      res.status(200).json({signBlock: signBlock})
-    } else {
-      res.status(500).send('server error')
+        console.log('err msg', err.message);
+        let signBlock = await renderSignBlock();
+        if (err.message.includes('jwt expired')) {
+          const jwtToken = generateToken(name, email);
+          sendCookie();
+        } else if (err.message.includes('invalid signature')){
+          res.status(200).json({signBlock: signBlock})
+        } else if (err.message.includes('jwt malformed')){
+          res.status(200).json({signBlock: signBlock})
+        } else if (err.message.includes('jwt must be provided')){
+          res.status(200).json({signBlock: signBlock})
+        } else {
+          res.status(500).send('server error')
+        }
+        return;
     }
-
-    return;
-  }
 }
 
 async function getStatus(req, res) {

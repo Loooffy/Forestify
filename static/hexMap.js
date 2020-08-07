@@ -33,7 +33,7 @@ async function mapInit() {
             let result = await ajaxReq('/api/map/postMap', formData, 'POST', token)
 
             if (result.err) {
-                showFeedBack('feedback', '這個主題已經種過囉～')
+                showFeedBack('feedbackBox', '這個主題已經種過囉～', null, false)
                 console.log(result)
                 console.log('here')
                 return

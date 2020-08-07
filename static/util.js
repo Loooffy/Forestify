@@ -1,3 +1,74 @@
+function showFeedBack(className, content, correct, valid) {
+    let feedBackBox = $(`<div class='feedbackBox'>`)
+        .css('z-index', '500')
+        .html(content)
+        .append(
+            $('<div>')
+                .addClass('ok')
+                .click(ok)
+                .html('好喔')
+        )
+        .appendTo($('body'))
+
+    if (correct === true) {
+        feedBackBox
+            .prepend(
+                $('<div>')
+                    .addClass('feedback_icon')
+                    .html('🌲')
+            )
+            .append(
+                $('<div>')
+                    .addClass('ok')
+                    .click((event) => {
+                        $(event.target)
+                            .parent()
+                            .remove()
+                        $(`div[code="${window.quiz_code}"]`)
+                            .next()
+                            .trigger('click')
+                    })
+                    .html('下一題')
+        )
+    } else if(correct === false) {
+        feedBackBox
+            .prepend(
+                $('<div>')
+                    .addClass('feedback_icon')
+                    .html('🍂')
+            )
+            .append(
+                $('<div>')
+                    .addClass('ok')
+                    .click((event) => {
+                        $(event.target)
+                            .parent()
+                            .remove()
+                        $(`div[code="${window.quiz_code}"]`)
+                            .next()
+                            .trigger('click')
+                    })
+                    .html('下一題')
+            )
+    } else {
+        feedBackBox
+            .prepend(
+                $('<div>')
+                    .addClass('feedback_icon')
+                    .html(valid ? '🌲' : '🚜')
+            )
+        return
+    }
+}
+
+function inputValid(inputs) {
+    if (!inputs.includes('')) {
+        return true
+    } else {
+        return false
+    }
+}
+
 function delay(timeToDelay) {   
   return new Promise(function (resolve, reject) {
     setTimeout(function () {

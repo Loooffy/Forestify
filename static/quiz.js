@@ -1,66 +1,3 @@
-function showFeedBack(className, content, correct) {
-    let feedBackBox = $('<div>')
-        .addClass(className)
-        .html(content)
-        .append(
-            $('<div>')
-                .addClass('ok')
-                .click(ok)
-                .html('好喔')
-        )
-        .appendTo($('body'))
-
-    if (correct) {
-        feedBackBox
-            .prepend(
-                $('<div>')
-                    .addClass('feedback_tree')
-                    .html('🌲')
-            )
-            .append(
-                $('<div>')
-                    .addClass('ok')
-                    .click((event) => {
-                        $(event.target)
-                            .parent()
-                            .remove()
-                        $(`div[code="${window.quiz_code}"]`)
-                            .next()
-                            .trigger('click')
-                    })
-                    .html('下一題')
-        )
-    } else if(correct === false) {
-        feedBackBox
-            .prepend(
-                $('<div>')
-                    .addClass('feedback_tree')
-                    .html('🍂')
-            )
-            .append(
-                $('<div>')
-                    .addClass('ok')
-                    .click((event) => {
-                        $(event.target)
-                            .parent()
-                            .remove()
-                        $(`div[code="${window.quiz_code}"]`)
-                            .next()
-                            .trigger('click')
-                    })
-                    .html('下一題')
-            )
-    } else {
-        feedBackBox
-            .prepend(
-                $('<div>')
-                    .addClass('feedback_tree')
-                    .html('🚜')
-            )
-        return
-    }
-}
-
 async function checkAnswer() {
 
     let feedback = {
@@ -75,7 +12,7 @@ async function checkAnswer() {
 
     if (treePlanted.filter(tree => tree.code === window.curr_code).length === 0) {
         feedback.message = "小樹還沒有地方長大，先選一塊地吧~"
-        showFeedBack('feedback', feedback.message, feedback.correct)
+        showFeedBack('feedbackBox', feedback.message, feedback.correct)
         return
     }
 
@@ -136,7 +73,7 @@ async function checkAnswer() {
     $('div.tree_point span')
         .html((Array(4).join('0') + treePoint.toString()).slice(-4))
 
-    showFeedBack('feedback', feedback.message, feedback.correct)
+    showFeedBack('feedbackBox', feedback.message, feedback.correct)
 }
 
 function saveAnswer(e) {

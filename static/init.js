@@ -47,6 +47,6 @@ async function showPage(qid) {
         await treeMapInit()
     }
     if (window.hinted != true) {
-        await showMap()
+        showMap()
     }
 }

@@ -9,8 +9,6 @@ div(class="sign_field")
     div(class="signup") —　請先登入　—
     form(
         class="sign_form"
-        action="/api/user/signup"
-        method="post"
     )
         div(class="fullname")
             label(for="fullname") 名字
@@ -38,7 +36,7 @@ div(class="sign_field")
             input(
                 class="sign"
                 id="password"
-                type="text"
+                type="password"
                 name="password"
                 placeholder="請輸入你的密碼"
             )

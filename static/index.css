@@ -149,7 +149,7 @@ button.answer_button:hover {
    cursor:pointer;
 } 
 
-.feedback {
+.feedbackBox {
     width: 42vw;
     display: flex;
     flex-flow: column nowrap;
@@ -169,9 +169,10 @@ button.answer_button:hover {
     position: fixed;
     left: 29vw;
     top: 10vh;
+    z-index: 500;
 }
 
-.feedback_tree {
+.feedback_icon {
     font-size: 150px;
     margin: 1.5rem;
     margin-bottom: 2rem;
