@@ -29,10 +29,18 @@ async function checkAnswer() {
         feedback.correct = true
         feedback.message = '答對囉！你剛種下了一棵新的小樹～'
         getAnswer.correct = true
+        console.log($('#quiz_status').html())
+        $('#quiz_status')
+            .css('background', 'darkcyan')
+            .html('答對')
     } else {
         feedback.correct = false
         feedback.message = '答案不對，再試試看喔！'
         getAnswer.correct = false
+        console.log($('#quiz_status').html())
+        $('#quiz_status')
+            .css('background', 'red')
+            .html('答錯')
     }
 
     let result = await ajaxReq('/api/quiz/postAnswer', getAnswer, 'POST', token)
@@ -54,9 +62,15 @@ async function checkAnswer() {
             removeTree(window.curr_code)
             treePoint -= 1
             ajaxReq('/api/map/postTree', postTree, 'POST', token)
+            $('#quiz_status')
+                .css('background', 'red')
+                .html('答錯')
             break
         case '1 2 1':
             feedback.message = '恭喜你答對這題囉！跟小樹說哈囉～'
+            $('#quiz_status')
+                .css('background', 'darkcyan')
+                .html('答對')
             break
         case '0 2 0':
             break
@@ -110,27 +124,53 @@ function matchWrapper (group0, group1) {
 }
 
 async function showQuiz(qid) {
-    let quizUrl = `/api/quiz/getQuizData?qid=${qid}`
-    let data = await $.get(quizUrl, (res) => {
-        return res
-    })
-   
-    window.quiz_code = data.code
+    let reqData = {qid: qid}
+    let token = getToken()
+    token = token ? token : null
+    let quizData = await ajaxReq('/api/quiz/getQuizData', reqData, 'GET', token)
+
+    console.log(quizData)
+    quizData.correct = quizData.correct === null ? '未答' :  quizData.correct === 0 ? '答錯' : '答對'
+    quizSolvingStatus = {
+        '未答': 'darkgray',
+        '答錯': 'red',
+        '答對': 'darkcyan'
+    }
+
+    window.quiz_code = quizData.code
     let temp = getTemplate('quiz')
     let mix = ''
 
-    let choices = JSON.parse(data.choices)
+    let choices = JSON.parse(quizData.choices)
     $.each(choices, function (key, ele){
         temp[0].innerHTML = JSON.parse(ele).content
         $(temp[0]).attr('correct', JSON.parse(ele).correct)
         mix += temp[0].outerHTML
     })
     mix += temp[2].outerHTML
-    window.question_images = JSON.parse(data.images)
-    data.question = data.question.replace(/\[\[☃ (image [0-9])\]\]/g, matchWrapper)
-    $('<div>').attr('id', 'quiz_title').html(data.quiz_title).appendTo($('div.question_field'))
-    $('<div>').attr('id', 'question').html(data.question).appendTo($('div.question_field'))
+    window.question_images = JSON.parse(quizData.images)
+    quizData.question = quizData.question.replace(/\[\[☃ (image [0-9])\]\]/g, matchWrapper)
+    $('<div>').attr('id', 'quiz_title').html(quizData.quiz_title).appendTo($('div.question_field'))
+    $('<div>').attr('id', 'question').html(quizData.question).appendTo($('div.question_field'))
     $('<div>').addClass('squirrel_wrapper').appendTo($('div.question_field'))
+    $('<div>')
+        .css('width', '0px')
+        .css('height', '0px')
+        .css('position', 'relative')
+        .css('left', '-260px')
+        .css('top', '-15px')
+        .append(
+            $('<div>')
+                .addClass('filter_key')
+                .attr('id', 'quiz_status')
+                .html(quizData.correct)
+                .css('background', quizSolvingStatus[quizData.correct])
+                .css('opacity', '0.7')
+                .css('width', '4rem')
+                .css('text-align', 'center')
+                .css('color', 'white')
+        )
+        .prependTo($('div.question_field'))
     $('<img>')
         .attr('src', 'https://forestify.theshinings.online/static/image/squirrel.png')
         .attr('id', 'squirrel')

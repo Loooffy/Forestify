@@ -26,6 +26,7 @@ const getQuizData = async (qid, user_id) => {
         `;
 
   const result = await query(quizQ, [qid, user_id]);
+  console.log(result, 'user_id' + user_id)
   return result
 };
 

@@ -3,7 +3,6 @@ const QA = require('../model/QA_model');
 const getQAData = async (req, res) => {
   const qid = req.query.qid;
   const result = await QA.getQAData(qid);
-  console.log(result);
   res.json(result);
 };
 
@@ -16,7 +15,6 @@ const postQ = async (req, res) => {
     head_id: req.body.head_id,
   };
   data.user_id = req.user_id;
-  console.log('user', req.user_id);
   const result = await QA.postQ(data);
   res.send(JSON.stringify(result.insertId));
 };

@@ -13,10 +13,7 @@ const {
 } = require('../controller/quiz_controller');
 
 router.route('/quiz/getQuizData')
-    .get(wrapAsync(getQuizData));
-
-router.route('/quiz/getQuizData')
-    .post(wrapAsync(getQuizData));
+    .get(isLogged, wrapAsync(getQuizData));
 
 router.route('/quiz/same_topic')
     .get(wrapAsync(getSameTopicQuiz));
