@@ -61,8 +61,8 @@ function showFeedBack(className, content, correct, valid) {
     }
 }
 
-function inputValid(inputs) {
-    if (!inputs.includes('')) {
+function invalidInput(inputs) {
+    if (inputs.includes('')) {
         return true
     } else {
         return false

@@ -29,6 +29,7 @@ function sendCookie(res, jwtToken, name, email) {
 }
 
 async function signUp(req, res) {
+  console.log(req.user_id)
   const {name, email, password} = req.body;
   if (!email || !password || !name) {
     res.status(200).send({invalid: 'inputNotComplete'});
@@ -92,6 +93,7 @@ async function renderSignBlock() {
 }
 
 async function isLogged(req, res, next) {
+  console.log('url', req.originalUrl)
   try {
     if (!req.headers.authorization) {
       const signBlock = await renderSignBlock();

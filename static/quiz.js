@@ -10,6 +10,11 @@ async function checkAnswer() {
 
     let treePlanted = await ajaxReq('/api/map/getTree', '', 'GET', token)
 
+    if (treePlanted.signBlock) {
+        $('body').append(treePlanted.signBlock)
+        return
+    }
+
     if (treePlanted.filter(tree => tree.code === window.curr_code).length === 0) {
         feedback.message = "小樹還沒有地方長大，先選一塊地吧~"
         showFeedBack('feedbackBox', feedback.message, feedback.correct)

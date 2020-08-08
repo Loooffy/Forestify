@@ -79,7 +79,7 @@ async function showStatus() {
     let token = getToken()
     token = token ? token : ""
 
-    let result = await ajaxReq('/api/user/status', {}, 'GET', token)
+    let result = await ajaxReq('/api/user/status', null, 'GET', token)
 
     if (result.signBlock) {
         $('body').append(result.signBlock)
@@ -178,10 +178,9 @@ async function showMyQA() {
     let token = getToken()
     token = token ? token : ""
 
-    let myQA = await ajaxReq('/api/user/my_QA', {}, 'GET', token)
+    let myQA = await ajaxReq('/api/user/my_QA', null, 'GET', token)
 
     if (myQA.signBlock) {
-        console.log('return')
         $('body').append(myQA.signBlock)
         return
     }
