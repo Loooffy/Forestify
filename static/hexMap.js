@@ -86,13 +86,13 @@ async function plantTree(x, y, code, amount) {
     console.log('xy', x, y)
 	let arr = Array(amount * 3).fill(1)
     for (i of arr) {
-        let timeToDelay = 160
+        let timeToDelay = 413
         await delay(timeToDelay)
         $($('.tree_planted'))
             .append(
                 $('<img>')
                     .attr('code', code)
-                    .attr('src', 'https://forestify.theshinings.online/static/image/tree.gif')
+                    .attr('src', '/static/image/tree_move.gif')
                     .css('left', `${(parseInt(x) + ran(0, 30) * (ran(0 ,2) === 0 ? 1: -1)) - 40}px`)
                     .css('top', `${(parseInt(y) + ran(0, 30) * (ran(0 ,2) === 0 ? 1: -1)) - 55}px`)
                     .css('width', `${ran(1, 4)}rem`)

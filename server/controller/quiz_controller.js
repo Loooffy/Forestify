@@ -4,7 +4,8 @@ const marked = require('marked');
 const getQuizData = async (req, res) => {
   let {qid} = req.query;
   qid = req.query.qid ? req.query.qid : 41882;
-  const result = await Quiz.getQuizData(qid);
+  req.user_id = req.user_id ? req.user_id : 0
+  const result = await Quiz.getQuizData(qid, req.user_id);
   result[0].question = marked(result[0].question_content);
   res.json(result[0]);
 };

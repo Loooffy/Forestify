@@ -2,64 +2,42 @@ async function voteQuestion(e) {
     let post_vote = $(e.target).parent().find('.post_vote')
     let currentVote = parseInt($(post_vote).html())
     let QA_id = $(e.target).parent().attr('qa_id')
-    let formData = JSON.stringify({
+
+    let token =  getToken()
+    token = token ? token : ''
+
+    let data = {
         qid: window.qid,
         QA_id: QA_id,
-        token: getToken()
-    })
-    let getVote = await $.ajax({
-        url: '/api/vote/get',
-        type: 'GET',
-        data: JSON.parse(formData),
-        contentType: 'application/json',
-    })
-    let vote = getVote.data.vote
+    }
+
+    let vote = await ajaxReq('/api/vote/get', data, 'GET', token)
         
     switch (vote) {
         case null:
             console.log('not voted')
-            formData.token = getToken()
-            $.ajax({
-                url: '/api/vote/give',
-                type: 'POST',
-                contentType: 'application/json',
-                data: formData
-            })
+            await ajaxReq('/api/vote/give', data, 'POST', token)
             $(post_vote).html(currentVote + 1)
             break
         case 0:
             console.log('vote removed')
-            formData.token = getToken()
-            $.ajax({
-                url: '../api/vote/voteBack',
-                type: 'PATCH',
-                contentType: 'application/json',
-                processData: false,
-                data: formData,
-                success: (r) => {
-                    if (r.signBlock) {
-                        $('body').append(r.signBlock)
-                    }
-                }
-            })
+            await ajaxReq('/api/vote/voteBack', data, 'PATCH', token)
             $(post_vote).html(currentVote + 1)
             break
         case 1:
             console.log('voted')
-            formData.token = getToken()
-            $.ajax({
-                url: '../api/vote/remove',
-                type: 'PATCH',
-                contentType: 'application/json',
-                processData: false,
-                data: formData
-            })
+            await ajaxReq('/api/vote/remove', data, 'PATCH', token)
             $(post_vote).html(currentVote - 1)
             break 
     }
 }
 
 async function postQuestion(e) {
+    if ($('.post_Q_content').attr('value') === '' || $('.post_Q_title').attr('value') === '') {
+        await showFeedBack('feedbackBox', '還有空格沒填喔～', null, false)
+        return
+    }
+        
     let title = $(e.target).parent().find(".post_Q_title")[0].value
     let content = $(e.target).parent().find(".post_Q_content")[0].value
     let time = new Date
@@ -67,20 +45,18 @@ async function postQuestion(e) {
     let temp = getTemplate('QA')
     let mix = ''
 
-    let QA_id = await $.ajax({
-        url: '../api/QA/postQ',
-        type: 'POSt',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify({
-            qid: window.qid,
-            title: title,
-            content: content,
-            post_time: timeStr,
-            head_id: 0,
-            token: getToken()
-        })
-    })
+    let token =  getToken()
+    token = token ? token : ''
+
+    let data =  {
+        qid: window.qid,
+        title: title,
+        content: content,
+        post_time: timeStr,
+        head_id: 0,
+    }
+
+    let QA_id = await ajaxReq('/api/QA/postQ', data, 'POST', token)
 
     console.log(QA_id)
   
@@ -95,5 +71,7 @@ async function postQuestion(e) {
     temp.find(".post_vote").text('0')
     mix += temp[0].outerHTML
     $('div.QA_field').prepend(mix)
-    console.log(mix)
+    $('.post_Q_title').attr('value', '')
+    $('.post_Q_content').attr('value', '')
+    $('.QA_field').scrollTop(0)
 }

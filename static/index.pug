@@ -1,7 +1,6 @@
 doctype html
 
 head
-    link(rel="icon" href="https://forestify.theshinings.online/static/image/logo.png" sizes="16x16" type="iamge/png")
     script(
         type="text/javascript" 
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
@@ -32,10 +31,14 @@ head
 
 html
     body(id="body")
-        img(
-            id="logo"
-            src="/static/image/logo_word.png"
+        a(
+            href='/'
+            class='logo'
         )
+            img(
+                id="logo"
+                src="/static/image/logo_word.png"
+            )
         img(
             class="status_widget widget"
             src="/static/image/status.png"
@@ -83,11 +86,11 @@ html
                 )
                 input(
                     class="post_Q_title"
-                    placeholder="   標題"
+                    placeholder="標題"
                 )
             textarea(
                 class="post_Q_content"
-                placeholder="   留下問題或解題分享"
+                placeholder="留下問題或解題分享"
                 cols="30"
                 rows="4"
             )

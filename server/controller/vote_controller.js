@@ -7,7 +7,6 @@ const giveVote = async (req, res) => {
     qid: req.body.qid,
   };
   const result = await Vote.giveVote(data);
-  console.log('givevote', result);
   res.json(result);
 };
 
@@ -22,7 +21,6 @@ const getVote = async (req, res) => {
   const QA_id = req.query.QA_id;
   const giver_id = req.user_id;
   const result = await Vote.getVote(giver_id, QA_id);
-  console.log('getvote', result);
   res.json(result);
 };
 

@@ -52,7 +52,7 @@ body {
     color: #444;
     opacity: 0.8;
     margin: 1rem;
-    margin-top: 12rem;
+    margin-top: 6rem;
     padding: 2rem;
     border-radius: 15px;
     font-size: 1.2rem;
@@ -100,6 +100,7 @@ td {
 }
 
 button.option {
+    outline: none;
     cursor:pointer;
     width: 25vw;
     margin: 0.5rem;
@@ -219,6 +220,8 @@ button.answer_button:hover {
 }
 
 .post_Q_title {
+    outline: none;
+    text-indent: 0.3rem;
     width: 85%;
     height: 25px;
     border-radius: 10px;
@@ -226,6 +229,8 @@ button.answer_button:hover {
 }
 
 .post_Q_content {
+    outline: none;
+    text-indent: 0.3rem;
     border-radius: 10px;
     font-size: large;
 }
@@ -365,7 +370,7 @@ button.send_Q {
 .same_topic_quiz_field {
     position: fixed;
     left: -1vw;
-    top: 17vh;
+    top: 18vh;
     color: white;
     background: cadetblue;
     opacity: 0.7;
@@ -407,7 +412,7 @@ button.send_Q {
     position: fixed;
     width: 27vw;
     left: 76vw;
-    top: 17vh;
+    top: 18vh;
     color: white;
     background: cadetblue;
     opacity: 0.7;
@@ -679,7 +684,8 @@ div.topic_field.not_map > ul > li > div.inner.show > div > a:hover {
 }
 
 #logo {
+    cursor: pointer;
     position: absolute;
     width: 6vw;
-    left: 46vw;
+    left: 4.5vw;
 }

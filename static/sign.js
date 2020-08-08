@@ -1,4 +1,12 @@
-async function closeSign() {
+async function closeSign(event) {
+
+    if ($(event.target).hasClass('cancel')) {
+        $('.sign_field').remove()
+        return
+    }
+
+    toggleFade(false, 'sign_field')
+
     let data = {
         name: $('#name').val(),
         email: $('#email').val(),
@@ -20,5 +28,4 @@ async function closeSign() {
     }
     
     showFeedBack('feedbackBox', '註冊成功，可以開始種小樹囉～', null, true)
-    toggleFade(false, 'sign_field')
 }

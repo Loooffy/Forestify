@@ -26,7 +26,7 @@ async function showSameTopicQuiz(qid) {
                         showPage(qid)
                         return
                     }
-                    showNoQuizAlert('feedback', '目前題庫沒有這題，不好意思')
+                    showNoQuizAlert('feedbackBox', 'SORRY~ 題庫目前沒有這題，我們會盡快補齊！')
                     return
                 })
                 .html(ele.quiz_title)
@@ -45,6 +45,11 @@ function showNoQuizAlert(className, content) {
     let feedBackBox = $('<div>')
         .addClass(className)
         .html(content)
+        .prepend(
+            $('<div>')
+                .addClass('feedback_icon')
+                .html('🚜')
+        )
         .append(
             $('<div>')
                 .addClass('ok')

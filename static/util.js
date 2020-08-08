@@ -103,6 +103,7 @@ function ajaxReq(url, data, method, token) {
     }
 
     if (method === 'GET') {
+        req.data = data
         delete req.contentType
         delete req.processData
     }

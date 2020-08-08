@@ -76,18 +76,25 @@ function showContent() {
 
 async function showStatus() {
 
+    let token = getToken()
+    token = token ? token : ""
+
+    let result = await ajaxReq('/api/user/status', {}, 'GET', token)
+
+    if (result.signBlock) {
+        $('body').append(result.signBlock)
+        return
+    }
+
+    window.status = JSON.stringify(result)
+
     window.statusBoxOn = !window.statusBoxOn
     if (statusBoxOn === false) {
         toggleFade(window.statusBoxOn, 'status_box')
         return
     }
-    toggleFade(window.statusBoxOn, 'status_box')
 
-    let token = getToken()
-    token = token ? token : ""
-    let formData = {
-        token: token
-    }
+    toggleFade(window.statusBoxOn, 'status_box')
     
     let statusBox = $('<div>')
         .addClass('status_box widget_box')
@@ -156,22 +163,6 @@ async function showStatus() {
         .addClass('box_content')
         .appendTo(statusBox)
 
-        let result = await $.ajax({
-            url: '../api/user/status',
-            type: 'POST',
-            contentType: 'application/json',
-            processData: false,
-            data: JSON.stringify(formData),
-        })
-
-        if (result.signBlock) {
-            $('body').append(result.signBlock)
-            return
-        }
-
-        window.status = JSON.stringify(result)
-    //}
-
     $('body').append(statusBox)
 
     await showContent()
@@ -183,34 +174,25 @@ async function showStatus() {
 }
 
 async function showMyQA() {
-    window.myQABoxOn = !window.myQABoxOn
-    if (myQABoxOn === false) {
-        toggleFade(window.myQABoxOn, 'myQA_box')
-        return
-    }
-    toggleFade(window.myQABoxOn, 'myQA_box')
 
     let token = getToken()
     token = token ? token : ""
-    let formData = {
-        token: token
-    }
 
-    let myQA = await $.ajax({
-        url: '../api/user/my_QA',
-        type: 'POST',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify(formData),
-    })
-
-    console.log(myQA.signBlock)
+    let myQA = await ajaxReq('/api/user/my_QA', {}, 'GET', token)
 
     if (myQA.signBlock) {
         console.log('return')
         $('body').append(myQA.signBlock)
         return
     }
+
+    window.myQABoxOn = !window.myQABoxOn
+    if (myQABoxOn === false) {
+        toggleFade(window.myQABoxOn, 'myQA_box')
+        return
+    }
+
+    toggleFade(window.myQABoxOn, 'myQA_box')
     
     let myQABox = $('<div>')
         .addClass('myQA_box widget_box')

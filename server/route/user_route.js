@@ -17,12 +17,12 @@ router.route('/user/signin')
     .post(wrapAsync(signIn));
 
 router.route('/user/status')
-    .post(isLogged, wrapAsync(getStatus));
+    .get(isLogged, wrapAsync(getStatus));
 
 router.route('/user/tree_point')
     .get(isLogged, wrapAsync(getTreePoint));
 
 router.route('/user/my_QA')
-    .post(isLogged, wrapAsync(getMyQA));
+    .get(isLogged, wrapAsync(getMyQA));
 
 module.exports = router;

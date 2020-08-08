@@ -15,6 +15,9 @@ const {
 router.route('/quiz/getQuizData')
     .get(wrapAsync(getQuizData));
 
+router.route('/quiz/getQuizData')
+    .post(wrapAsync(getQuizData));
+
 router.route('/quiz/same_topic')
     .get(wrapAsync(getSameTopicQuiz));
 

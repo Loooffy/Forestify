@@ -1,15 +1,15 @@
 const {query, transaction, commit, rollback} = require('../../util/mysqlCon.js');
 const {getTime} = require('../../util/util.js');
 
-const getQuizData = async (qid) => {
+const getQuizData = async (qid, user_id) => {
   const quizQ =
         `
-            SELECT 
-                q.*, code_quiz.quiz_title
+            SELECT
+                q.*, code_quiz.quiz_title, quiz_solving.correct
             FROM
                 code_quiz
                     INNER JOIN
-                (SELECT 
+                (SELECT
                     quiz.*,
                         JSON_OBJECTAGG(IFNULL(images.image_number, 0), IFNULL(images.image, '')) AS images,
                         JSON_ARRAYAGG(choices.choice_content) AS choices
@@ -20,9 +20,12 @@ const getQuizData = async (qid) => {
                 WHERE
                     quiz.qid = ?
                 GROUP BY quiz.id) AS q ON q.code = code_quiz.code
+                    LEFT JOIN
+                quiz_solving ON q.qid = quiz_solving.qid
+                    AND user_id = ?
         `;
 
-  const result = await query(quizQ, [qid]);
+  const result = await query(quizQ, [qid, user_id]);
   return result
 };
 

@@ -32,7 +32,7 @@ async function showPage(qid) {
     showTreePoint()
     showQuiz(qid)
     showQA(qid)
-    showSameTopicQuiz(qid)
+    await showSameTopicQuiz(qid)
     alertToggle()
     $('div.topic_field').ready(() => {
         if ($('div.topic_field').html().length === 0) {

@@ -3,14 +3,9 @@ const {query, transaction, commit, rollback} = require('../../util/mysqlCon.js')
 const getVote = async (giver_id, QA_id) => {
   try {
     const results = await query('SELECT * FROM votes WHERE giver_id = ? AND QA_id = ?', [giver_id, QA_id]);
-    return {
-      data: {
-        vote: results.length === 0 ? null : results[0].vote,
-      },
-    };
+    return results.length === 0 ? null : results[0].vote
   } catch (err) {
-    console.log(err);
-    // await rollback()
+    console.log(err)
     return err;
   }
 };
