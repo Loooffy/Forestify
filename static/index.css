@@ -449,11 +449,11 @@ button.send_Q {
     position: fixed;
     z-index: 300;
     width: 70px;
-    opacity: 0.7;
+    opacity: 0.65;
 } 
 
 .widget:hover {
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .status_widget {
@@ -472,8 +472,15 @@ button.send_Q {
 }
 
 .QA_widget {
-    left: 2vw;
-    top: 79vh;
+    left: 2.2vw;
+    top: 79.5vh;
+    width: 60px;
+}
+
+.math_widget {
+    left: 2.2vw;
+    top: 71vh;
+    width: 60px;
 }
 
 .bucket_widget {
@@ -482,6 +489,7 @@ button.send_Q {
 }
 
 .map_widget {
+    display: none;
     left: 2vw;
     top: 70vh;
 }
