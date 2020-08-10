@@ -6,17 +6,21 @@
   "scripts": {
     "edit": "xdotool key Control+Shift+T && vi -S han.vim && xdotool key Control+Page_Up",
     "start": "nodemon app.js",
+    "test": "mocha --exit",
     "lint": "eslint server/*/*.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "marked": "^1.1.0",
+    "mocha": "^8.1.1",
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",

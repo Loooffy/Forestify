@@ -129,7 +129,11 @@ async function showQuiz(qid) {
     token = token ? token : null
     let quizData = await ajaxReq('/api/quiz/getQuizData', reqData, 'GET', token)
 
-    console.log(quizData)
+    if (quizData.signBlock) {
+        window.quiz_code = 'mjnzs7ae'
+        return
+    }
+
     quizData.correct = quizData.correct === null ? '未答' :  quizData.correct === 0 ? '答錯' : '答對'
     quizSolvingStatus = {
         '未答': 'darkgray',

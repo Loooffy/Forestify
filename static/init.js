@@ -30,7 +30,7 @@ async function showPage(qid) {
     }
     await clearPage()
     showTreePoint()
-    showQuiz(qid)
+    await showQuiz(qid)
     showQA(qid)
     await showSameTopicQuiz(qid)
     alertToggle()

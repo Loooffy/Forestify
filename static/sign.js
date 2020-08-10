@@ -25,5 +25,6 @@ async function closeSign(event) {
     }
     
     showFeedBack('feedbackBox', '註冊成功，可以開始種小樹囉～', null, true)
+    showQuiz(41882)
     toggleFade(false, 'sign_field')
 }

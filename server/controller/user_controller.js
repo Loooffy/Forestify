@@ -93,12 +93,17 @@ async function renderSignBlock() {
 }
 
 async function isLogged(req, res, next) {
+  let noNeedLog = [
+    'getQuizData', 
+  ]
   try {
     if (!req.headers.authorization) {
-      if (req.originalUrl.includes('getQuizData')) {
-        next()
-        return
-      }
+      noNeedLog.map(url => {
+          if (req.originalUrl.includes(url)) {
+              next()
+              return
+          }
+      })
       const signBlock = await renderSignBlock();
       res.status(200).send({signBlock: signBlock});
       return;

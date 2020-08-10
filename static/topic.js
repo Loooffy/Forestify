@@ -1,7 +1,13 @@
 async function getQid(code) {
-    let qid = await fetch(`api/quiz/getQid?code=${code}`)
-        .then(r => {return r.json()})
-        .catch(err => {return 0})
+    let token = getToken()
+    token = token ? token : null
+    let reqData = {
+        code: code
+    }
+    let qid = await ajaxReq('api/quiz/getQid?code', data, 'GET', token)
+    if (qid.signBlock) {
+        return 
+    }
     return qid
 }
 
@@ -92,7 +98,9 @@ async function refreshQuizColor (code, type) {
 }
 
 async function showTopic() {
-    window.topic = await $.get('api/topic').then(r => JSON.parse(r))
+    let token = getToken()
+    token = token ? token : null
+    window.topic = await ajaxReq('api/topic', null, 'GET', token).then(r => JSON.parse(r))
     let lv1_topics = window.topic.filter(r => r.code.length === 3)
     let lv2_topics = window.topic.filter(r => r.code.length === 5)
     let lv3_topics = window.topic.filter(r => r.code.length === 7)
