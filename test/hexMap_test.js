@@ -11,6 +11,10 @@ describe('hexMap', async () => {
         const map = await new hexMap(0, 0, 30, 0.9, 0.8)
         const outerHex = map.createOuterHex(1, 1)
         const innerHex = map.createInnerHex(1, 1)
-        assert.strictEqual(outerHex, innerHex, 'outerHex and innerHex is not cocentric') 
+        
+        const outerXY = [outerHex.x, outerHex.y]
+        const innerXY = [innerHex.x, innerHex.y]
+
+        assert.deepEqual(outerXY, innerXY, 'outerHex and innerHex is not cocentric') 
     })
 })
