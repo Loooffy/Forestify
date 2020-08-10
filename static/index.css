@@ -685,7 +685,7 @@ div.topic_field.not_map > ul > li > div.inner.show > div > a:hover {
 
 #logo {
     cursor: pointer;
-    position: absolute;
+    position: fixed;
     width: 6vw;
     left: 4.5vw;
 }
