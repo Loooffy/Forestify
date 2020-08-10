@@ -57,9 +57,11 @@ async function postQuestion(e) {
     }
 
     let QA_id = await ajaxReq('/api/QA/postQ', data, 'POST', token)
-
-    console.log(QA_id)
-  
+    if (QA_id.signBlock) {
+        $('body').append(QA_id.signBlock) 
+        return
+    }
+        
     temp.find(".post_status").attr({
         qid: window.qid,
         QA_id: QA_id
