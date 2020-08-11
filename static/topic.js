@@ -137,8 +137,6 @@ async function showTopic() {
                                 code: t.attr('code'),
                                 text: t.html()
                              }
-                             console.log(window.tree_code)
-                             console.log(window.curr_code)
                         },
                      })
 
@@ -151,18 +149,23 @@ async function showTopic() {
                                  .attr('class', 'lv2_3_topic')
                                  .attr('href', "javascript:void(0)")
                                  .click(event, async () => {
-                                    console.log($('.not_map').attr('display'))
                                      if ($('.not_map').css('display') === "none") {
                                          $('.map_widget').trigger('click')
                                      }
-                                     window.curr_code = $(event.target).attr('code').slice(0,5)
-                                     console.log(window.curr_code)
                                      let code = $(event.target).attr('code')
                                      let qid = await getQid(code)
-                                     console.log('topic', code)
-                                     refreshQuizColor(code, 'topic')
-                                     window.quiz_order_in_same_topic = 0
-                                     showPage(qid)
+                                     if (qid.length != 0) {
+                                         window.curr_code = code.slice(0,5)
+                                         window.quiz_order_in_same_topic = 0
+                                         window.quiz_code = code
+                                         window.qid = qid[0].qid
+                                         showPage(window.qid)
+                                         refreshQuizColor(code, 'quiz')
+                                         refreshQuizColor(window.quiz_code.slice(0,7), 'topic')
+                                         return
+                                     }
+                                     showNoQuizAlert('feedbackBox', 'SORRY~ 題庫目前沒有這個主題，我們會盡快補齊！')
+                                     refreshQuizColor(window.quiz_code.slice(0,7), 'topic')
                                  })
                                  .html(lv2_3_topic.topic)
                                  .after('<br>')

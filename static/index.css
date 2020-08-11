@@ -47,7 +47,7 @@ body {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    width: 500px;
+    width: 35vw;
     background: lightyellow;
     color: #444;
     opacity: 0.8;
@@ -61,6 +61,23 @@ body {
     border-block-end-style: dashed;
     border-block-end-color: cadetblue;
 }
+
+.filter_key_wrapper {
+    width: 0px;
+    height: 0px;
+    position: relative;
+    left: -18.2vw;
+    top: -1.2vh;
+}
+
+.filter_key {
+    color: white;
+    background: darkgray;
+    opacity: 0.7;
+    width: 4rem;
+    text-align: center;
+}
+
 
 .question_field p {
     text-align: center;
