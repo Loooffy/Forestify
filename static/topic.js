@@ -4,7 +4,7 @@ async function getQid(code) {
     let reqData = {
         code: code
     }
-    let qid = await ajaxReq('api/quiz/getQid?code', data, 'GET', token)
+    let qid = await ajaxReq('api/quiz/getQid?code', reqData, 'GET', token)
     if (qid.signBlock) {
         return 
     }
@@ -189,6 +189,7 @@ async function showTopic() {
 
 function nestedList() {
     $('.toggle').click(function(e) {
+        console.log(e.target)
         e.preventDefault();
       
         var $this = $(this);
