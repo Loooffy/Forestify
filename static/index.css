@@ -101,6 +101,9 @@ td {
 }
 
 button.option {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     outline: none;
     cursor:pointer;
     width: 25vw;
@@ -112,6 +115,15 @@ button.option {
     color: black;
     opacity: 0.8;
     letter-spacing:2px;
+}
+
+button.option img {
+    width: 70%;
+}
+
+button.option > p {
+    display: flex;
+    justify-content: space-around;
 }
 
 button.option_on {

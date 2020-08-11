@@ -147,7 +147,7 @@ async function showQuiz(qid) {
 
     let choices = JSON.parse(quizData.choices)
     $.each(choices, function (key, ele){
-        temp[0].innerHTML = JSON.parse(ele).content
+        temp[0].innerHTML = marked(JSON.parse(ele).content)
         $(temp[0]).attr('correct', JSON.parse(ele).correct)
         mix += temp[0].outerHTML
     })
