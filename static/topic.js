@@ -23,16 +23,16 @@ async function showSameTopicQuiz(qid) {
                 .attr('code', ele.code)
                 .click(async (event) => {
                     let code = $(event.target).attr('code')
-                    window.quiz_code = code
-                    refreshQuizColor(window.quiz_code, 'quiz')
-                    console.log(window.quiz_code)
                     let qid = await getQid(code)
                     if (qid.length != 0) {
+                        refreshQuizColor(code, 'quiz')
+                        window.quiz_code = code
                         window.qid = qid[0].qid
                         showPage(window.qid)
                         return
                     }
                     showNoQuizAlert('feedbackBox', 'SORRY~ 題庫目前沒有這題，我們會盡快補齊！')
+                    refreshQuizColor(window.quiz_code, 'quiz')
                     return
                 })
                 .html(ele.quiz_title)
