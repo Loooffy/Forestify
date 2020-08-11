@@ -27,9 +27,9 @@ async function showSameTopicQuiz(qid) {
                     refreshQuizColor(window.quiz_code, 'quiz')
                     console.log(window.quiz_code)
                     let qid = await getQid(code)
-                    if (qid) {
-                        window.qid = qid
-                        showPage(qid)
+                    if (qid.length != 0) {
+                        window.qid = qid[0].qid
+                        showPage(window.qid)
                         return
                     }
                     showNoQuizAlert('feedbackBox', 'SORRY~ 題庫目前沒有這題，我們會盡快補齊！')
