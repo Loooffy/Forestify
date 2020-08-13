@@ -30,6 +30,7 @@ function showContent() {
                 let code = $(event.target).parent().attr('code')
                 window.quiz_code = code
                 let qid = await getQid(code)
+                console.log(qid)
                 if (qid) {
                     window.qid = qid
                     $('.not_map').css('display', 'none')
