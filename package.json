@@ -6,7 +6,7 @@
   "scripts": {
     "edit": "xdotool key Control+Shift+T && vi -S han.vim && xdotool key Control+Page_Up",
     "start": "nodemon app.js",
-    "test": "mocha --exit",
+    "test": "NODE_ENV=test mocha --exit",
     "lint": "eslint server/*/*.js"
   },
   "author": "",

@@ -264,6 +264,8 @@ async function showMap() {
             $('#text_map').css('display', 'none')
             $('#hex_map').css('visibility', 'hidden')
             $('#text_map').css('visibility', 'hidden')
+            $('.map_widget').css('display', 'flow-root')
+            $('.math_widget').css('display', 'none')
             break
         default:
             $('.same_topic_quiz_field').css('display', 'none')
@@ -274,6 +276,8 @@ async function showMap() {
             $('#text_map').css('display', 'flow-root')
             $('#hex_map').css('visibility', 'visible')
             $('#text_map').css('visibility', 'visible')
+            $('.map_widget').css('display', 'none')
+            $('.math_widget').css('display', 'flow-root')
             MathJax.Hub.Queue(["Typeset",MathJax.Hub,'question'])
             MathJax.Hub.Queue(["Typeset",MathJax.Hub,'answer'])
             break
@@ -342,7 +346,6 @@ function toggleFade(boxOff, className) {
             let selector = `div.${className}`
             toFade.removeClass('fadeToBack')
             $(selector).remove()
-            showMap()
             console.log('remove')
             break
     }

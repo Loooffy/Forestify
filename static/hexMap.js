@@ -5,6 +5,9 @@ function removeTree(code) {
 async function mapInit() {
     $('.hex_map path')
         .click(async (event) => {
+            if (!window.tree_code) {
+                return
+            }
             let lv1Toggle = $(`a[code='${$(event.target).attr("code").slice(0,3)}']`)
             let lv2Toggle = $(`a[code='${$(event.target).attr("code").slice(0,5)}']`)
             if (lv1Toggle.next().css('display') === 'none') {
@@ -15,6 +18,10 @@ async function mapInit() {
             }
         })
         .on('mouseup', async (event) => {
+            if (!window.tree_code) {
+                return
+            }
+
             $('.helper').remove()
             event.stopPropagation()
             event.stopImmediatePropagation()
@@ -32,10 +39,9 @@ async function mapInit() {
 
             let result = await ajaxReq('/api/map/postMap', formData, 'POST', token)
 
-            if (result.err) {
+            if (result.err === 'dup_entry') {
                 showFeedBack('feedbackBox', '這個主題已經種過囉～', null, false)
                 console.log(result)
-                console.log('here')
                 return
             }
 

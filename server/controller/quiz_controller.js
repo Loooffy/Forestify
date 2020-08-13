@@ -19,8 +19,8 @@ const getSameTopicQuiz = async (req, res) => {
 
 const getQid = async (req, res) => {
   const {code} = req.query;
-  const {qid} = await Quiz.getQid(code);
-  res.send(JSON.stringify(qid));
+  const qid = await Quiz.getQid(code);
+  res.json(qid)
 };
 
 const postAnswer = async (req, res) => {

@@ -4,7 +4,7 @@ async function getQid(code) {
     let reqData = {
         code: code
     }
-    let qid = await ajaxReq('api/quiz/getQid?code', data, 'GET', token)
+    let qid = await ajaxReq('api/quiz/getQid?code', reqData, 'GET', token)
     if (qid.signBlock) {
         return 
     }
@@ -23,16 +23,16 @@ async function showSameTopicQuiz(qid) {
                 .attr('code', ele.code)
                 .click(async (event) => {
                     let code = $(event.target).attr('code')
-                    window.quiz_code = code
-                    refreshQuizColor(window.quiz_code, 'quiz')
-                    console.log(window.quiz_code)
                     let qid = await getQid(code)
-                    if (qid) {
-                        window.qid = qid
-                        showPage(qid)
+                    if (qid.length != 0) {
+                        refreshQuizColor(code, 'quiz')
+                        window.quiz_code = code
+                        window.qid = qid[0].qid
+                        showPage(window.qid)
                         return
                     }
                     showNoQuizAlert('feedbackBox', 'SORRY~ 題庫目前沒有這題，我們會盡快補齊！')
+                    refreshQuizColor(window.quiz_code, 'quiz')
                     return
                 })
                 .html(ele.quiz_title)
@@ -137,8 +137,6 @@ async function showTopic() {
                                 code: t.attr('code'),
                                 text: t.html()
                              }
-                             console.log(window.tree_code)
-                             console.log(window.curr_code)
                         },
                      })
 
@@ -151,18 +149,23 @@ async function showTopic() {
                                  .attr('class', 'lv2_3_topic')
                                  .attr('href', "javascript:void(0)")
                                  .click(event, async () => {
-                                    console.log($('.not_map').attr('display'))
                                      if ($('.not_map').css('display') === "none") {
                                          $('.map_widget').trigger('click')
                                      }
-                                     window.curr_code = $(event.target).attr('code').slice(0,5)
-                                     console.log(window.curr_code)
                                      let code = $(event.target).attr('code')
                                      let qid = await getQid(code)
-                                     console.log('topic', code)
-                                     refreshQuizColor(code, 'topic')
-                                     window.quiz_order_in_same_topic = 0
-                                     showPage(qid)
+                                     if (qid.length != 0) {
+                                         window.curr_code = code.slice(0,5)
+                                         window.quiz_order_in_same_topic = 0
+                                         window.quiz_code = code
+                                         window.qid = qid[0].qid
+                                         showPage(window.qid)
+                                         refreshQuizColor(code, 'quiz')
+                                         refreshQuizColor(window.quiz_code.slice(0,7), 'topic')
+                                         return
+                                     }
+                                     showNoQuizAlert('feedbackBox', 'SORRY~ 題庫目前沒有這個主題，我們會盡快補齊！')
+                                     refreshQuizColor(window.quiz_code.slice(0,7), 'topic')
                                  })
                                  .html(lv2_3_topic.topic)
                                  .after('<br>')
@@ -189,6 +192,7 @@ async function showTopic() {
 
 function nestedList() {
     $('.toggle').click(function(e) {
+        console.log(e.target)
         e.preventDefault();
       
         var $this = $(this);

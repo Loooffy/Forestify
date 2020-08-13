@@ -147,7 +147,7 @@ async function showQuiz(qid) {
 
     let choices = JSON.parse(quizData.choices)
     $.each(choices, function (key, ele){
-        temp[0].innerHTML = JSON.parse(ele).content
+        temp[0].innerHTML = marked(JSON.parse(ele).content)
         $(temp[0]).attr('correct', JSON.parse(ele).correct)
         mix += temp[0].outerHTML
     })
@@ -158,21 +158,13 @@ async function showQuiz(qid) {
     $('<div>').attr('id', 'question').html(quizData.question).appendTo($('div.question_field'))
     $('<div>').addClass('squirrel_wrapper').appendTo($('div.question_field'))
     $('<div>')
-        .css('width', '0px')
-        .css('height', '0px')
-        .css('position', 'relative')
-        .css('left', '-260px')
-        .css('top', '-15px')
+        .addClass('filter_key_wrapper')
         .append(
             $('<div>')
                 .addClass('filter_key')
                 .attr('id', 'quiz_status')
                 .html(quizData.correct)
                 .css('background', quizSolvingStatus[quizData.correct])
-                .css('opacity', '0.7')
-                .css('width', '4rem')
-                .css('text-align', 'center')
-                .css('color', 'white')
         )
         .prependTo($('div.question_field'))
     $('<img>')

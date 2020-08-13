@@ -57,7 +57,8 @@ const getSameTopicQuiz = async (qid) => {
 async function getQid(code) {
   const qidQ = 'select qid from quiz where code like concat(\'%\', ? \'%\')';
   const result = await query(qidQ, [code]);
-  return result[0];
+  console.log(result)
+  return result;
 }
 
 async function postAnswer(qid, user_id, correct) {

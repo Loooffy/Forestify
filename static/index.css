@@ -15,15 +15,15 @@ body {
     top: 2vw;
     right: 2vw;
     width: 11rem;
-    color: white;
+    color: slategray;
     padding: 0.8rem;
     padding-right: 1.4rem;
-    border: solid 5px white;
+    border: solid 5px slategray;
     height: 5rem;
     border-radius: 5rem;
     font-size: 2rem;
     font-weight: bold;
-    opacity: 0.75;
+    opacity: 0.9;
     text-align: right;
 }
 
@@ -47,7 +47,7 @@ body {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    width: 500px;
+    width: 35vw;
     background: lightyellow;
     color: #444;
     opacity: 0.8;
@@ -62,13 +62,31 @@ body {
     border-block-end-color: cadetblue;
 }
 
+.filter_key_wrapper {
+    width: 0px;
+    height: 0px;
+    position: relative;
+    left: -18.2vw;
+    top: -1.2vh;
+}
+
+.filter_key {
+    color: white;
+    background: darkgray;
+    opacity: 0.7;
+    width: 4rem;
+    text-align: center;
+}
+
+
 .question_field p {
     text-align: center;
 }
 
 #quiz_title {
     color: cadetblue;
-    font-size: 1.3rem;
+    font-size: x-large;
+    font-weight: bold;
     margin-bottom: 1rem;
 }
 
@@ -100,17 +118,29 @@ td {
 }
 
 button.option {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     outline: none;
     cursor:pointer;
     width: 25vw;
     margin: 0.5rem;
     padding: 1rem;
-    border: solid 2px white;
+    border: solid 2px gray;
     border-radius: 8px;
     background: lightyellow;
     color: black;
     opacity: 0.8;
     letter-spacing:2px;
+}
+
+button.option img {
+    width: 70%;
+}
+
+button.option > p {
+    display: flex;
+    justify-content: space-around;
 }
 
 button.option_on {
@@ -132,16 +162,16 @@ button.option:hover {
     cursor:pointer;
     margin-top: 1rem;
     outline:none;
-    height: 40px;
     text-align: center;
-    width: 130px;
     border-radius:40px;
     color: white;
     background: cadetblue;
-    border: 2px solid cadetblue;
+    border: 2px solid dimgray;
     letter-spacing:1px;
     opacity: 0.8;
     outline: none;
+    font-size: large;
+    padding: 1rem;
 }
 
 button.answer_button:hover {
@@ -209,6 +239,7 @@ button.answer_button:hover {
     background: #94bee0;
     width: 35vw;
     opacity: 0.9;
+    border: 2px solid gray;
 }
 
 .post_Q_info {
@@ -223,9 +254,9 @@ button.answer_button:hover {
     outline: none;
     text-indent: 0.3rem;
     width: 85%;
-    height: 25px;
     border-radius: 10px;
     font-size: large;
+    border: solid 1px gray;
 }
 
 .post_Q_content {
@@ -246,19 +277,23 @@ button.send_Q {
     border-radius:10px;
 }
 
+.QA_field_wrapper {
+    width:35vw;
+    background: #94bee0;
+    border: 2px solid gray;
+    border-radius: 15px;
+    padding: 1rem 0.5rem;
+    margin: 2rem;
+}
+
 .QA_field {
+    padding: 1rem;
+    max-height: 35vw;
+    overflow-y: scroll;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    padding: 1rem;
-    margin: 2rem;
-    border: solid 8px lightgray;
-    border-radius: 15px;
-    background: #94bee0;
-    max-height: 35vw;
-    width:35vw;
     opacity: 0.9;
-    overflow: scroll;
 } 
 
 .QA_row {
@@ -285,7 +320,6 @@ button.send_Q {
     border: solid 1px lightgray;
     border-radius: 15px;
     background: white;
-    opacity: 0.85;
 } 
 
 .owner_info {
@@ -378,6 +412,7 @@ button.send_Q {
     font-size: medium;
     border-radius: 10px;
     padding: 15px;
+    border: 3px solid dimgray;
 }
 
 .same_topic_quiz {
@@ -391,6 +426,7 @@ button.send_Q {
     background: lightyellow;
     padding: 0.3rem 2.4rem;
     border-radius: 1rem;
+    border: 3px solid gray;
     letter-spacing: 2px;
     position: relative;
     left: -1.2rem;
@@ -420,6 +456,7 @@ button.send_Q {
     font-size: medium;
     border-radius: 10px;
     padding: 1% 2%;
+    border: 3px solid dimgray;
 }
 
 .lv3_topic {
@@ -445,51 +482,44 @@ button.send_Q {
 }
 
 .widget {
+    left: 5vw;
     cursor: pointer;
     position: fixed;
     z-index: 300;
     width: 70px;
-    opacity: 0.7;
+    opacity: 0.65;
 } 
 
 .widget:hover {
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .status_widget {
-    left: 2vw;
-    top: 88vh;
-}
-
-.search_widget {
-    left: 2vw;
-    top: 79vh;
-}
-
-.point_widget {
-    left: 2vw;
-    top: 70vh;
+    top: 85vh;
+    left: 4.8vw;
 }
 
 .QA_widget {
-    left: 2vw;
-    top: 79vh;
+    left: 5.2vw;
+    top: 76vh;
+    width: 55px;
 }
 
-.bucket_widget {
-    left: 2vw;
-    top: 52vh;
+.math_widget {
+    top: 66vh;
+    width: 60px;
 }
 
 .map_widget {
-    left: 2vw;
-    top: 70vh;
+    display: none;
+    left: 4.8vw;
+    top: 65vh;
 }
 
 .hint_box {
     position: fixed;
     bottom: 40vh;
-    left: 3vh;
+    left: 7.7vh;
     width: 15vw;
     visibility: hidden;
 }
@@ -686,6 +716,19 @@ div.topic_field.not_map > ul > li > div.inner.show > div > a:hover {
 #logo {
     cursor: pointer;
     position: fixed;
-    width: 6vw;
+    width: 7vw;
     left: 4.5vw;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: slategray;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: darkgray;
 }

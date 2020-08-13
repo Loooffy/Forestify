@@ -39,26 +39,21 @@ html
                 id="logo"
                 src="/static/image/logo_word.png"
             )
-        img(
-            class="status_widget widget"
-            src="/static/image/status.png"
-            onclick="showStatus()"
-        )
         //img(
         //    class="search_widget widget"
         //    src="/static/image/status.png"
         //    onclick="showStatus()"
         //)
-        //img(
-        //    class="bucket_widget widget"
-        //    src="/static/image/status.png"
-        //    onclick="showStatus()"
-        //)
-        //img(
-        //    class="point_widget widget"
-        //    src="/static/image/status.png"
-        //    onclick="showStatus()"
-        //)
+        img(
+            class="math_widget widget"
+            src="/static/image/math.png"
+            onclick="showMap()"
+        )
+        img(
+            class="status_widget widget"
+            src="/static/image/status.png"
+            onclick="showStatus()"
+        )
         img(
             class="QA_widget widget"
             src="/static/image/QA.png"
@@ -98,7 +93,8 @@ html
                 class="send_Q"
                 onclick="postQuestion(event)"
             ) 送出問題
-        div(class="QA_field not_map")
+        div(class="QA_field_wrapper not_map")
+            div(class="QA_field not_map")
         include hexMap.pug  
         div(class="tree_planted")
 
