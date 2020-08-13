@@ -556,7 +556,7 @@ button.send_Q {
     flex-flow: column nowrap;
     align-items: center;
     width: 95%;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .box_close {

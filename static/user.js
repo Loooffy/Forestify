@@ -30,12 +30,14 @@ function showContent() {
                 let code = $(event.target).parent().attr('code')
                 window.quiz_code = code
                 let qid = await getQid(code)
-                console.log(qid)
+                qid = qid[0].qid
                 if (qid) {
+                    console.log(window.statusBoxOn)
                     window.qid = qid
                     $('.not_map').css('display', 'none')
                     showPage(qid)
                     toggleFade(window.statusBoxOn, 'status_box')
+                    $('.math_widget').trigger('click')
                     return
                 }
             })
@@ -253,6 +255,10 @@ async function showMyQA() {
 }
 
 async function showMap() {
+    if (!getToken()) {
+        return
+    }
+        
     window.hinted = true
 
     switch ($('.not_map').css('display')) {
