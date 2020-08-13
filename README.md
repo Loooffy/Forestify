@@ -1,6 +1,3 @@
-Forestify
-===
-
 <img src="https://forestify.theshinings.online/static/image/logo_word.png" width="150">
 
 ####  Link: https://forestify.theshinings.online/
@@ -13,14 +10,10 @@ The title "Forestify" is the combinition of "gamify" and "forest". Like some of 
 ## Features
 
 - Delivers 9000+ quizzes covering all math topics of junior high school online.
-![](https://i.imgur.com/JNzwM5k.gif)
 - Supports recording/filtering test-taking status for students monitoring their learning progress.
-![](https://i.imgur.com/rM4qCK2.gif)
 - The Q&A system that allow student to make a discussion when sovling quizzes.
-![](https://i.imgur.com/wSixtrT.gif)
 - Gamifies test-taking by a visualized learning territory on which students can plant trees after correctly solving a quiz.
 - Provides easy-to-use navigation topic list to help students quickly locate themselves in the complex topic hierarchy.
-(live demo)
 
 ## Technologies
 
