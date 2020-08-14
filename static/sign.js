@@ -2,6 +2,7 @@ async function closeSign(event) {
 
     if ($(event.target).hasClass('cancel')) {
         $('.sign_field').remove()
+        toggleFade(false, null)
         return
     }
 
@@ -13,7 +14,6 @@ async function closeSign(event) {
 
     let inValid = invalidInput(Object.values(data))
     if (inValid) {
-        console.log("HOHO");
         showFeedBack('feedbackBox', '有一些空格沒填到喔～', null, false)
         return
     }
