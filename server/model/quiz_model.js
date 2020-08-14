@@ -26,7 +26,7 @@ const getQuizData = async (qid, user_id) => {
         `;
 
   const result = await query(quizQ, [qid, user_id]);
-  console.log(result, 'user_id' + user_id)
+  console.log(result)
   return result
 };
 
@@ -57,7 +57,6 @@ const getSameTopicQuiz = async (qid) => {
 async function getQid(code) {
   const qidQ = 'select qid from quiz where code like concat(\'%\', ? \'%\')';
   const result = await query(qidQ, [code]);
-  console.log(result)
   return result;
 }
 
@@ -68,7 +67,6 @@ async function postAnswer(qid, user_id, correct) {
   const currentQ = 'replace into quiz_solving(qid, user_id, correct, time) values(?, ?, ?, ?)';
   const current = await query(currentQ, [qid, user_id, correct, time]);
 
-  console.log(history);
 
   return {
     history: history.length ? history[0].correct : 0,
