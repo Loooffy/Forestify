@@ -53,10 +53,10 @@
 <table>
   
 # Architecture
-<img src="/static/image/architechture.gif" width="1024">'
+<img src="/static/image/architechture.gif" width="680">
 
 # Database Schema
-<img src="/static/image/DB_schema.png"  width="800">
+<img src="/static/image/DB_schema.png"  width="960">
 
 # Development Environment
-<img src="/static/image/development.gif"  width="800">
+<img src="/static/image/development.gif"  width="680">
