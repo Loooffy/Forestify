@@ -350,8 +350,11 @@ function toggleFade(boxOff, className) {
             console.log('show')
             break
         case false:
-            let selector = `div.${className}`
             toFade.removeClass('fadeToBack')
+            if (!className) {
+                return
+            }
+            let selector = `div.${className}`
             $(selector).remove()
             console.log('remove')
             break
@@ -360,7 +363,7 @@ function toggleFade(boxOff, className) {
 
 async function showTreePoint() {
     let token = getToken()
-    token = token ? token : ""
+    token = token ? token : null
 
     let result = await ajaxReq('/api/user/tree_point', null, 'GET', token)
 
