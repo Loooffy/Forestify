@@ -19,8 +19,10 @@ The title "Forestify" is the combinition of "gamify" and "forest". Like some of 
 <img src="/static/image/QA.gif">
 
 #### - Gamifies test-taking by a visualized learning territory on which students can plant trees after correctly solving a quiz.
+<img src="/static/image/game.gif">
 
 #### - Provides easy-to-use navigation topic list to help students quickly locate themselves in the complex topic hierarchy.
+<img src="/static/image/nav.gif">
 
 ## Technologies
 
