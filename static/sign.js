@@ -25,6 +25,6 @@ async function closeSign(event) {
     }
     
     await toggleFade(false, 'sign_field')
-    await showQuiz(41882)
+    //await showQuiz(41882)
     showFeedBack('feedbackBox', '註冊成功，可以開始種小樹囉～', null, true)
 }

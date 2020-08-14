@@ -256,9 +256,9 @@ async function showMyQA() {
 
 async function showMap() {
     if (!getToken()) {
+        window.hinted = true
         return
     }
-        
     window.hinted = true
 
     switch ($('.not_map').css('display')) {
