@@ -1,30 +1,31 @@
 <img src="https://forestify.theshinings.online/static/image/logo_word.png" width="150">
 
-####  Link: https://forestify.theshinings.online/
 ---
 ### Forestify is an online education platform on which students can practice math quizzes and monitor their practicing progress.
-The title "Forestify" is the combinition of "gamify" and "forest". Like some of the gamify app, forestify deliver a virtulized kingdom on which students can plant trees by solving quizzes.
+> #### The title "Forestify" is the combinition of "gamify" and "forest". Like some of the gamify app, forestify deliver a virtulized kingdom on which students can plant trees by solving quizzes.
 
-<img src="/static/image/map.gif" width="800">
+> ####  Link: https://forestify.theshinings.online/
 
-## Features
+<img src="/static/image/map.gif" width="1024">
 
-#### - Delivers 9000+ quizzes covering all math topics of junior high school online.
+# Features
+
+### - Delivers 9000+ quizzes covering all math topics of junior high school online.
 <img src="/static/image/quiz.gif" width="800">
 
-#### - Supports recording/filtering test-taking status for students monitoring their learning progress.\
+### - Supports recording/filtering test-taking status for students to monitor their learning progress.
 <img src="/static/image/status.gif" width="800">
 
-#### - The Q&A system that allow student to make a discussion when sovling quizzes.
+### - The Q&A system that allow student to make a discussion when sovling quizzes.
 <img src="/static/image/QA.gif" width="800">
 
-#### - Gamifies test-taking by a visualized learning territory on which students can plant trees after correctly solving a quiz.
+### - Gamifies test-taking by a visualized learning territory on which students can plant trees after correctly solving a quiz.
 <img src="/static/image/game.gif" width="800">
 
-#### - Provides easy-to-use navigation topic list to help students quickly locate themselves in the complex topic hierarchy.
+### - Provides easy-to-use navigation topic list to help students quickly locate themselves in the complex topic hierarchy.
 <img src="/static/image/nav.gif" width="800">
 
-## Technologies
+# Technologies
 
 <table>
 <tr>
@@ -51,10 +52,11 @@ The title "Forestify" is the combinition of "gamify" and "forest". Like some of 
 </tr>
 <table>
   
-## Architecture
-<img src="/static/image/architechture.gif" width="1024">''
+# Architecture
+<img src="/static/image/architechture.gif" width="1024">'
 
-## Database Schema
+# Database Schema
+<img src="/static/image/DB_schema.png"  width="800">
 
-## Development Environment
+# Development Environment
 <img src="/static/image/development.gif"  width="800">
