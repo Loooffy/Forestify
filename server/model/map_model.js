@@ -3,7 +3,6 @@ const {query, transaction, commit, rollback} = require('../../util/mysqlCon.js')
 const getTree = async (user_id) => {
   const treeQ = 'SELECT code, amount, xy, text FROM tree where user_id = ?';
   const results = await query(treeQ, [user_id]);
-  console.log(results);
   return results;
 };
 

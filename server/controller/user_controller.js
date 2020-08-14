@@ -95,20 +95,24 @@ async function renderSignBlock() {
 async function isLogged(req, res, next) {
   let noNeedLog = [
     'getQuizData', 
+    'getQid', 
   ]
   try {
-    if (!req.headers.authorization) {
-      noNeedLog.map(url => {
+    let token = req.headers.authorization.split(' ')[1]
+    if (!token || token === 'null') {
+      noNeedLog.some(async (url) => {
           if (req.originalUrl.includes(url)) {
               next()
-              return
+              return true
+          } else {
+            console.log(req.originalUrl)
+            const signBlock = await renderSignBlock();
+            res.status(200).send({signBlock: signBlock});
+            return;
           }
       })
-      const signBlock = await renderSignBlock();
-      res.status(200).send({signBlock: signBlock});
-      return;
+      return 
     }
-    const token = req.headers.authorization.split(' ')[1]
     const jwtToken = await jwt.verify(token, JWT_SECRET, jwtSignOptions);
     const {provider, email} = jwtToken;
     const valid = await User.isLogged(email);

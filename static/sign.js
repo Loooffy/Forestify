@@ -2,6 +2,7 @@ async function closeSign(event) {
 
     if ($(event.target).hasClass('cancel')) {
         $('.sign_field').remove()
+        toggleFade(false, null)
         return
     }
 
@@ -13,7 +14,6 @@ async function closeSign(event) {
 
     let inValid = invalidInput(Object.values(data))
     if (inValid) {
-        console.log("HOHO");
         showFeedBack('feedbackBox', '有一些空格沒填到喔～', null, false)
         return
     }
@@ -25,6 +25,6 @@ async function closeSign(event) {
     }
     
     await toggleFade(false, 'sign_field')
-    await showQuiz(41882)
+    //await showQuiz(41882)
     showFeedBack('feedbackBox', '註冊成功，可以開始種小樹囉～', null, true)
 }

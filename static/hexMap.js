@@ -5,7 +5,7 @@ function removeTree(code) {
 async function mapInit() {
     $('.hex_map path')
         .click(async (event) => {
-            if (!window.tree_code) {
+            if (!$(event.target).attr('code')) {
                 return
             }
             let lv1Toggle = $(`a[code='${$(event.target).attr("code").slice(0,3)}']`)

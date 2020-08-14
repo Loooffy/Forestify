@@ -30,11 +30,14 @@ function showContent() {
                 let code = $(event.target).parent().attr('code')
                 window.quiz_code = code
                 let qid = await getQid(code)
+                qid = qid[0].qid
                 if (qid) {
+                    console.log(window.statusBoxOn)
                     window.qid = qid
                     $('.not_map').css('display', 'none')
                     showPage(qid)
                     toggleFade(window.statusBoxOn, 'status_box')
+                    $('.math_widget').trigger('click')
                     return
                 }
             })
@@ -252,6 +255,10 @@ async function showMyQA() {
 }
 
 async function showMap() {
+    if (!getToken()) {
+        window.hinted = true
+        return
+    }
     window.hinted = true
 
     switch ($('.not_map').css('display')) {
@@ -343,8 +350,11 @@ function toggleFade(boxOff, className) {
             console.log('show')
             break
         case false:
-            let selector = `div.${className}`
             toFade.removeClass('fadeToBack')
+            if (!className) {
+                return
+            }
+            let selector = `div.${className}`
             $(selector).remove()
             console.log('remove')
             break
@@ -353,7 +363,7 @@ function toggleFade(boxOff, className) {
 
 async function showTreePoint() {
     let token = getToken()
-    token = token ? token : ""
+    token = token ? token : null
 
     let result = await ajaxReq('/api/user/tree_point', null, 'GET', token)
 

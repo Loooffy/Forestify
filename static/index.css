@@ -556,7 +556,7 @@ button.send_Q {
     flex-flow: column nowrap;
     align-items: center;
     width: 95%;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .box_close {
@@ -678,7 +678,7 @@ button.send_Q {
     letter-spacing:2px;
 }
 
-.topic_focus {
+.topic_focus, .lv2_3_topic:hover {
     color: brown;
     font-size: 1.15rem;
 }
