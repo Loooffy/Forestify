@@ -28,14 +28,14 @@ The title "Forestify" is the combinition of "gamify" and "forest". Like some of 
 
 <table>
 <tr>
-<th>AWS Cloud Services</th><td>EC2</td><td>RDS</td>
+<th>AWS Cloud Services</th><td>EC2</td><td>RDS</td><td></td><td></td><td></td>
 </tr>
 <tr>
-<th>Database</th><td>MySQL</td>
+<th>Database</th><td>MySQL</td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
 <th>Internet infrastructure
-</th><td>Godaddy</td><td>Nginx</td><td>CloudFlare</td>
+</th><td>Godaddy</td><td>Nginx</td><td>CloudFlare</td><td></td><td></td>
 </tr>
 <tr>
 <th>Backend</th><td>Node.js</td><td>NPM</td><td>Express.js</td><td>Pug</td><td>JWT</td>
@@ -44,15 +44,15 @@ The title "Forestify" is the combinition of "gamify" and "forest". Like some of 
 <th>Front_End</th><td>JavaScript</td><td>jQuery</td><td>Marked</td><td>SVG</td><td>MathJax</td>
 </tr>
 <tr>
-<th>Testing</th><td>Macha</td><td>Chai</td>
+<th>Testing</th><td>Macha</td><td>Chai</td><td></td><td></td><td></td>
 </tr>
 <tr>
-<th>Others</th><td>RESTful API</td><td>MVC</td>
+<th>Others</th><td>RESTful API</td><td>MVC</td><td></td><td></td><td></td>
 </tr>
 <table>
   
 ## Architecture
-<img src="/static/image/architechture.gif" width="800">''
+<img src="/static/image/architechture.gif" width="1024">''
 
 ## Database Schema
 
