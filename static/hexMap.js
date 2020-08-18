@@ -3,7 +3,12 @@ function removeTree(code) {
 }
 
 async function mapInit() {
-    $('.hex_map path')
+    $('body')
+        .on('mouseup', function() {
+            delete window.tree_code
+    })
+            
+    $('#hex_map path')
         .click(async (event) => {
             if (!$(event.target).attr('code')) {
                 return
