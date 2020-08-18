@@ -94,7 +94,6 @@ async function refreshQuizColor (code, type) {
 
     await $(`[code="${code}"]`)
         .addClass(`${type}_focus`)
-        console.log(code, type)
 }
 
 async function showTopic() {
@@ -127,6 +126,7 @@ async function showTopic() {
                      .attr('href', "javascript:void(0)")
                      .html(`&#127794; ${lv1_2_topic.topic}`)
                      .draggable({
+                        cursorAt: {left: -20, top: 10},
                         appendTo: body,
                         helper: 'clone',
                         start: function(event, ui) {
@@ -174,8 +174,8 @@ async function showTopic() {
                      lv2.after(lv3_wrapper)
                      lv2_wrapper.append(lv2)
          })
-         lv1.after(lv2_wrapper)
          li.append(lv1)
+         lv1.after(lv2_wrapper)
      })
      $('div.topic_field').append(
          root.append(
@@ -192,7 +192,6 @@ async function showTopic() {
 
 function nestedList() {
     $('.toggle').click(function(e) {
-        console.log(e.target)
         e.preventDefault();
       
         var $this = $(this);

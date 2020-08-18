@@ -303,7 +303,6 @@ async function treeMapInit() {
         $('body').append(treePlanted.signBlock)
         return
     }
-    console.log(treePlanted)
 
     if (treePlanted.length != 0) {
         treePlanted.map(async (tree) => {
