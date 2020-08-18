@@ -4,7 +4,7 @@
 ### Forestify is an online education platform on which students can practice math quizzes and monitor their practicing progress.
 > #### The title "Forestify" is the combinition of "gamify" and "forest". Like some of the gamify app, forestify deliver a virtulized kingdom on which students can plant trees by solving quizzes.
 
-> ####  Link: https://forestify.theshinings.online/
+> ####  Link: https://forestify.theshinings.online/ (use google chrome  for getting the best performance)
 
 <img src="/static/image/map.gif" width="1024">
 
@@ -53,10 +53,10 @@
 <table>
   
 # Architecture
-<img src="/static/image/architechture.gif" width="1024">'
+<img src="/static/image/architechture.gif" width="720">
 
 # Database Schema
-<img src="/static/image/DB_schema.png"  width="800">
+<img src="/static/image/DB_schema.png"  width="960">
 
 # Development Environment
 <img src="/static/image/development.gif"  width="800">
