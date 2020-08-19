@@ -159,7 +159,7 @@ async function showTopic() {
                                          window.quiz_order_in_same_topic = 0
                                          window.quiz_code = code
                                          window.qid = qid[0].qid
-                                         showPage(window.qid)
+                                         await showPage(window.qid)
                                          refreshQuizColor(code, 'quiz')
                                          refreshQuizColor(window.quiz_code.slice(0,7), 'topic')
                                          return
