@@ -33,7 +33,7 @@ async function voteQuestion(e) {
 }
 
 async function postQuestion(e) {
-    if ($('.post_Q_content').attr('value') === '' || $('.post_Q_title').attr('value') === '') {
+    if ($('.post_Q_content').val() === '' || $('.post_Q_title').val() === '') {
         await showFeedBack('feedbackBox', '還有空格沒填喔～', null, false)
         return
     }
@@ -73,7 +73,7 @@ async function postQuestion(e) {
     temp.find(".post_vote").text('0')
     mix += temp[0].outerHTML
     $('div.QA_field').prepend(mix)
-    $('.post_Q_title').attr('value', '')
-    $('.post_Q_content').attr('value', '')
+    $('.post_Q_title').val('')
+    $('.post_Q_content').val('')
     $('.QA_field').scrollTop(0)
 }
