@@ -142,9 +142,9 @@ async function showTopic() {
 
                      let lv3_wrapper = $('<div class="inner"></div>')
                      let lv2_3_topics = await lv3_topics.filter(topic => topic.code.includes(lv1_2_topic.code))
-                     await lv2_3_topics.map(lv2_3_topic => {
+                     await lv2_3_topics.map(async lv2_3_topic => {
                          let lv3 =
-                             $('<a>')
+                             await $('<a>')
                                  .attr('code', lv2_3_topic.code)
                                  .attr('class', 'lv2_3_topic')
                                  .attr('href', "javascript:void(0)")
@@ -168,11 +168,12 @@ async function showTopic() {
                                      refreshQuizColor(window.quiz_code.slice(0,7), 'topic')
                                  })
                                  .html(lv2_3_topic.topic)
-                                 .after('<br>')
-                                 lv3_wrapper.append(lv3)
+                             await lv3_wrapper
+                                        .append(lv3)
+                                        .append('<br>')
                      })
-                     await lv2.after(lv3_wrapper)
                      await lv2_wrapper.append(lv2)
+                     await lv2.after(lv3_wrapper)
          })
          await li.append(lv1)
          await lv1.after(lv2_wrapper)
