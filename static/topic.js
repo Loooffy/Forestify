@@ -106,7 +106,7 @@ async function showTopic() {
     let root = $('<ul>').addClass('accordion')
     let ul = $('<ul>').addClass('inner')
     let li = $('<li>')
-    await lv1_topics.map(lv1_topic => {
+    await lv1_topics.map(async (lv1_topic) => {
          let lv1 =
              $('<a>')
                  .addClass('toggle')
@@ -118,7 +118,7 @@ async function showTopic() {
                  .html(lv1_topic.topic)
          let lv2_wrapper = $('<div class="inner"></div>')
          let lv1_2_topics = lv2_topics.filter(topic => topic.code.includes(lv1_topic.code))
-         lv1_2_topics.map(lv1_2_topic => {
+         lv1_2_topics.map(async (lv1_2_topic) => {
              let lv2 =
                  $('<a>')
                      .addClass('toggle')
@@ -141,8 +141,8 @@ async function showTopic() {
                      })
 
                      let lv3_wrapper = $('<div class="inner"></div>')
-                     let lv2_3_topics = lv3_topics.filter(topic => topic.code.includes(lv1_2_topic.code))
-                     lv2_3_topics.map(lv2_3_topic => {
+                     let lv2_3_topics = await lv3_topics.filter(topic => topic.code.includes(lv1_2_topic.code))
+                     await lv2_3_topics.map(lv2_3_topic => {
                          let lv3 =
                              $('<a>')
                                  .attr('code', lv2_3_topic.code)
@@ -171,13 +171,13 @@ async function showTopic() {
                                  .after('<br>')
                                  lv3_wrapper.append(lv3)
                      })
-                     lv2.after(lv3_wrapper)
-                     lv2_wrapper.append(lv2)
+                     await lv2.after(lv3_wrapper)
+                     await lv2_wrapper.append(lv2)
          })
-         li.append(lv1)
-         lv1.after(lv2_wrapper)
+         await li.append(lv1)
+         await lv1.after(lv2_wrapper)
      })
-     $('div.topic_field').append(
+     await $('div.topic_field').append(
          root.append(
              li.append(
                  ul
