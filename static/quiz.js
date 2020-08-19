@@ -29,7 +29,6 @@ async function checkAnswer() {
         feedback.correct = true
         feedback.message = '答對囉！你剛種下了一棵新的小樹～'
         getAnswer.correct = true
-        console.log($('#quiz_status').html())
         $('#quiz_status')
             .css('background', 'darkcyan')
             .html('答對')
@@ -37,7 +36,6 @@ async function checkAnswer() {
         feedback.correct = false
         feedback.message = '答案不對，再試試看喔！'
         getAnswer.correct = false
-        console.log($('#quiz_status').html())
         $('#quiz_status')
             .css('background', 'red')
             .html('答錯')
