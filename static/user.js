@@ -89,6 +89,7 @@ async function showHelp() {
                 )
                 .append(
                     $('<img>')
+                        .css('width', '50%')
                         .attr('src', '/static/image/demo.gif')
                 )
                 .append(
