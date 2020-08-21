@@ -52,6 +52,11 @@ html
             onclick="showMap()"
         )
         img(
+            class="map_widget widget"
+            src="/static/image/map.png"
+            onclick="showMap()"
+        )
+        img(
             class="status_widget widget"
             src="/static/image/status.png"
             onclick="showStatus()"
@@ -62,15 +67,14 @@ html
             onclick="showMyQA()"
         )
         img(
-            class="map_widget widget"
-            src="/static/image/map.png"
-            onclick="showMap()"
+            class="help_widget"
+            src="/static/image/help.svg"
+            onclick="showHelp()"
         )
         img(
             class="hint_box"
             src="/static/image/hint.png"
         )
-
         div(class="question_field not_map")
         div(class="answer_field not_map")
         div(class="same_topic_quiz_field")

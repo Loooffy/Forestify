@@ -77,6 +77,29 @@ function showContent() {
     })
 }
 
+async function showHelp() {
+    $(body)
+        .append(
+            $('<div>')
+                .addClass('widget_box help_box')
+                .append(
+                    $('<div>')
+                        .addClass('box_title')
+                        .html('如何種樹？')
+                )
+                .append(
+                    $('<img>')
+                        .attr('src', '/static/image/demo.gif')
+                )
+                .append(
+                    $('<div>')
+                        .html('回主頁')
+                        .addClass('box_close')
+                        .click(() => {$('.help_box').remove()})
+                )
+        )
+}
+
 async function showStatus() {
 
     let token = getToken()

@@ -490,7 +490,7 @@ button.send_Q {
     opacity: 0.65;
 } 
 
-.widget:hover {
+.widget:hover, .help_widget:hover {
     opacity: 0.95;
 }
 
@@ -516,6 +516,16 @@ button.send_Q {
     top: 65vh;
 }
 
+.help_widget {
+    right: 18vw;
+    top: 4.8vh;
+    cursor: pointer;
+    position: fixed;
+    z-index: 300;
+    width: 60px;
+    opacity: 0.5;
+}
+
 .hint_box {
     position: fixed;
     bottom: 40vh;
@@ -523,7 +533,6 @@ button.send_Q {
     width: 15vw;
     visibility: hidden;
 }
-
 
 .widget_box {
     padding-top: 2rem;
