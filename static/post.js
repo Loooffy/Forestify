@@ -16,17 +16,29 @@ async function voteQuestion(e) {
     switch (vote) {
         case null:
             console.log('not voted')
-            await ajaxReq('/api/vote/give', data, 'POST', token)
+            try {
+                await ajaxReq('/api/vote/give', data, 'POST', token)
+            } catch (err) {
+                console.log('err', err)
+            }
             $(post_vote).html(currentVote + 1)
             break
         case 0:
             console.log('vote removed')
-            await ajaxReq('/api/vote/voteBack', data, 'PATCH', token)
+            try {
+                await ajaxReq('/api/vote/voteBack', data, 'PATCH', token)
+            } catch (err) {
+                console.log('err', err)
+            }
             $(post_vote).html(currentVote + 1)
             break
         case 1:
             console.log('voted')
-            await ajaxReq('/api/vote/remove', data, 'PATCH', token)
+            try {
+                await ajaxReq('/api/vote/remove', data, 'PATCH', token)
+            } catch (err) {
+                console.log('err', err)
+            }
             $(post_vote).html(currentVote - 1)
             break 
     }
